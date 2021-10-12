@@ -1,0 +1,159 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Rubik";
+}
+
+footer {
+  margin-top: 20px;
+}
+
+a {
+  color: black;
+}
+
+.home {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.home h1 {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.home p {
+  text-align: center;
+}
+
+#emailText {
+  font-weight: 500;
+  height: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 0px;
+  margin-right: -12px;
+}
+
+#intro {
+  text-align: center;
+  width: 70%;
+  margin: auto;
+}
+
+.navMenu {
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(210,210,210);
+}
+
+.navBar a {
+  color: black;
+  font-weight: 500;
+  float: left;
+  margin-left: 40px;
+  display: inline-flex;
+  text-decoration: none;
+}
+
+#betaText {
+  border-top: 1px solid rgb(210,210,210);
+  padding-top: 20px;
+  height: 100px;
+  text-align: center;
+}
+
+#hyperlink {
+  text-decoration: none;
+  height: 20px;
+  padding-bottom: 1px;
+  border-bottom: 2px solid;
+}
+
+#siteNavTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  text-decoration: none;
+  margin-left: 15px;
+  margin-right: 90px;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(48,216,112);
+}
+
+#siteNavTitle:hover {
+  color: rgb(48,216,112);
+}
+
+.gridLinks {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
+.gridLinks a {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: inline-flex;
+}
+
+.card {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+.container {
+  padding: 21px 8px;
+}
+
+.gridProjects {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
+.cardImage {
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+#selfImage {
+  border-radius: 100%;
+}
+
+.container h3 {
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.container a {
+  text-decoration: none;
+}
+
+.caption {
+  margin: 0;
+  padding: 0;
+  font-style: italic;
+  font-size: 14px;
+  color:grey;
+}

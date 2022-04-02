@@ -1,0 +1,138 @@
+<head>
+  <title>Matthew Gan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&family=Rubik:ital,wght@0,400;0,500;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">
+  <!--Bootstrap stylesheets-->
+  <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
+  <!--Main stylesheet-->
+  <link rel="stylesheet" href="css/main.css">    
+  <!--Other imports-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+</head>
+<script>
+  /*
+   Data based on: https://imgur.com/a/DCpYxhv
+  */
+
+  const SCHEME_60 = {
+    grade_40: { upper: 100, lower: 95, result: "4.0" },
+    grade_35: { upper: 95, lower: 89, result: "3.5" },
+    grade_30: { upper: 89, lower: 83, result: "3.0" },
+    grade_25: { upper: 83, lower: 78, result: "2.5" },
+    grade_20: { upper: 77, lower: 72, result: "2.0" },
+    grade_15: { upper: 72, lower: 66, result: "1.5" },
+    grade_10: { upper: 66, lower: 60, result: "1.0" },
+    grade_00: { upper: 60, lower: 0, result: "0.0" },
+  };
+
+  const SCHEME_70 = {
+    grade_40: { upper: 100, lower: 96, result: "4.0" },
+    grade_35: { upper: 96, lower: 92, result: "3.5" },
+    grade_30: { upper: 92, lower: 88, result: "3.0" },
+    grade_25: { upper: 88, lower: 83, result: "2.5" },
+    grade_20: { upper: 83, lower: 78, result: "2.0" },
+    grade_15: { upper: 78, lower: 74, result: "1.5" },
+    grade_10: { upper: 74, lower: 70, result: "1.0" },
+    grade_00: { upper: 70, lower: 0, result: "0.0" },
+  };
+
+  function setGradingScheme(schemeType) {
+    switch(schemeType) {
+        /*
+        case "50":
+          return SCHEME_50; break;
+        case "55":
+          return SCHEME_55; break;
+        case "65":
+          return SCHEME_65;
+        */
+        case "70":
+          return SCHEME_70;
+        default: // use 60% as default
+          return SCHEME_60;
+    }
+  }
+
+  function getGrade(scheme, grade) {
+    for (const [key, tier] of Object.entries(scheme)) {
+      if (grade >= tier.lower && grade <= tier.upper) {
+        console.log("Result: " + tier.result);
+        return tier.result;
+      }
+    }
+    return "Error";
+  }
+
+  $(document).ready(function(){
+    $("#grade-calcu-submit").click(function() {
+        const schemeType = $("#grade-calcu-passing").val();
+        const grade = $("#grade-calcu-input").val();
+
+        if (schemeType == NaN) { schemeType = "60"; }
+        if (grade == NaN) { grade = 0; }
+
+        let scheme = setGradingScheme(schemeType);
+        let result = getGrade(scheme, grade)
+        $("#grade-calcu-result-value").html(result);
+    });
+    $("#grade-calcu-clear").click(function() {
+        $("#grade-calcu-passing").val('60');
+        $("#grade-calcu-input").val('');
+        $("#grade-calcu-result-value").val('');
+    });
+  })
+</script>
+<body>
+  <div class="navMenu">
+    <a id="siteNavTitle" href="index.html">Matthew Gan</a>
+    <div class="navBar">
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="home">
+    <h1>DLSU Grade Calculator</h1>
+    <div class="form-container">
+      <form>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="grade-calcu-passing">Percent Grade</label>
+          </div>
+          <select class="custom-select" id="grade-calcu-passing">
+            <option value="50">50%</option>
+            <option value="55">55%</option>
+            <option selected="60">60%</option>
+            <option value="65">65%</option>
+            <option value="70">70%</option>
+          </select>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Percentage Grade</span>
+          </div>
+          <input type="number" class="form-control" placeholder="0.00" id="grade-calcu-input" min="0.00" max="100.00" step="0.01">
+        </div>
+
+        <div class="input-group mb-3">
+          <button type="button" class="btn btn-primary btn-lg mr-2" id="grade-calcu-submit">Submit</button>
+          <!--<button type="button" class="btn btn-outline-dark btn-lg mr-2" id="grade-calcu-clear">Clear</button>-->
+        </div>
+
+        <div class="input-group mb-3">
+          <label id="grade-calcu-result-label">Result:</label>
+          <p id="grade-calcu-result-value"></p>
+        </div>
+
+      </form>
+    </div>
+  <footer>
+    <div id="betaText">
+      <p>This website is in beta. Last updated on April 2, 2022.</p>
+    </div>
+  </footer>
+</body>

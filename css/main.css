@@ -109,34 +109,71 @@ a:hover {
   display: inline-flex;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0;
+  margin-left: 10em;
+  margin-right: 10em;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .card {
   margin-left: 10px;
   margin-right: 10px;
+  margin-bottom: 15px;
   padding-left: 10px;
   padding-right: 10px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   border-radius: 4px;
-}
-
-.container {
-  padding: 21px 8px;
-}
-
-.gridProjects {
-  justify-content: center;
-  display: flex;
-  width: 100%;
+  width: 20em;
   height: auto;
 }
 
-.cardImage {
-  padding: 0;
-  margin: 0;
-  display: flex;
+.card-contents {
+  padding: 21px 8px;
+}
+
+#cardImage{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .cards { grid-template-columns: repeat(2, 2fr); }
+  
+}
+
+@media (min-width: 900px) {
+  .cards { grid-template-columns: repeat(4, 2fr); }
 }
 
 #selfImage {
   border-radius: 100%;
+}
+
+.card h3 {
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.caption {
+  font-style: italic;
+  font-size: 16px;
 }
 
 .container h3 {
@@ -150,10 +187,15 @@ a:hover {
   text-decoration: none;
 }
 
-.caption {
+.form-container {
+  max-width: 1200px;
   margin: 0;
-  padding: 0;
-  font-style: italic;
-  font-size: 14px;
-  color:grey;
+  margin-left: 45em;
+  margin-right: 45em;
+}
+
+#grade-calcu-result-value {
+  padding-left: 0.25em;
+  font-weight: 500;
+  font-size: 36px;
 }

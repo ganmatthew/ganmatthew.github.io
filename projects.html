@@ -3,7 +3,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&family=Rubik:ital,wght@0,400;0,500;0,800;1,400;1,500;1,800&display=swap" rel="stylesheet">
-  <link href="css/main.css" rel="stylesheet" type="text/css" />
+  <!--Bootstrap stylesheets-->
+  <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
+  <!--Main stylesheet-->
+  <link rel="stylesheet" href="css/main.css">    
+  <!--Other imports-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
 </head>
 <body>
   <div class="navMenu">
@@ -14,20 +21,58 @@
     </div>
   </div>
   <div class="home">
-    <h1>Have a look at what I do.</h1>
-    <div class="gridProjects">
+    <h1>My projects</h1>
+    <div class="container ">
+
       <div class="card">
-        <div class="container">
-          <img id="cardImage" src="images/cvrf_thumbnail.png" width=300px>
+        <div class="card-contents">
+          <img id="cardImage" src="images/cvrf_thumbnail.png">
           <h3><a href="https://www.roblox.com/games/257223268/Cobalt-Valley-Research-Facility">Cobalt Valley Research Facility</a></h3>
           <p class="caption">Roblox sci-fi roleplay game</p>
           <p>Programmer, Designer, and Project Head</p>
         </div>
       </div>
+
+      <div class="card">
+        <div class="card-contents">
+          <img id="cardImage" src="images/grade_calcu_thumbnail.png">
+          <h3><a href="grade_calculator.html">DLSU Grade Calculator</a></h3>
+          <p class="caption">A really mundane calculator</p>
+          <p>Honestly, I just wanted to have one place to calculate my grade percentage equivalences easily.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-contents">
+          <img id="cardImage" src="images/mystery.png">
+          <h3><a href="">Coming soon</a></h3>
+          <p class="caption"></p>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-contents">
+          <img id="cardImage" src="images/mystery.png">
+          <h3><a href="">Coming soon</a></h3>
+          <p class="caption"></p>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-contents">
+          <img id="cardImage" src="images/mystery.png">
+          <h3><a href="">Coming soon</a></h3>
+          <p class="caption"></p>
+          <p></p>
+        </div>
+      </div>
+
   </div>
   <footer>
     <div id="betaText">
-      <p>This website is in beta. Last updated on March 25, 2021.</p>
+      <p>This website is in beta. Last updated on April 2, 2022.</p>
     </div>
   </footer>
 </body>

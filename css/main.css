@@ -189,9 +189,14 @@ a:hover {
 
 .form-container {
   max-width: 1200px;
-  margin: 0;
-  margin-left: 45em;
-  margin-right: 45em;
+  width: 20em;
+  margin: auto;
+}
+
+#grade-calcu-submit {
+  margin: auto;
+  margin-right: 0 !important;
+  width: 100%;
 }
 
 #grade-calcu-result-value {

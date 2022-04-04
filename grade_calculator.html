@@ -11,80 +11,8 @@
   <!--Other imports-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+  <script src="js/grade_calculator.js"></script>
 </head>
-<script>
-  /*
-   Data based on: https://imgur.com/a/DCpYxhv
-  */
-
-  const SCHEME_60 = {
-    grade_40: { upper: 100, lower: 95, result: "4.0" },
-    grade_35: { upper: 95, lower: 89, result: "3.5" },
-    grade_30: { upper: 89, lower: 83, result: "3.0" },
-    grade_25: { upper: 83, lower: 78, result: "2.5" },
-    grade_20: { upper: 77, lower: 72, result: "2.0" },
-    grade_15: { upper: 72, lower: 66, result: "1.5" },
-    grade_10: { upper: 66, lower: 60, result: "1.0" },
-    grade_00: { upper: 60, lower: 0, result: "0.0" },
-  };
-
-  const SCHEME_70 = {
-    grade_40: { upper: 100, lower: 96, result: "4.0" },
-    grade_35: { upper: 96, lower: 92, result: "3.5" },
-    grade_30: { upper: 92, lower: 88, result: "3.0" },
-    grade_25: { upper: 88, lower: 83, result: "2.5" },
-    grade_20: { upper: 83, lower: 78, result: "2.0" },
-    grade_15: { upper: 78, lower: 74, result: "1.5" },
-    grade_10: { upper: 74, lower: 70, result: "1.0" },
-    grade_00: { upper: 70, lower: 0, result: "0.0" },
-  };
-
-  function setGradingScheme(schemeType) {
-    switch(schemeType) {
-        /*
-        case "50":
-          return SCHEME_50; break;
-        case "55":
-          return SCHEME_55; break;
-        case "65":
-          return SCHEME_65;
-        */
-        case "70":
-          return SCHEME_70;
-        default: // use 60% as default
-          return SCHEME_60;
-    }
-  }
-
-  function getGrade(scheme, grade) {
-    for (const [key, tier] of Object.entries(scheme)) {
-      if (grade >= tier.lower && grade <= tier.upper) {
-        console.log("Result: " + tier.result);
-        return tier.result;
-      }
-    }
-    return "Error";
-  }
-
-  $(document).ready(function(){
-    $("#grade-calcu-submit").click(function() {
-        const schemeType = $("#grade-calcu-passing").val();
-        const grade = $("#grade-calcu-input").val();
-
-        if (schemeType == NaN) { schemeType = "60"; }
-        if (grade == NaN) { grade = 0; }
-
-        let scheme = setGradingScheme(schemeType);
-        let result = getGrade(scheme, grade)
-        $("#grade-calcu-result-value").html(result);
-    });
-    $("#grade-calcu-clear").click(function() {
-        $("#grade-calcu-passing").val('60');
-        $("#grade-calcu-input").val('');
-        $("#grade-calcu-result-value").val('');
-    });
-  })
-</script>
 <body>
   <div class="navMenu">
     <a id="siteNavTitle" href="index.html">Matthew Gan</a>

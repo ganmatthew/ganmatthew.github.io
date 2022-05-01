@@ -76,6 +76,15 @@
       }
    }
 
+   function isFailingGrade(scheme, grade) {
+      for (const [key, tier] of Object.entries(scheme)) {
+         if (grade < scheme["grade_00"].upper) {
+            return true;
+         }
+      }
+      return false;
+   }
+
    function getGrade(scheme, grade) {
       for (const [key, tier] of Object.entries(scheme)) {
          if (grade >= tier.lower && grade <= tier.upper) {
@@ -88,22 +97,26 @@
 
    $(document).ready(function(){
       $("#grade-calcu-submit").click(function() {
-            let schemeType = $("#grade-calcu-passing").val();
-            let grade = $("#grade-calcu-input").val();
+         let resultValue = $("#grade-calcu-result-value")
+         if (resultValue.hasClass('invalid-result')) {
+            resultValue.removeClass('invalid-result')
+         }
 
-            if (isNaN(schemeType)) { schemeType = "60"; }
-            if (isNaN(grade)) { grade = 0; }
+         let schemeType = $("#grade-calcu-passing").val();
+         let grade = $("#grade-calcu-input").val();
 
-            grade = clamp(grade, 0, 100);
-            $("#grade-calcu-input").val(grade)
+         if (isNaN(schemeType)) { schemeType = "60"; }
+         if (isNaN(grade)) { grade = 0; }
 
-            let scheme = setGradingScheme(schemeType);
-            let result = getGrade(scheme, grade)
-            $("#grade-calcu-result-value").html(result);
-      });
-      $("#grade-calcu-clear").click(function() {
-            $("#grade-calcu-passing").val('60');
-            $("#grade-calcu-input").val('');
-            $("#grade-calcu-result-value").val('');
+         grade = clamp(grade, 0, 100);
+         $("#grade-calcu-input").val(grade)
+
+         let scheme = setGradingScheme(schemeType);
+         let result = getGrade(scheme, grade)
+
+         if (isFailingGrade(scheme, grade)) {
+            resultValue.addClass('invalid-result')
+         }
+         $("#grade-calcu-result-value").html(result);
       });
    })

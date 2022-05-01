@@ -11,7 +11,7 @@
   <!--Other imports-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
-  <script src="js/grade_calculator.js"></script>
+  <script src="js/id_number.js"></script>
 </head>
 <body>
   <div class="navMenu">
@@ -22,45 +22,31 @@
     </div>
   </div>
   <div class="home">
-    <h1 id="header-wrappable">DLSU Grade Calculator</h1>
+    <h1 id="header-wrappable">DLSU ID Number Verification</h1>
     <div class="form-container">
       <form>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <label class="input-group-text" for="grade-calcu-passing">Percent Grade</label>
+            <span class="input-group-text">ID Number</span>
           </div>
-          <select class="custom-select" id="grade-calcu-passing">
-            <option value="50">50%</option>
-            <option value="55">55%</option>
-            <option selected="60">60%</option>
-            <option value="65">65%</option>
-            <option value="70">70%</option>
-          </select>
+          <input type="number" class="form-control" placeholder="" id="check-id-number-input-value" min="0">
         </div>
 
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Percentage Grade</span>
-          </div>
-          <input type="number" class="form-control" placeholder="0.00" id="grade-calcu-input" min="0.00" max="100.00" step="0.01">
+          <button type="button" class="btn btn-primary btn-lg mr-2 wide-submit" id="check-id-number-submit">Verify</button>
         </div>
 
         <div class="input-group mb-3">
-          <button type="button" class="btn btn-primary btn-lg mr-2 wide-sumit" id="grade-calcu-submit">Submit</button>
-          <!--<button type="button" class="btn btn-outline-dark btn-lg mr-2" id="grade-calcu-clear">Clear</button>-->
-        </div>
-
-        <div class="input-group mb-3">
-          <label id="grade-calcu-result-label">Result:</label>
-          <p class="calcu-result" id="grade-calcu-result-value"></p>
+          <label id="check-id-number-result-label">Result:</label>
+          <p class="calcu-result" id="check-id-number-result-value"></p>
         </div>
 
       </form>
     </div>
   <footer>
     <div id="betaText">
-      <p>This website is in beta. Last updated on April 2, 2022.</p>
+      <p>This website is in beta. Last updated on May 1, 2022.</p>
     </div>
   </footer>
 </body>

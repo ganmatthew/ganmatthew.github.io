@@ -112,6 +112,7 @@ a:hover {
 .container {
   max-width: 1200px;
   margin: 0;
+  width: auto;
   margin-left: 10em;
   margin-right: 10em;
   display: grid;
@@ -126,15 +127,17 @@ a:hover {
 }
 
 .card {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 4px;
+  margin: auto;
+  margin-top: 0;
+  border-radius: 8px;
   width: 20em;
   height: auto;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
+}
+
+.card-img-top {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .card-contents {
@@ -154,12 +157,13 @@ a:hover {
     display: block;
     margin-bottom: 20px;
   }
+
+  .card {
+    width: 100%;
+  }
+
   .cards { grid-template-columns: repeat(2, 2fr); }
   
-}
-
-@media (min-width: 900px) {
-  .cards { grid-template-columns: repeat(4, 2fr); }
 }
 
 #selfImage {
@@ -167,8 +171,7 @@ a:hover {
 }
 
 .card h3 {
-  padding-top: 20px;
-  padding-bottom: 5px;
+  padding-top: 10px;
 }
 
 .caption {
@@ -193,14 +196,28 @@ a:hover {
   margin: auto;
 }
 
-#grade-calcu-submit {
+#header-wrappable {
+  width: auto;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.wide-submit {
   margin: auto;
   margin-right: 0 !important;
   width: 100%;
 }
 
-#grade-calcu-result-value {
+.calcu-result {
   padding-left: 0.25em;
   font-weight: 500;
   font-size: 36px;
+}
+
+.valid-result {
+  color: #02ff00;
+}
+
+.invalid-result {
+  color: #ff0000;
 }

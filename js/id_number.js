@@ -9,7 +9,6 @@ function clamp(num, min, max) {
 }
 
 function getSumOfProducts(digits) {
-   //console.log("Digits: " + digits)
    let sum = 0
    let ctr = digits.length
    for (let i = 0; i < digits.length; i++) {
@@ -21,8 +20,8 @@ function getSumOfProducts(digits) {
    for (let i = 0; i < digits.length; i++) {
       sum += digits[i]
    }
-
-   //console.log("Sum: " + digits)
+   //console.log("Digits: " + digits)
+   //console.log("Sum: " + sum)
 
    return sum
 }
@@ -46,7 +45,8 @@ function getYearFromDigits(digits) {
 
 function checkIDNumber(digits) {
    let result = INVALID_ID_NUMBER
-   let sumOfProducts = getSumOfProducts(digits)
+   // had to do this because it was mutating the multiplied digits whenever it was ID 099 and below
+   let sumOfProducts = getSumOfProducts(new Array().concat(digits))
 
    if (sumOfProducts > 0 && sumOfProducts % 11 == 0) {
       result = VALID_ID_NUMBER
@@ -60,9 +60,20 @@ function generateIDNumbers(threeDigits) {
    let list = []
    for (number = 0; number < MAX_ID_NUMBER; number++) {
       let idNumber = ((threeDigits * 100000) + number).toString()
-      if (checkIDNumber(idNumber.split("")) != INVALID_ID_NUMBER && idNumber.length == 8) {
-         list.push(idNumber)
-         ctr++
+      let digits = idNumber.split('')
+      if (threeDigits >= 100) {
+         let result = checkIDNumber(digits)
+         if (result == VALID_ID_NUMBER && idNumber.length == 8) {
+            list.push(idNumber)
+            ctr++
+         }
+      } else {
+         digits.unshift('0')
+         let result = checkIDNumber(digits)
+         if (result == VALID_ID_NUMBER && digits.length == 8) {
+            list.push(digits.join(''))
+            ctr++
+         }
       }
    }
    console.log("ID " + threeDigits + "\tSize: " + ctr)
@@ -120,20 +131,22 @@ $(document).ready(function(){
    $("#generate-id-number-submit").click(function() {
       $("#generate-id-number-submit").prop("disabled", true)
       $("#generate-id-number-submit").html("Generating...")
+      
+      $("#number-list").css('visibility', 'hidden')
+      $("#generate-id-number-result-value").html("")
 
       setTimeout(function() {
-         $("#number-list").css('visibility', 'hidden')
-         $("#generate-id-number-result-value").html("")
          let threeDigits = $("#generate-id-number-input-value").val()
          let list = generateIDNumbers(threeDigits)
          displayListOfIDNumbers(list)
 
+         $("#generate-id-number-submit").html("Writing...")
          $("#number-list").css('visibility', 'visible')
          $("#number-list").prop('rows', list.length)
          $("#generate-id-number-result-value").html(list.length)
          
          $("#generate-id-number-submit").prop("disabled", false)
          $("#generate-id-number-submit").html("Generate")
-       }, 500);
+       }, 100);
    });
 })

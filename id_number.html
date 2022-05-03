@@ -22,31 +22,61 @@
     </div>
   </div>
   <div class="home">
-    <h1 id="header-wrappable">DLSU ID Number Verification</h1>
-    <div class="form-container">
-      <form>
+    <h1 id="header-wrappable">DLSU ID Number Calculator</h1>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">ID Number</span>
+    <div class="calculator-container" id="check-id-number-container">
+      <h2 id="header-center">Verify an ID Number</h2>
+      <div class="form-container">
+        <form>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">ID Number</span>
+            </div>
+            <input type="text" class="form-control" placeholder="" id="check-id-number-input-value" min="0" maxlength="8">
           </div>
-          <input type="number" class="form-control" placeholder="" id="check-id-number-input-value" min="0">
-        </div>
 
-        <div class="input-group mb-3">
-          <button type="button" class="btn btn-primary btn-lg mr-2 wide-submit" id="check-id-number-submit">Verify</button>
-        </div>
+          <div class="input-group mb-3">
+            <button type="button" class="btn btn-primary btn-lg mr-2 wide-submit" id="check-id-number-submit">Verify</button>
+          </div>
 
-        <div class="input-group mb-3">
-          <label id="check-id-number-result-label">Result:</label>
-          <p class="calcu-result" id="check-id-number-result-value"></p>
-        </div>
+          <div class="input-group mb-3">
+            <label id="check-id-number-result-label">Result:</label>
+            <p class="calcu-result" id="check-id-number-result-value"></p>
+          </div>
+        </form>
+      </div>
 
-      </form>
+      <div class="calculator-container" id="generate-id-number-container">
+        <h2 id="header-center">Generate ID Numbers</h2>
+        <div class="form-container">
+          <form>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">First three digits</span>
+              </div>
+              <input type="text" class="form-control" placeholder="119" id="generate-id-number-input-value" maxlength="3">
+            </div>
+
+            <div class="input-group mb-3">
+              <label id="generate-id-number-result-label">Entry year:</label>
+              <p class="small-calcu-result" id="generate-id-number-year-value"></p>
+            </div>
+  
+            <div class="input-group mb-3">
+              <button type="button" class="btn btn-primary btn-lg mr-2 wide-submit" id="generate-id-number-submit">Generate</button>
+            </div>
+  
+            <div class="input-group mb-3" id="generate-id-result-container">
+              <label id="generate-id-number-result-label">Number of results:</label>
+              <p class="small-calcu-result" id="generate-id-number-result-value"></p>
+              <textarea id="number-list" readonly></textarea>
+            </div>
+          </form>
+        </div>
     </div>
   <footer>
     <div id="betaText">
-      <p>This website is in beta. Last updated on May 1, 2022.</p>
+      <p>This website is in beta. Last updated on May 3, 2022.</p>
     </div>
   </footer>
 </body>

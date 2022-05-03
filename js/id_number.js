@@ -1,6 +1,8 @@
 const YEAR_NAN = "N/A"
 const VALID_ID_NUMBER = "Valid ID Number"
 const INVALID_ID_NUMBER = "Invalid ID Number"
+const INVALID_YEAR_DIGITS = ""
+const MAX_ID_NUMBER = 99999
 
 function clamp(num, min, max) {
    return Math.max(min, Math.min(num, max));
@@ -25,6 +27,23 @@ function getSumOfProducts(digits) {
    return sum
 }
 
+function getYearLeftDigits(firstDigit, secondDigit) {
+   let twoDigits = firstDigit.concat(secondDigit)
+   return (twoDigits * 10) + 1900
+}
+
+function getYearFromDigits(digits) {
+   let result = INVALID_YEAR_DIGITS
+   let left = getYearLeftDigits(digits[0], digits[1])
+   let right = digits[2]
+
+   if (!isNaN(left) && !isNaN(right)) {
+      result = left + parseInt(right)
+   }
+
+   return result
+}
+
 function checkIDNumber(digits) {
    let result = INVALID_ID_NUMBER
    let sumOfProducts = getSumOfProducts(digits)
@@ -34,6 +53,29 @@ function checkIDNumber(digits) {
    }
 
    return result
+}
+
+function generateIDNumbers(threeDigits) {
+   let ctr = 0
+   let list = []
+   for (number = 0; number < MAX_ID_NUMBER; number++) {
+      let idNumber = ((threeDigits * 100000) + number).toString()
+      if (checkIDNumber(idNumber.split("")) != INVALID_ID_NUMBER && idNumber.length == 8) {
+         list.push(idNumber)
+         ctr++
+      }
+   }
+   console.log("ID " + threeDigits + "\tSize: " + ctr)
+   return list
+}
+
+function displayListOfIDNumbers(list) {
+   var textBox = document.getElementById('number-list');
+   textBox.innerHTML = ""
+
+   for (const element of list)  {
+      textBox.innerHTML = textBox.innerHTML + element.toString() + `\n`
+   }
 }
 
 $(document).ready(function(){
@@ -48,7 +90,7 @@ $(document).ready(function(){
 
       let idNumber = $("#check-id-number-input-value").val();
 
-      if (isNaN(idNumber)) { idNumber = 0; }
+      if (isNaN(idNumber)) { idNumber = "0"; }
 
       $("#check-id-number-input-value").val(idNumber)
       
@@ -70,4 +112,28 @@ $(document).ready(function(){
          $("#check-id-number-submit").val('');
    });
    */
+   $("#generate-id-number-input-value").focusout(function() {
+      let digits = $("#generate-id-number-input-value").val();
+      $("#generate-id-number-year-value").html(getYearFromDigits(digits));
+   });
+
+   $("#generate-id-number-submit").click(function() {
+      $("#generate-id-number-submit").prop("disabled", true)
+      $("#generate-id-number-submit").html("Generating...")
+
+      setTimeout(function() {
+         $("#number-list").css('visibility', 'hidden')
+         $("#generate-id-number-result-value").html("")
+         let threeDigits = $("#generate-id-number-input-value").val()
+         let list = generateIDNumbers(threeDigits)
+         displayListOfIDNumbers(list)
+
+         $("#number-list").css('visibility', 'visible')
+         $("#number-list").prop('rows', list.length)
+         $("#generate-id-number-result-value").html(list.length)
+         
+         $("#generate-id-number-submit").prop("disabled", false)
+         $("#generate-id-number-submit").html("Generate")
+       }, 500);
+   });
 })

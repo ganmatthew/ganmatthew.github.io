@@ -196,10 +196,17 @@ a:hover {
   margin: auto;
 }
 
-#header-wrappable {
-  width: auto;
-  margin-left: 1em;
-  margin-right: 1em;
+#header-center {
+  width: 20em;
+  font-size: 24px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+}
+
+.calculator-container {
+  margin-top: 2em;
 }
 
 .wide-submit {
@@ -214,10 +221,33 @@ a:hover {
   font-size: 36px;
 }
 
+.small-calcu-result {
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+#generate-id-number-result-label {
+  display: flex;
+  margin-bottom: 0;
+  align-content: stretch;
+  align-items: center;
+}
+
 .valid-result {
   color: #02ff00;
 }
 
 .invalid-result {
   color: #ff0000;
+}
+
+#number-list {
+  width: 100%;
+  margin-top: 1em;
+  visibility: hidden;
+  resize: none;
 }

@@ -89,35 +89,51 @@ function displayListOfIDNumbers(list) {
    }
 }
 
+function validateIDNumber() {
+   let resultValue = $("#check-id-number-result-value")
+   if (resultValue.hasClass('valid-result')) {
+      resultValue.removeClass('valid-result')
+   }
+   if (resultValue.hasClass('invalid-result')) {
+      resultValue.removeClass('invalid-result')
+   }
+
+   let idNumber = $("#check-id-number-input-value").val();
+
+   if (isNaN(idNumber)) { idNumber = "0"; }
+
+   $("#check-id-number-input-value").val(idNumber)
+   
+   let result = checkIDNumber(idNumber.split(''))
+
+   switch(result) {
+      case VALID_ID_NUMBER:
+         $("#check-id-number-result-value").addClass('valid-result')
+         break;
+      default:
+         $("#check-id-number-result-value").addClass('invalid-result')
+         break;
+   }
+      
+   $("#check-id-number-result-value").html(result);
+}
+
 $(document).ready(function(){
-   $("#check-id-number-submit").click(function() {
-      let resultValue = $("#check-id-number-result-value")
-      if (resultValue.hasClass('valid-result')) {
-         resultValue.removeClass('valid-result')
+   document.getElementById("generate-id-number-input-value").addEventListener("keypress", function(event) {
+      if (event.key == "Enter") {
+         // Prevent default enter behavior
+         event.preventDefault();
+         $("#generate-id-number-submit").click();
       }
-      if (resultValue.hasClass('invalid-result')) {
-         resultValue.removeClass('invalid-result')
-      }
-
-      let idNumber = $("#check-id-number-input-value").val();
-
-      if (isNaN(idNumber)) { idNumber = "0"; }
-
-      $("#check-id-number-input-value").val(idNumber)
-      
-      let result = checkIDNumber(idNumber.split(''))
-
-      switch(result) {
-         case VALID_ID_NUMBER:
-            $("#check-id-number-result-value").addClass('valid-result')
-            break;
-         default:
-            $("#check-id-number-result-value").addClass('invalid-result')
-            break;
-      }
-      
-      $("#check-id-number-result-value").html(result);
    });
+   document.getElementById("check-id-number-input-value").addEventListener("keypress", function(event) {
+      if (event.key == "Enter") {
+         // Prevent default enter behavior
+         event.preventDefault();
+         validateIDNumber();
+      }
+   });
+   $("#check-id-number-submit").click(validateIDNumber);
    /*
    $("#check-id-number-clear").click(function() {
          $("#check-id-number-submit").val('');

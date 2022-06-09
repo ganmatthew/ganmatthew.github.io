@@ -96,6 +96,13 @@
    }
 
    $(document).ready(function(){
+      document.getElementById("grade-calcu-input").addEventListener("keypress", function(event) {
+         if (event.key == "Enter") {
+            // Prevent default enter behavior
+            event.preventDefault();
+            $("#grade-calcu-submit").click();
+         }
+      });
       $("#grade-calcu-submit").click(function() {
          let resultValue = $("#grade-calcu-result-value")
          if (resultValue.hasClass('invalid-result')) {

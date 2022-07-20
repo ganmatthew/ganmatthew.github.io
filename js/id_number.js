@@ -61,32 +61,27 @@ function generateIDNumbers(threeDigits) {
    for (number = 0; number < MAX_ID_NUMBER; number++) {
       let idNumber = ((threeDigits * 100000) + number).toString()
       let digits = idNumber.split('')
-      if (threeDigits >= 100) {
-         let result = checkIDNumber(digits)
-         if (result == VALID_ID_NUMBER && idNumber.length == 8) {
-            list.push(idNumber)
-            ctr++
-         }
-      } else {
+      // Append 0 if two digit year
+      if (threeDigits < 100) {
          digits.unshift('0')
-         let result = checkIDNumber(digits)
-         if (result == VALID_ID_NUMBER && digits.length == 8) {
-            list.push(digits.join(''))
-            ctr++
+      }
+      if (checkIDNumber(digits) == VALID_ID_NUMBER && digits.length == 8) {
+         // If digits were passed, combine them
+         if (idNumber.constructor === Array) {
+            idNumber = idNumber.join('')
          }
+         // Push the new entry to the list of entries
+         let row = {
+            'id': ctr + 1,
+            'id_number': idNumber
+         }
+         //console.log(row)
+         list.push(row)
+         ctr++
       }
    }
    console.log("ID " + threeDigits + "\tSize: " + ctr)
    return list
-}
-
-function displayListOfIDNumbers(list) {
-   var textBox = document.getElementById('number-list');
-   textBox.innerHTML = ""
-
-   for (const element of list)  {
-      textBox.innerHTML = textBox.innerHTML + element.toString() + `\n`
-   }
 }
 
 function validateIDNumber() {
@@ -133,35 +128,48 @@ $(document).ready(function(){
          validateIDNumber();
       }
    });
-   $("#check-id-number-submit").click(validateIDNumber);
-   /*
-   $("#check-id-number-clear").click(function() {
-         $("#check-id-number-submit").val('');
+
+   $("#check-id-number-input-value").keypress(function() {
+      let digits = $("#check-id-number-input-value").val();
+      if (digits == "") {
+         $("#check-id-number-submit").attr("disabled", true)
+      } else {
+         $("#check-id-number-submit").attr("disabled", false)
+      }
    });
-   */
+
+   $("#check-id-number-input-value").focusout(validateIDNumber);
+   
    $("#generate-id-number-input-value").focusout(function() {
       let digits = $("#generate-id-number-input-value").val();
       $("#generate-id-number-year-value").html(getYearFromDigits(digits));
+   });
+
+   $("#generate-id-number-input-value").keypress(function() {
+      let digits = $("#generate-id-number-input-value").val();
+      if (digits == "") {
+         $("#generate-id-number-submit").attr("disabled", true)
+      } else {
+         $("#generate-id-number-submit").attr("disabled", false)
+      }
    });
 
    $("#generate-id-number-submit").click(function() {
       $("#generate-id-number-submit").prop("disabled", true)
       $("#generate-id-number-submit").html("Generating...")
       
-      $("#number-list").css('visibility', 'hidden')
-      $("#generate-id-number-result-value").html("")
+      //$("#number-list").css('visibility', 'hidden')
+      //$("#generate-id-number-result-value").html("")
 
       setTimeout(function() {
          let threeDigits = $("#generate-id-number-input-value").val()
          let list = generateIDNumbers(threeDigits)
-         displayListOfIDNumbers(list)
 
-         $("#generate-id-number-submit").html("Writing...")
-         $("#number-list").css('visibility', 'visible')
-         $("#number-list").prop('rows', list.length)
-         $("#generate-id-number-result-value").html(list.length)
+         $('#id_number_table').bootstrapTable('load', list)
+
+         $("#id_number_table_container").attr('hidden', false)
          
-         $("#generate-id-number-submit").prop("disabled", false)
+         $("#generate-id-number-submit").attr("disabled", false)
          $("#generate-id-number-submit").html("Generate")
        }, 100);
    });

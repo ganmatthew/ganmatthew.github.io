@@ -37,10 +37,6 @@
           </div>
 
           <div class="input-group mb-3">
-            <button type="button" class="btn btn-primary btn-lg mr-2 wide-submit" id="check-id-number-submit">Verify</button>
-          </div>
-
-          <div class="input-group mb-3">
             <label id="check-id-number-result-label">Result:</label>
             <p class="calcu-result" id="check-id-number-result-value"></p>
           </div>
@@ -64,20 +60,40 @@
             </div>
   
             <div class="input-group mb-3">
-              <button type="button" class="btn btn-primary btn-lg mr-2 wide-submit" id="generate-id-number-submit">Generate</button>
+              <button type="button" class="btn btn-primary btn-lg mr-2 wide-submit" id="generate-id-number-submit" disabled>Generate</button>
             </div>
   
-            <div class="input-group mb-3" id="generate-id-result-container">
-              <label id="generate-id-number-result-label">Number of results:</label>
-              <p class="small-calcu-result" id="generate-id-number-result-value"></p>
-              <textarea id="number-list" readonly></textarea>
+            <div id="generate-id-result-container">
+              <!--<label id="generate-id-number-result-label">Number of results:</label>-->
+              <!--<p class="small-calcu-result" id="generate-id-number-result-value"></p>-->
+              <!--<textarea id="number-list" readonly></textarea>-->
+              <!--Start of Bootstrap table container-->
+              <div class="table-container" id="id_number_table_container" hidden>
+                <table 
+                    id="id_number_table"
+                    data-toggle="table" 
+                    data-search="true"
+                    data-pagination="true" 
+                    data-page-list="[10, 25, 50, 100, all]"
+                    data-search-align="left"
+                    data-search-highlight="true"
+                    >
+                    <thead>
+                        <tr>
+                            <th data-sortable="true" data-field="id">#</th>
+                            <th data-sortable="true" data-field="id_number">ID Number</th>
+                        </tr>
+                    </thead>
+                </table>
+              </div>
+              <!--End of Bootstrap table container-->
             </div>
           </form>
         </div>
     </div>
   <footer>
     <div id="betaText">
-      <p>This website is in beta. Last updated on June 9, 2022.</p>
+      <p>This website is in beta. Last updated on July 21, 2022.</p>
     </div>
   </footer>
 </body>

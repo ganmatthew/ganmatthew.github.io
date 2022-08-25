@@ -10,7 +10,7 @@ footer {
 
 a {
   color: black;
-  transition: 150ms ease-in-out all;
+  transition: 150ms ease-in-out;
 }
 
 .home {
@@ -18,12 +18,12 @@ a {
   margin-bottom: 20px;
 }
 
-.home h1 {
+h1 {
   text-align: center;
   font-size: 42px;
   font-weight: 500;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .home p {
@@ -72,6 +72,7 @@ a {
 
 #hyperlink {
   height: 20px;
+  text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 5px;
 }
@@ -81,13 +82,13 @@ a {
   font-weight: 500;
   color: black;
   text-decoration: none;
-  margin-left: 15px;
+  margin-left: 9px;
   margin-right: 90px;
   text-decoration: none;
 }
 
 a:hover {
-  transition: 150ms ease-in-out all;
+  transition: 150ms ease-in-out;
   color: rgb(48,216,112);
 }
 

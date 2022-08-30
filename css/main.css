@@ -10,7 +10,6 @@ footer {
 
 a {
   color: black;
-  transition: 150ms ease-in-out;
 }
 
 .home {
@@ -88,7 +87,6 @@ h1 {
 }
 
 a:hover {
-  transition: 150ms ease-in-out;
   color: rgb(48,216,112);
 }
 

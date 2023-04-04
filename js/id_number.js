@@ -11,23 +11,17 @@ function clamp(num, min, max) {
 function getSumOfProducts(digits) {
    let sum = 0
    let ctr = digits.length
-   for (let i = 0; i < digits.length; i++) {
-      //console.log(digits[i] + " * " + ctr)
-      digits[i] *= ctr
-      ctr--
+   for (let i = 0; i < digits.length; i++, ctr--) {
+      sum += digits[i] * ctr
    }
-
-   for (let i = 0; i < digits.length; i++) {
-      sum += digits[i]
-   }
-   //console.log("Digits: " + digits)
-   //console.log("Sum: " + sum)
-
    return sum
 }
 
 function getYearLeftDigits(firstDigit, secondDigit) {
-   let twoDigits = firstDigit.concat(secondDigit)
+   if (firstDigit.length !== 1 || secondDigit.length !== 1) {
+      throw new Error("Invalid input: expected two digits")
+   }
+   let twoDigits = `${firstDigit}${secondDigit}`
    return (twoDigits * 10) + 1900
 }
 
@@ -57,8 +51,9 @@ function checkIDNumber(digits) {
 
 function generateIDNumbers(threeDigits) {
    let ctr = 0
+   let number = 0
    let list = []
-   for (number = 0; number < MAX_ID_NUMBER; number++) {
+   while (number < MAX_ID_NUMBER) {
       let idNumber = ((threeDigits * 100000) + number).toString()
       let digits = idNumber.split('')
       // Append 0 if two digit year
@@ -79,6 +74,7 @@ function generateIDNumbers(threeDigits) {
          list.push(row)
          ctr++
       }
+      number++
    }
    console.log("ID " + threeDigits + "\tSize: " + ctr)
    return list
@@ -167,10 +163,21 @@ $(document).ready(function(){
 
          $('#id_number_table').bootstrapTable('load', list)
 
+         $("#clear-result-table").attr('hidden', false)
          $("#id_number_table_container").attr('hidden', false)
-         
+         $("#id-number-table-header").attr('hidden', false)
+         $("#generate-id-number-input-value").attr('disabled', true)
+         $("#generate-id-number-submit").attr('hidden', true)
+       }, 100);
+
+       $("#clear-result-table").click(function() {
+         $("#clear-result-table").attr('hidden', true)
+         $("#id_number_table_container").attr('hidden', true)
+         $("#id-number-table-header").attr('hidden', true)
+         $("#generate-id-number-input-value").attr('disabled', false)
+         $("#generate-id-number-submit").attr('hidden', false)
          $("#generate-id-number-submit").attr("disabled", false)
          $("#generate-id-number-submit").html("Generate")
-       }, 100);
+      });
    });
 })

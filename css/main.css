@@ -12,7 +12,7 @@ footer {
 }
 
 a {
-  color: rgb(29, 167, 82);
+  color: rgb(0, 0, 0);
 }
 
 .home {
@@ -77,7 +77,7 @@ h1 {
   text-align: center;
 }
 
-#hyperlink {
+a.hyperlink {
   height: 20px;
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -201,10 +201,6 @@ a:hover {
   font-weight: 500;
   font-size: 18px;
   margin-bottom: 5px;
-}
-
-.container a {
-  text-decoration: none;
 }
 
 .form-container {

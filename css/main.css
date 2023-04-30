@@ -2,6 +2,9 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Rubik";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 footer {
@@ -9,7 +12,7 @@ footer {
 }
 
 a {
-  color: black;
+  color: rgb(29, 167, 82);
 }
 
 .home {
@@ -139,7 +142,14 @@ a:hover {
   border-radius: 8px;
   width: 20em;
   height: auto;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  transition: 25ms ease-in-out;
+}
+
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 9px 18px, rgba(0, 0, 0, 0.22) 0px 9px 6px;
+  transform: translateY(-2px);
+  transition: 25ms ease-in-out;
 }
 
 .card-img-top {

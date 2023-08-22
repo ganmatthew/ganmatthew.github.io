@@ -7,6 +7,33 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+header.bio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+div#bio-info {
+  margin-left: 1em;
+  max-width: 50%;
+}
+
+@media screen and (max-width: 680px) {
+  header.bio {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  div#bio-info {
+    margin-left: 0;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+}
+
 footer {
   transform: translateY(70px);
   margin-top: 20px;
@@ -45,6 +72,25 @@ h1 {
   font-weight: 500;
   margin-top: 10px;
   margin-bottom: 30px;
+}
+
+div #bio-pic {
+  width: auto;   
+}
+
+#bio-pic {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: 0 -10px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+img#bio-pic  {
+  width: 200px;
+  height: 200px;
 }
 
 .home p {

@@ -49,11 +49,11 @@ section {
   margin-bottom: 20px;
 }
 
-section#home {
+section.projects {
   
 }
 
-section#projects {
+section#home {
   
 }
 
@@ -72,6 +72,16 @@ h1 {
   font-weight: 500;
   margin-top: 10px;
   margin-bottom: 30px;
+}
+
+h1#greeting {
+  text-align: left;
+}
+
+@media screen and (max-width: 680px) {
+  h1#greeting {
+    text-align: center;
+  }
 }
 
 div #bio-pic {
@@ -95,11 +105,6 @@ img#bio-pic  {
 
 .home p {
   text-align: center;
-}
-
-.container {
-  padding-left: calc(var(--bs-gutter-x) * .55);
-  padding-right: calc(var(--bs-gutter-x) * .55);
 }
 
 #emailText {
@@ -193,6 +198,8 @@ nav a:hover {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  padding-left: calc(var(--bs-gutter-x) * .55);
+  padding-right: calc(var(--bs-gutter-x) * .55);
 }
 
 .row:after {
@@ -337,4 +344,44 @@ div.float-left.search.btn-group {
 
 .fixed-table-body {
   height: auto !important; 
+}
+
+/*
+  Image grid for artwork portfolio
+*/
+.art-type h2 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+div.grid.art-grid {
+  margin: 0;
+  width: auto;
+  margin-left: 10%;
+  margin-right: 10%;
+  box-sizing: border-box;
+}
+
+.art-grid.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.art-grid .grid-sizer, .art-grid .grid-item { width: 20%; }
+
+@media screen and (max-width: 780px) {
+  .art-grid .grid-sizer, .art-grid .grid-item { width: 100%; }
+}
+
+.art-grid .grid-item img {
+  display: block;
+  max-width: 100%;
+}
+
+.art-grid div.grid-item {
+  background-color: #fff;
+  border: 1px solid rgb(210,210,210);
+  border-radius: 3px;   
 }

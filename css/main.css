@@ -357,6 +357,7 @@ div.float-left.search.btn-group {
 
 div.grid.art-grid {
   margin: 0;
+  padding: 0;
   width: auto;
   margin-left: 10%;
   margin-right: 10%;
@@ -369,7 +370,11 @@ div.grid.art-grid {
   clear: both;
 }
 
-.art-grid .grid-sizer, .art-grid .grid-item { width: 20%; }
+.art-grid .grid-sizer, .art-grid .grid-item { width: 24%; }
+
+.art-grid .grid-item { 
+  margin-bottom: 10px;
+}
 
 @media screen and (max-width: 780px) {
   .art-grid .grid-sizer, .art-grid .grid-item { width: 100%; }

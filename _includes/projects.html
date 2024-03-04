@@ -91,6 +91,9 @@
     <div class="grid-item"><img src="images\artworks\PressStartPoster.png"></div>
   </div>
 </section>
+<div id="image-modal" hidden>
+  <img>
+</div>
 <script type="text/javascript">
   var msnry;
   var masonryOptions = {
@@ -101,9 +104,26 @@
     stagger: 30
   };
   document.querySelectorAll('.grid').forEach(function(gridElement) {
-    console.log(gridElement)
     imagesLoaded(gridElement, function() {
       msnry = new Masonry(gridElement, masonryOptions);
     });
+  });
+  // Image modal functionality
+  var modal = document.getElementById('image-modal');
+  var modalImage = modal.querySelector('img');
+  document.querySelectorAll('.grid-item').forEach(function(gridItem) {
+    gridItem.addEventListener('click', (event) => {    
+      // Close modal by clicking anywhere
+      modal.addEventListener('click', (event) => {
+        if (!modal.hidden && modalImage.src != null) {
+          modalImage.src = null;
+          modal.hidden = true;
+        }
+      });
+      // Show image in modal  
+      var gridImage = gridItem.querySelector('img');
+      modal.hidden = false;
+      modalImage.src = gridImage.src;
+    })
   });
 </script>

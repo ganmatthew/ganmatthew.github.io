@@ -21,8 +21,8 @@ function getYearLeftDigits(firstDigit, secondDigit) {
    if (firstDigit.length !== 1 || secondDigit.length !== 1) {
       throw new Error("Invalid input: expected two digits")
    }
-   let twoDigits = `${firstDigit}${secondDigit}`
-   return (twoDigits * 10) + 1900
+   let twoDigits = firstDigit.toString() + secondDigit.toString()
+   return (parseInt(twoDigits) * 10) + 1900
 }
 
 function getYearFromDigits(digits) {
@@ -81,43 +81,49 @@ function generateIDNumbers(threeDigits) {
 }
 
 function validateIDNumber() {
-   let resultValue = $("#check-id-number-result-value")
-   if (resultValue.hasClass('valid-result')) {
-      resultValue.removeClass('valid-result')
+   let resultValue = document.getElementById('check-id-number-result-value')
+   if (resultValue.classList.contains('valid-result')) {
+      resultValue.classList.remove('valid-result')
    }
-   if (resultValue.hasClass('invalid-result')) {
-      resultValue.removeClass('invalid-result')
+   if (resultValue.classList.contains('invalid-result')) {
+      resultValue.classList.remove('invalid-result')
    }
 
-   let idNumber = $("#check-id-number-input-value").val();
+   let checkIdInput = document.getElementById('check-id-number-input-value').value;
 
-   if (isNaN(idNumber)) { idNumber = "0"; }
+   if (isNaN(checkIdInput)) { checkIdInput = "0"; }
 
-   $("#check-id-number-input-value").val(idNumber)
-   
-   let result = checkIDNumber(idNumber.split(''))
+   let result = checkIDNumber(checkIdInput.split(''))
 
    switch(result) {
       case VALID_ID_NUMBER:
-         $("#check-id-number-result-value").addClass('valid-result')
+         resultValue.classList.add('valid-result')
          break;
       default:
-         $("#check-id-number-result-value").addClass('invalid-result')
+         resultValue.classList.add('invalid-result')
          break;
    }
       
-   $("#check-id-number-result-value").html(result);
+   resultValue.innerHTML = result;
 }
 
-$(document).ready(function(){
-   document.getElementById("generate-id-number-input-value").addEventListener("keypress", function(event) {
+document.addEventListener("DOMContentLoaded", (e) => {
+   let generateIdInput = document.getElementById("generate-id-number-input-value");
+   let generateIdResult = document.getElementById('generate-id-number-year-value');
+   let generateIdSubmit = document.getElementById('generate-id-number-submit');
+   let checkIdInput = document.getElementById("check-id-number-input-value");
+   let idNumberContainer = document.getElementById("id_number_table_container");
+   let idNumberHeader = document.getElementById("id-number-table-header");
+   let clearResultsTable = document.getElementById("clear-result-table");
+
+   generateIdInput.addEventListener("keypress", function(event) {
       if (event.key == "Enter") {
          // Prevent default enter behavior
          event.preventDefault();
-         $("#generate-id-number-submit").click();
+         generateIdSubmit.click();
       }
    });
-   document.getElementById("check-id-number-input-value").addEventListener("keypress", function(event) {
+   checkIdInput.addEventListener("keypress", function(event) {
       if (event.key == "Enter") {
          // Prevent default enter behavior
          event.preventDefault();
@@ -125,59 +131,47 @@ $(document).ready(function(){
       }
    });
 
-   $("#check-id-number-input-value").keypress(function() {
-      let digits = $("#check-id-number-input-value").val();
-      if (digits == "") {
-         $("#check-id-number-submit").attr("disabled", true)
-      } else {
-         $("#check-id-number-submit").attr("disabled", false)
-      }
-   });
-
-   $("#check-id-number-input-value").focusout(validateIDNumber);
+   checkIdInput.addEventListener('focusout', validateIDNumber);
    
-   $("#generate-id-number-input-value").focusout(function() {
-      let digits = $("#generate-id-number-input-value").val();
-      $("#generate-id-number-year-value").html(getYearFromDigits(digits));
+   generateIdInput.addEventListener('focusout', (event) => {
+      let digits = generateIdInput.value;
+      generateIdResult.value = getYearFromDigits(digits);
    });
 
-   $("#generate-id-number-input-value").keypress(function() {
-      let digits = $("#generate-id-number-input-value").val();
+   generateIdInput.addEventListener('keypress', (event) => {
+      let digits = generateIdInput.value;
       if (digits == "") {
-         $("#generate-id-number-submit").attr("disabled", true)
+         generateIdSubmit.disabled = true
       } else {
-         $("#generate-id-number-submit").attr("disabled", false)
+         generateIdSubmit.disabled = false
       }
    });
 
-   $("#generate-id-number-submit").click(function() {
-      $("#generate-id-number-submit").prop("disabled", true)
-      $("#generate-id-number-submit").html("Generating...")
-      
-      //$("#number-list").css('visibility', 'hidden')
-      //$("#generate-id-number-result-value").html("")
+   generateIdSubmit.addEventListener('click', (event) => {
+      generateIdSubmit.disabled = true
+      generateIdSubmit.value = "Generating..."
 
       setTimeout(function() {
-         let threeDigits = $("#generate-id-number-input-value").val()
+         let threeDigits = generateIdInput.value
          let list = generateIDNumbers(threeDigits)
 
-         $('#id_number_table').bootstrapTable('load', list)
+         $("#id_number_table").bootstrapTable('load', list)
 
-         $("#clear-result-table").attr('hidden', false)
-         $("#id_number_table_container").attr('hidden', false)
-         $("#id-number-table-header").attr('hidden', false)
-         $("#generate-id-number-input-value").attr('disabled', true)
-         $("#generate-id-number-submit").attr('hidden', true)
+         clearResultsTable.hidden = false;
+         idNumberContainer.hidden = false;
+         idNumberHeader.hidden = false;
+         generateIdInput.disabled = true;
+         generateIdSubmit.hidden = true;
        }, 100);
 
-       $("#clear-result-table").click(function() {
-         $("#clear-result-table").attr('hidden', true)
-         $("#id_number_table_container").attr('hidden', true)
-         $("#id-number-table-header").attr('hidden', true)
-         $("#generate-id-number-input-value").attr('disabled', false)
-         $("#generate-id-number-submit").attr('hidden', false)
-         $("#generate-id-number-submit").attr("disabled", false)
-         $("#generate-id-number-submit").html("Generate")
+       clearResultsTable.addEventListener('click', (event) => {
+         clearResultsTable.hidden = true;
+         idNumberContainer.hidden = true;
+         idNumberHeader.hidden = true;
+         generateIdInput.disabled = false;
+         generateIdSubmit.hidden = false;
+         generateIdSubmit.disabled = false;
+         generateIdSubmit.innerHTML = "Generate";
       });
    });
 })

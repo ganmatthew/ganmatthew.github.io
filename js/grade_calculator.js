@@ -96,37 +96,37 @@
    }
 
    function parseInput() {
-      let resultValue = $("#grade-calcu-result-value")
-      if (resultValue.hasClass('invalid-result')) {
-         resultValue.removeClass('invalid-result')
+      let resultValue = document.getElementById("grade-calcu-result-value");
+      if (resultValue.classList.contains('invalid-result')) {
+         resultValue.classList.remove('invalid-result')
       }
 
-      let schemeType = $("#grade-calcu-passing").val();
-      let grade = $("#grade-calcu-input").val();
+      let schemeType = document.getElementById("grade-calcu-passing").value;
+      let grade = parseFloat(document.getElementById("grade-calcu-input").value);
 
       if (isNaN(schemeType)) { schemeType = "60"; }
       if (isNaN(grade)) { grade = 0; }
 
       grade = clamp(grade, 0, 100);
-      $("#grade-calcu-input").val(grade)
+      document.getElementById("grade-calcu-input").value = grade;
 
       let scheme = setGradingScheme(schemeType);
       let result = getGrade(scheme, grade)
 
       if (isFailingGrade(scheme, grade)) {
-         resultValue.addClass('invalid-result')
+         resultValue.classList.add('invalid-result')
       }
-      $("#grade-calcu-result-value").html(result);
+      resultValue.innerHTML = result;
    }
 
-   $(document).ready(function(){
+   document.addEventListener("DOMContentLoaded", function() {
       document.getElementById("grade-calcu-input").addEventListener("keypress", function(event) {
-         if (event.key == "Enter") {
+         if (event.key === "Enter") {
             // Prevent default enter behavior
             event.preventDefault();
             parseInput();
          }
       });
-      $("#grade-calcu-input").focusout(function() { parseInput() });
+      document.getElementById("grade-calcu-input").addEventListener("focusout", parseInput);
 
    })

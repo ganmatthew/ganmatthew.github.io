@@ -7,10 +7,11 @@ redirect_from:
 ---
 <head>
   {% capture override_dependencies %}
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
   {% endcapture %}
   {% include imports.html content=override_dependencies %}
-  <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>  
+  <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>  
   <script src="js/id_number.js"></script>
 </head>
 <body>
@@ -23,9 +24,7 @@ redirect_from:
       <div class="form-container">
         <form>
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">ID Number</span>
-            </div>
+            <span class="input-group-text">ID Number</span>
             <input type="text" title="id number"class="form-control" placeholder="" id="check-id-number-input-value" min="0" maxlength="8">
           </div>
 
@@ -38,13 +37,11 @@ redirect_from:
 
       <div class="calculator-container" id="generate-id-number-container">
         <h2 id="header-center">Generate ID Numbers</h2>
-        <p class="center-paragraph" id="space-below-paragraph" >Generates all possible ID numbers given the first few digits corresponding to the entry year.</p>
+        <p class="center-paragraph" id="space-below-paragraph" >Generates all possible ID numbers given the first few digits corresponding to the entry year.<br>For ID numbers before 2000, please add a '0' before the number (e.g. 089 for 1989).</code></p>
         <div class="form-container">
           <form>
             <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">First three digits</span>
-              </div>
+              <span class="input-group-text">First three digits</span>
               <input type="text" class="form-control" placeholder="119" id="generate-id-number-input-value" maxlength="3">
             </div>
 

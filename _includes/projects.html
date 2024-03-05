@@ -115,8 +115,8 @@
     gridItem.addEventListener('click', (event) => {    
       // Close modal by clicking anywhere
       modal.addEventListener('click', (event) => {
-        if (!modal.hidden && modalImage.src != null) {
-          modalImage.src = null;
+        if (!modal.hidden && modalImage.src) {
+          modalImage.src = "";
           modal.hidden = true;
         }
       });

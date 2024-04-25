@@ -5,13 +5,14 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #fafafa;
 }
 
 header.bio {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 60px;
   margin-bottom: 20px;
 }
 
@@ -35,18 +36,22 @@ div#bio-info {
 }
 
 footer {
-  transform: translateY(70px);
-  margin-top: 20px;
+  /* transform: translateY(70px); */
+  /* padding: 40px 0 40px 0; */
 }
 
 a {
   color: rgb(0, 0, 0);
 }
 
+p {
+  letter-spacing: 0.25px;
+}
+
 section {
-  transform: translateY(70px);
-  margin-top: 40px;
-  margin-bottom: 20px;
+  /* transform: translateY(70px); */
+  padding: 40px 0;
+  background-color: #ffffff;
 }
 
 section.projects {
@@ -63,15 +68,14 @@ section#contact {
 
 section.segment {
   border-top: 1px solid rgb(210,210,210);
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 h1 {
   text-align: center;
   font-size: 42px;
   font-weight: 500;
-  margin-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
 h1#greeting {
@@ -107,6 +111,11 @@ img#bio-pic  {
   text-align: center;
 }
 
+.home {
+  margin-top: 100px;
+  background-color: #ffffff;
+}
+
 #emailText {
   font-weight: 500;
   height: 20px;
@@ -129,7 +138,7 @@ img#bio-pic  {
 
 #betaText {
   border-top: 1px solid rgb(210,210,210);
-  padding-top: 20px;
+  padding-top: 30px;
   height: 100px;
   text-align: center;
 }
@@ -141,8 +150,9 @@ a.hyperlink {
   text-underline-offset: 5px;
 }
 
-a:hover {
+a.hyperlink:hover {
   color: rgb(48,216,112);
+  transition: 150ms ease-in-out;
 }
 
 nav.navbar {
@@ -154,6 +164,20 @@ nav.navbar {
 nav.nav-bg {
   background-color: rgb(250, 250, 250);
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0) 0px 1px 3px 2px;
+}
+
+nav.nav-bg.dark {
+  background-color: #121213;
+}
+
+nav.navbar.dark a {
+  color: white;
+}
+
+nav.navbar.dark a:hover {
+  color: rgb(48,216,112);
+  transform: scale(1.05);
+  transition: 150ms ease-in-out;
 }
 
 nav div.navbar-container {
@@ -173,6 +197,8 @@ nav a {
 
 nav a:hover {
   color: rgb(48,216,112);
+  transform: scale(1.05);
+  transition: 150ms ease-in-out;
 }
 
 .gridLinks {
@@ -196,7 +222,7 @@ nav a:hover {
   margin-left: 10%;
   margin-right: 10%;
   display: grid;
-  grid-gap: 1rem;
+  /* grid-gap: 1rem; */
   grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
   padding-left: calc(var(--bs-gutter-x) * .55);
   padding-right: calc(var(--bs-gutter-x) * .55);
@@ -213,16 +239,18 @@ nav a:hover {
   margin: auto;
   margin-top: 0;
   border-radius: 8px;
-  width: 18em;
+  width: 18.5em;
   height: 100%;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  transition: 25ms ease-in-out;
+  /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
+  transition: 150ms ease-in-out;
+  background-color: #ffffff;
 }
 
 .card:hover {
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 9px 18px, rgba(0, 0, 0, 0.22) 0px 9px 6px;
-  transform: translateY(-2px);
-  transition: 25ms ease-in-out;
+  /* box-shadow: rgba(0, 0, 0, 0.3) 0px 9px 18px, rgba(0, 0, 0, 0.22) 0px 9px 6px; */
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  /* transform: translateY(-2px); */
+  transition: 150ms ease-in-out;
 }
 
 .card-img-top {
@@ -230,15 +258,32 @@ nav a:hover {
   border-top-right-radius: 8px;
 }
 
+.card a {
+  text-decoration: none;
+}
+
 .card-contents {
   padding: 21px 8px;
 }
+
+.caption {
+  color: #606060;
+  line-height: 1.25;
+  letter-spacing: 0.5px;
+  font-style: italic;
+  font-size: 16px;
+}
+
+/* .card-body p {
+  font-size: 16px;
+} */
 
 #cardImage{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  height: 12em;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 600px) {
@@ -260,17 +305,13 @@ nav a:hover {
   border-radius: 100%;
 }
 
-.caption {
-  font-style: italic;
-  font-size: 16px;
-}
-
 .container h3 {
-  padding-top: 20px;
+  padding-top: 25px;
+  letter-spacing: 0.5px;
   text-align: center;
   font-weight: 500;
-  font-size: 18px;
-  margin: 5px;
+  font-size: 21px;
+  margin: 0 24px;
 }
 
 .form-container {
@@ -422,3 +463,48 @@ div#image-modal {
     height: 100%;
   }
 } */
+
+div.socmed-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+a.socmed-icon {
+  margin: 15px 0em;
+  text-decoration: none;
+  transition: 150ms ease-in-out;
+}
+
+a.socmed-icon:hover {
+  margin: 15px 0em;
+  transform: scale(1.05);
+  transition: 150ms ease-in-out;
+}
+
+.socmed-icon p {
+  margin: 0 7px 0 0;
+}
+
+.socmed-icon span {
+  display: flex;
+  align-items: center;
+  padding: 3px 8px;
+}
+
+.socmed-icon img {
+  width: 32px;
+  margin: 14px;
+}
+
+a.socmed-icon p {
+  font-size: 18px;
+}
+
+#contact h1 {
+  margin-top: 0.25em;
+  margin-bottom: 0;
+  padding: 0.25em 0 0 0;
+}

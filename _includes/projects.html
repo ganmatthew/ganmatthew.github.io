@@ -5,7 +5,7 @@
     <div class="card">
       <a href="https://www.roblox.com/games/257223268/Cobalt-Valley-Research-Facility">
         <img id="cardImage" class="card-img-top" src="images/cvrf_thumbnail.png">
-        <h3>Cobalt Valley Research Facility</h3>
+        <h3>Cobalt Valley Research Facility (CVRF)</h3>
       </a>
       <div class="card-body">
         <p class="caption">Roblox sci-fi roleplay game</p>
@@ -111,6 +111,8 @@
   // Image modal functionality
   var modal = document.getElementById('image-modal');
   var modalImage = modal.querySelector('img');
+  var navbar = document.getElementsByClassName('nav-bg')[0];
+  console.log(navbar)
   document.querySelectorAll('.grid-item').forEach(function(gridItem) {
     gridItem.addEventListener('click', (event) => {    
       // Close modal by clicking anywhere
@@ -118,12 +120,16 @@
         if (!modal.hidden && modalImage.src) {
           modalImage.src = "";
           modal.hidden = true;
+          if (navbar.classList.contains('dark')) {
+            navbar.classList.remove('dark');
+          }
         }
       });
       // Show image in modal  
       var gridImage = gridItem.querySelector('img');
       modal.hidden = false;
       modalImage.src = gridImage.src;
+      navbar.classList.add('dark');
     })
   });
 </script>

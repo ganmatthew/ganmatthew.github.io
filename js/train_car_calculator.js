@@ -61,21 +61,25 @@ function validateInputData() {
     destination.classList.remove('is-invalid');
     direction.classList.remove('is-invalid');
 
+    // Ensure values are typed to int
+    originInd = parseInt(origin.value);
+    destinationInd = parseInt(destination.value);
+
     let passed = true;
 
     // Flag if origin is not valid based on direction
-    if (origin.value == 0 && direction == Direction.NB) {
+    if (originInd == 0 && direction == Direction.NB) {
         originFeedback.innerHTML = ERROR_MSG_NORTH_END;
         origin.classList.add('is-invalid');
         passed = false;
     }   
-    if (origin.value == LRT1Data.length - 1 && direction == Direction.SB) {
+    if (originInd == LRT1Data.length - 1 && direction == Direction.SB) {
         originFeedback.innerHTML = ERROR_MSG_SOUTH_END;
         origin.classList.add('is-invalid');
         passed = false;
     }
     // Flag if the origin and destination are the same station
-    else if (origin.value == destination.value) {
+    if (originInd == destinationInd) {
         origin.classList.add('is-invalid');
         destination.classList.add('is-invalid');
         originFeedback.innerHTML = ERROR_MSG_SAME_STATION;
@@ -84,10 +88,10 @@ function validateInputData() {
         passed = false;
     } else {
         // Determine direction from origin and destination
-        direction.value = origin.value < destination.value ? 'Southbound' : 'Northbound'
+        direction.value = originInd < destinationInd ? 'Southbound' : 'Northbound'
     }
     // Flag if the direction is invalid for the origin and destination
-    if (origin.value == destination.value) {
+    if (originInd == destinationInd) {
         direction.classList.add('is-invalid');
         passed = false;
     }

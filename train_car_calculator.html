@@ -1,0 +1,107 @@
+---
+title: LRT-1 Train Car Calculator
+description: Calculate which train car to enter on Metro Manila's LRT-1 to arrive at the nearest exit at your destination station.
+permalink: /train-car-calculator
+---
+<head>
+  {% capture override_dependencies %}
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+  {% endcapture %}
+  {% include imports.html content=override_dependencies %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>  
+  <script src="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.js"></script>  
+  <script src="js/train_car_calculator.js"></script>
+</head>
+<body>
+  {%include navigation.html %}
+  <div class="home">
+    <h1 id="header-wrappable">LRT-1 Train Car Calculator</h1>
+    <div class="calculator-container" id="check-id-number-container">
+      <p class="center-paragraph" id="space-below-paragraph">Determine which train to board to arrive at the nearest exit at your destination.</p>
+      <div class="form-container" id="train-car-calculator">
+        <form>
+          <!--Origin-->
+          <div class="row mb-3">
+            <label for="origin-station" class="form-label">Origin</label>
+            <select class="form-select" id="origin-station">
+                <option value="0">Fernando Poe Jr.</option>
+                <option value="1">Balintawak</option>
+                <option value="2">Monumento</option>
+                <option value="3">5th Avenue</option>
+                <option value="4">R. Papa</option>
+                <option value="5">Abad Santos</option>
+                <option value="6">Blumentritt</option>
+                <option value="7">Tayuman</option>
+                <option value="8">Bambang</option>
+                <option value="9">Doroteo Jose</option>
+                <option value="10">Carriedo</option>
+                <option value="11">Central Terminal</option>
+                <option value="12">United Nations</option>
+                <option value="13">Pedro Gil</option>
+                <option value="14">Quirino</option>
+                <option value="15">Vito Cruz</option>
+                <option value="16">Gil Puyat</option>
+                <option value="17">Libertad</option>
+                <option value="18">EDSA</option>
+                <option value="19">Baclaran</option>
+                <option value="20">Redemptorist-Aseana</option>
+                <option value="21">MIA Road</option>
+                <option value="22">PITX</option>
+                <option value="23">Ninoy Aquino Avenue</option>
+                <option value="24">Dr. Santos</option>
+            </select>
+            <div id="origin-station-feedback" class="invalid-feedback"></div>
+          </div>
+          <!--Destination-->
+          <div class="row mb-3">
+            <label for="destination-station" class="form-label">Destination</label>
+            <select class="form-select" id="destination-station">
+                <option value="0">Fernando Poe Jr.</option>
+                <option value="1" selected>Balintawak</option>
+                <option value="2">Monumento</option>
+                <option value="3">5th Avenue</option>
+                <option value="4">R. Papa</option>
+                <option value="5">Abad Santos</option>
+                <option value="6">Blumentritt</option>
+                <option value="7">Tayuman</option>
+                <option value="8">Bambang</option>
+                <option value="9">Doroteo Jose</option>
+                <option value="10">Carriedo</option>
+                <option value="11">Central Terminal</option>
+                <option value="12">United Nations</option>
+                <option value="13">Pedro Gil</option>
+                <option value="14">Quirino</option>
+                <option value="15">Vito Cruz</option>
+                <option value="16">Gil Puyat</option>
+                <option value="17">Libertad</option>
+                <option value="18">EDSA</option>
+                <option value="19">Baclaran</option>
+                <option value="20">Redemptorist-Aseana</option>
+                <option value="21">MIA Road</option>
+                <option value="22">PITX</option>
+                <option value="23">Ninoy Aquino Avenue</option>
+                <option value="24">Dr. Santos</option>
+            </select>
+            <div id="destination-station-feedback" class="invalid-feedback"></div>
+          </div>
+          <!--Direction-->
+          <div class="row mb-4">
+            <label for="direction" class="form-label">Train Direction</label>
+            <input class="form-control" type="text" id="direction" value="Southbound" disabled readonly>
+          </div>
+          <div class="row mb-5">
+            <button type="button" class="btn btn-success btn-lg mr-2 wide-submit" id="train-car-calculator-submit">Calculate</button>
+          </div>
+        </form>
+      </div>
+      <!--Output-->
+      <div class="row mb-4" id="train-car-results" hidden>
+        <label id="train-car-calculator-result-label">Result:</label>
+        <p class="calcu-result" id="train-car-number-result"></p>
+        <p class="calcu-result" id="train-car-message-result"></p>
+      </div>
+    </div>
+  <footer>
+    {% include footer.html %}
+  </footer>
+</body>

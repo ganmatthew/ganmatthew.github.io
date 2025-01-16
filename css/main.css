@@ -320,6 +320,22 @@ nav a:hover {
   margin: auto;
 }
 
+.form-container#train-car-calculator {
+  max-width: 1200px;
+  width: 22em;
+  margin: auto;
+}
+
+#train-car-results {
+  max-width: 1200px;
+  width: 40em;
+  margin: auto;
+}
+
+.btn-group {
+  width: 100%;
+}
+
 #header-center {
   width: 20em;
   font-size: 24px;
@@ -343,6 +359,16 @@ nav a:hover {
   padding-left: 0.25em;
   font-weight: 500;
   font-size: 36px;
+}
+
+.calcu-result#train-car-number-result {
+  font-weight: 500;
+  font-size: 36px;
+}
+
+.calcu-result#train-car-message-result {
+  font-weight: 300;
+  font-size: 21px;
 }
 
 .small-calcu-result {

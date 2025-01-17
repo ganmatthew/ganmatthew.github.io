@@ -204,6 +204,19 @@ function processData(data, origin, destination, direction, usePriorityCar, resul
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
+    function submit() {
+        submitBtn.disabled = true;
+        processData(
+            data, origin, destination, direction, priorityCar.checked,
+            results, resultsCar, resultsMsg
+        );
+        submitBtn.disabled = false;
+    }
+    function validate() {
+        const inputsValid = validateInputData(data);
+        submitBtn.disabled = !inputsValid;
+    }
+
     let line = document.getElementById('train-line');
     let origin = document.getElementById('origin-station');
     let destination = document.getElementById('destination-station');
@@ -228,30 +241,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
  
     [origin, destination, priorityCar].forEach(element => {
-        element.addEventListener('click', () => {
-            const inputsValid = validateInputData(data);
-            submitBtn.disabled = !inputsValid;
-        });
+        element.addEventListener('click', validate);
+        element.addEventListener('touchstart', validate);
     });
  
-    submitBtn.addEventListener('click', (e) => {
-        submitBtn.disabled = true;
-        processData(
-            data, origin, destination, direction, priorityCar.checked,
-            results, resultsCar, resultsMsg
-        );
-        submitBtn.disabled = false;
-    });
-
-    submitBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        submitBtn.disabled = true;
-        processData(
-            data, origin, destination, direction, priorityCar,
-            results, resultsCar, resultsMsg
-        );
-        submitBtn.disabled = false;
-    });
+    submitBtn.addEventListener('click', submit);
+    submitBtn.addEventListener('touchstart', submit);
 
  })
 

@@ -5,7 +5,9 @@
 
 const Direction = {
     NB: 'north',
-    SB: 'south'
+    SB: 'south',
+    EB: 'east',
+    WB: 'west',
 }
 
 const Ordinal = {
@@ -71,8 +73,8 @@ const MRT3Data = [
     { "name": "Guadalupe", "exitMap": { "north": [ ], "south": [ ] } },
     { "name": "Buendia", "exitMap": { "north": [ ], "south": [ ] } },
     { "name": "Ayala", "exitMap": { "north": [ ], "south": [ ] } },
-    { "name": "Magallanes", "exitMap": { "north": [ ], "south": [ ] } },
-    { "name": "Taft Avenue", "exitMap": { "north": [ ], "south": [ ] } }, // index 12
+    { "name": "Magallanes", "exitMap": { "north": [4], "south": [1] } },
+    { "name": "Taft Avenue", "exitMap": { "north": [3], "south": [1] } }, // index 12
 ]
 
 const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the same";
@@ -202,6 +204,19 @@ function processData(data, origin, destination, direction, usePriorityCar, resul
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
+    function submit() {
+        submitBtn.disabled = true;
+        processData(
+            data, origin, destination, direction, priorityCar.checked,
+            results, resultsCar, resultsMsg
+        );
+        submitBtn.disabled = false;
+    }
+    function validate() {
+        const inputsValid = validateInputData(data);
+        submitBtn.disabled = !inputsValid;
+    }
+
     let line = document.getElementById('train-line');
     let origin = document.getElementById('origin-station');
     let destination = document.getElementById('destination-station');
@@ -226,30 +241,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
  
     [origin, destination, priorityCar].forEach(element => {
-        element.addEventListener('click', () => {
-            const inputsValid = validateInputData(data);
-            submitBtn.disabled = !inputsValid;
-        });
+        element.addEventListener('click', validate);
+        element.addEventListener('touchstart', validate);
     });
  
-    submitBtn.addEventListener('click', (e) => {
-        submitBtn.disabled = true;
-        processData(
-            data, origin, destination, direction, priorityCar.checked,
-            results, resultsCar, resultsMsg
-        );
-        submitBtn.disabled = false;
-    });
-
-    submitBtn.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        submitBtn.disabled = true;
-        processData(
-            data, origin, destination, direction, priorityCar,
-            results, resultsCar, resultsMsg
-        );
-        submitBtn.disabled = false;
-    });
+    submitBtn.addEventListener('click', submit);
+    submitBtn.addEventListener('touchstart', submit);
 
  })
 

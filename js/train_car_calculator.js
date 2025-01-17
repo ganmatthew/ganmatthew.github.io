@@ -5,7 +5,9 @@
 
 const Direction = {
     NB: 'north',
-    SB: 'south'
+    SB: 'south',
+    EB: 'east',
+    WB: 'west',
 }
 
 const Ordinal = {
@@ -71,8 +73,8 @@ const MRT3Data = [
     { "name": "Guadalupe", "exitMap": { "north": [ ], "south": [ ] } },
     { "name": "Buendia", "exitMap": { "north": [ ], "south": [ ] } },
     { "name": "Ayala", "exitMap": { "north": [ ], "south": [ ] } },
-    { "name": "Magallanes", "exitMap": { "north": [ ], "south": [ ] } },
-    { "name": "Taft Avenue", "exitMap": { "north": [ ], "south": [ ] } }, // index 12
+    { "name": "Magallanes", "exitMap": { "north": [4], "south": [1] } },
+    { "name": "Taft Avenue", "exitMap": { "north": [3], "south": [1] } }, // index 12
 ]
 
 const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the same";
@@ -241,7 +243,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         submitBtn.disabled = false;
     });
 
-    submitBtn.addEventListener('touchend', (e) => {
+    submitBtn.addEventListener('touchstart', (e) => {
         e.preventDefault();
         submitBtn.disabled = true;
         processData(

@@ -43,6 +43,38 @@ const LRT1Data = [
     { "name": "Dr. Santos", "exitMap": { "north": [1,2], "south": [3,4] } } // index 24
 ]
 
+const LRT2Data = [
+    { "name": "Recto", "exitMap": { "north": [ ], "south": [ ] } }, // index 0
+    { "name": "Legarda", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Pureza", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "V. Mapa", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "J. Ruiz", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Gilmore", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Betty Go-Belmonte", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Araneta Center-Cubao", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Anonas", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Katipunan", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Santolan", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Marikina-Pasig", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Antipolo", "exitMap": { "north": [ ], "south": [ ] } }, // index 12
+]
+
+const MRT3Data = [
+    { "name": "North Avenue", "exitMap": { "north": [ ], "south": [ ] } }, // index 0
+    { "name": "Quezon Avenue", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "GMA-Kamuning", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Araneta Center-Cubao", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Santolan-Annapolis", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Ortigas", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Shaw Bouelvard", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Boni", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Guadalupe", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Buendia", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Ayala", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Magallanes", "exitMap": { "north": [ ], "south": [ ] } },
+    { "name": "Taft Avenue", "exitMap": { "north": [ ], "south": [ ] } }, // index 12
+]
+
 const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the same";
 const ERROR_MSG_NORTH_END = "Origin station is the northern terminus";
 const ERROR_MSG_SOUTH_END = "Origin station is the southern terminus";
@@ -114,11 +146,11 @@ function generateMessage(data, originInd, destInd, directionText, carArr) {
         carResult = `Car No. ${carArr[0]}`;
     }
 
-    let message = `To arrive near the exit at ${destination}, board the ${carText} car from the ${direction} platform at ${origin}.`
+    let message = `To arrive near the exit at ${destination}, board the ${carText} car at the ${direction} platform of ${origin}.`
     return [message, carResult];
 }
 
-function calculateTrainCar(data, originInd, destInd, directionText) {
+function calculateTrainCar(data, originInd, destInd, directionText, usePriorityCar) {
     // Validate inputs
     if (!data) {
         throw new Error('Invalid data')
@@ -127,16 +159,29 @@ function calculateTrainCar(data, originInd, destInd, directionText) {
         throw new Error('Invalid station indices');
     }
     const direction = directionText === 'Northbound' ? 'north' : 'south';
+
     // Get destination station exit cars
     const destExits = data[destInd].exitMap[direction];
-    if (destExits) {
-        return destExits;
+    console.log(`Got ${destExits}`)
+
+    // If priorityCar is not checked, subtract the front car number by 1
+    if (!usePriorityCar) {
+        // If destExits contains cars 1 and 2, retain only car 2
+        if (destExits.length === 2 && destExits[0] === 1 && destExits[1] === 2) {
+            destExits = [destExits[1]];
+            console.log(`Changed to ${destExits}`)
+        // Otherwise, change car 1 to car 2
+        } else if (destExits[0] === 1) {
+            destExits[0] = destExits[0] + 1;   
+            console.log(`Changed to ${destExits}`)
+        }
     }
+    return destExits;
 }
 
-function processData(data, origin, destination, direction, results, resultsCar, resultsMsg) {
+function processData(data, origin, destination, direction, usePriorityCar, results, resultsCar, resultsMsg) {
     const carArr = calculateTrainCar(
-        data, origin.value, destination.value, direction.value
+        data, origin.value, destination.value, direction.value, usePriorityCar
     )
     const [message, carResult] = generateMessage(
         data, origin.value, destination.value, direction.value, carArr
@@ -157,17 +202,30 @@ function processData(data, origin, destination, direction, results, resultsCar, 
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
+    let line = document.getElementById('train-line');
     let origin = document.getElementById('origin-station');
     let destination = document.getElementById('destination-station');
     let direction = document.getElementById('direction');
+    let priorityCar = document.getElementById('priority-car');
     let submitBtn = document.getElementById('train-car-calculator-submit');
     let results = document.getElementById('train-car-results');
     let resultsCar = document.getElementById('train-car-number-result');
     let resultsMsg = document.getElementById('train-car-message-result');
 
-    let data = LRT1Data;
+    let data;
+    switch(line.value) {
+        case '0':
+            data = LRT1Data;
+            break;
+        case '1':
+            data = LRT2Data;
+            break;
+        case '2':
+            data = MRT3Data;
+            break;
+    }
  
-    [origin, destination].forEach(element => {
+    [origin, destination, priorityCar].forEach(element => {
         element.addEventListener('click', () => {
             const inputsValid = validateInputData(data);
             submitBtn.disabled = !inputsValid;
@@ -177,7 +235,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     submitBtn.addEventListener('click', (e) => {
         submitBtn.disabled = true;
         processData(
-            data, origin, destination, direction, results, resultsCar, resultsMsg
+            data, origin, destination, direction, priorityCar.checked,
+            results, resultsCar, resultsMsg
         );
         submitBtn.disabled = false;
     });
@@ -186,7 +245,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
         e.preventDefault();
         submitBtn.disabled = true;
         processData(
-            data, origin, destination, direction, results, resultsCar, resultsMsg
+            data, origin, destination, direction, priorityCar,
+            results, resultsCar, resultsMsg
         );
         submitBtn.disabled = false;
     });

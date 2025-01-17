@@ -321,15 +321,41 @@ nav a:hover {
 }
 
 .form-container#train-car-calculator {
-  max-width: 1200px;
   width: 22em;
+}
+
+div#train-car-results {
+  max-width: 720px;
+  width: 95%;
   margin: auto;
 }
 
-#train-car-results {
-  max-width: 1200px;
-  width: 40em;
-  margin: auto;
+p.calcu-result#train-car-number-result{
+  padding: 0.5em;
+}
+
+@media only screen and (max-width: 400px) {
+  p.calcu-result#train-car-number-result{
+    padding: 1em;
+    width: 100%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  div#train-car-results {
+    width: 95%;
+  }
+
+  p.calcu-result#train-car-number-result{
+    padding: 0.5em;
+    width: 90%;
+    margin: auto;
+  }
+
+  .form-container#train-car-calculator {
+    width: 90%;
+  }
 }
 
 .btn-group {

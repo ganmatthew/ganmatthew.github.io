@@ -47,7 +47,7 @@ const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the sam
 const ERROR_MSG_NORTH_END = "Origin station is the northern terminus";
 const ERROR_MSG_SOUTH_END = "Origin station is the southern terminus";
 
-function validateInputData() {
+function validateInputData(data) {
     let origin = document.getElementById('origin-station');
     let originFeedback = document.getElementById('origin-station-feedback');
     let destination = document.getElementById('destination-station');
@@ -73,7 +73,7 @@ function validateInputData() {
         origin.classList.add('is-invalid');
         passed = false;
     }   
-    if (originInd == LRT1Data.length - 1 && direction == Direction.SB) {
+    if (originInd == data.length - 1 && direction == Direction.SB) {
         originFeedback.innerHTML = ERROR_MSG_SOUTH_END;
         origin.classList.add('is-invalid');
         passed = false;
@@ -134,6 +134,28 @@ function calculateTrainCar(data, originInd, destInd, directionText) {
     }
 }
 
+function processData(data, origin, destination, direction, results, resultsCar, resultsMsg) {
+    const carArr = calculateTrainCar(
+        data, origin.value, destination.value, direction.value
+    )
+    const [message, carResult] = generateMessage(
+        data, origin.value, destination.value, direction.value, carArr
+    );
+    console.log(message)
+    results.hidden = false;
+    resultsCar.innerHTML = carResult;
+    resultsMsg.innerHTML = message;
+    setTimeout(() => {
+        requestAnimationFrame(() => {
+          window.scrollTo({
+            top: document.documentElement.scrollHeight - window.innerHeight,
+            left: 0,
+            behavior: 'smooth',
+          })
+        })
+      }, 3)
+}
+
 document.addEventListener("DOMContentLoaded", (e) => {
     let origin = document.getElementById('origin-station');
     let destination = document.getElementById('destination-station');
@@ -142,34 +164,31 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let results = document.getElementById('train-car-results');
     let resultsCar = document.getElementById('train-car-number-result');
     let resultsMsg = document.getElementById('train-car-message-result');
+
+    let data = LRT1Data;
  
     [origin, destination].forEach(element => {
         element.addEventListener('click', () => {
-            const inputsValid = validateInputData();
+            const inputsValid = validateInputData(data);
             submitBtn.disabled = !inputsValid;
         });
     });
  
-    submitBtn.addEventListener('click', (event) => {
-        const carArr = calculateTrainCar(
-            LRT1Data, origin.value, destination.value, direction.value
-        )
-        const [message, carResult] = generateMessage(
-            LRT1Data, origin.value, destination.value, direction.value, carArr
+    submitBtn.addEventListener('click', (e) => {
+        submitBtn.disabled = true;
+        processData(
+            data, origin, destination, direction, results, resultsCar, resultsMsg
         );
-        console.log(message)
-        results.hidden = false;
-        resultsCar.innerHTML = carResult;
-        resultsMsg.innerHTML = message;
-        setTimeout(() => {
-            requestAnimationFrame(() => {
-              window.scrollTo({
-                top: document.documentElement.scrollHeight - window.innerHeight,
-                left: 0,
-                behavior: 'smooth',
-              })
-            })
-          }, 3)
+        submitBtn.disabled = false;
+    });
+
+    submitBtn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        processData(
+            data, origin, destination, direction, results, resultsCar, resultsMsg
+        );
+        submitBtn.disabled = false;
     });
 
  })

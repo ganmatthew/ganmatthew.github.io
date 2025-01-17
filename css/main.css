@@ -217,12 +217,10 @@ nav a:hover {
 }
 
 .container {
-  margin: 0;
-  width: auto;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin: 0 auto;
+  width: 100%;
   display: grid;
-  /* grid-gap: 1rem; */
+  grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
   padding-left: calc(var(--bs-gutter-x) * .55);
   padding-right: calc(var(--bs-gutter-x) * .55);

@@ -116,7 +116,7 @@ function validateInputData(data) {
         destination.classList.add('is-invalid');
         originFeedback.innerHTML = ERROR_MSG_SAME_STATION;
         destinationFeedback.innerHTML = ERROR_MSG_SAME_STATION;   
-        direction.value = 'Cannot be determined';
+        direction.value = '?';
         passed = false;
     } else {
         // Determine direction from origin and destination
@@ -161,19 +161,19 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     const direction = directionText === 'Northbound' ? 'north' : 'south';
 
     // Get destination station exit cars
-    const destExits = data[destInd].exitMap[direction];
+    let destExits = data[destInd].exitMap[direction];
     console.log(`Got ${destExits}`)
 
     // If priorityCar is not checked, subtract the front car number by 1
     if (!usePriorityCar) {
         // If destExits contains cars 1 and 2, retain only car 2
         if (destExits.length === 2 && destExits[0] === 1 && destExits[1] === 2) {
-            destExits = [destExits[1]];
-            console.log(`Changed to ${destExits}`)
+            destExits = [2];
+            console.log(`Changed to ${destExits}`);
         // Otherwise, change car 1 to car 2
         } else if (destExits[0] === 1) {
-            destExits[0] = destExits[0] + 1;   
-            console.log(`Changed to ${destExits}`)
+            destExits = destExits.map(car => car === 1 ? 2 : car);
+            console.log(`Changed to ${destExits}`);
         }
     }
     return destExits;

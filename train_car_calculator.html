@@ -1,6 +1,6 @@
 ---
-title: LRT-1 Train Car Calculator
-description: Calculate which train car to enter on Metro Manila's LRT-1 to arrive at the nearest exit at your destination station.
+title: Train Car Calculator
+description: Calculate which train car to enter on Metro Manila's LRT and MRT lines to arrive at the nearest exit at your destination station.
 permalink: /train-car-calculator
 ---
 <head>
@@ -15,7 +15,7 @@ permalink: /train-car-calculator
 <body>
   {%include navigation.html %}
   <div class="home">
-    <h1 id="header-wrappable">LRT-1 Train Car Calculator</h1>
+    <h1 id="header-wrappable">LRT/MRT Train Car Calculator</h1>
     <div class="calculator-container" id="check-id-number-container">
       <p class="center-paragraph" id="space-below-paragraph">Determine which train to board to arrive at the nearest exit at your destination.</p>
       <div class="form-container" id="train-car-calculator">
@@ -23,10 +23,10 @@ permalink: /train-car-calculator
           <!--Line-->
           <div class="mb-3">
             <label for="train-line" class="form-label">Line</label>
-            <select class="form-select" id="train-line"disabled>
-                <option value="0" selected>LRT-1</option>
-                <!-- <option value="1" selected>LRT-2</option> -->
-                <!-- <option value="2" selected>MRT-3</option> -->
+            <select class="form-select" id="train-line">
+                <option value="0" readonly selected>LRT-1</option>
+                <!-- <option value="1">LRT-2</option>
+                <option value="2">MRT-3</option> -->
             </select>
             <div id="origin-station-feedback" class="invalid-feedback"></div>
           </div>

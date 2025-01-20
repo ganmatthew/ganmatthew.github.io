@@ -131,9 +131,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
       }
    });
 
-   checkIdInput.addEventListener('focusout', validateIDNumber);
+   checkIdInput.addEventListener('change', validateIDNumber);
    
-   generateIdInput.addEventListener('focusout', (event) => {
+   generateIdInput.addEventListener('change', (event) => {
       let digits = generateIdInput.value;
       generateIdResult.value = getYearFromDigits(digits);
    });

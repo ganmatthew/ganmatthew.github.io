@@ -127,6 +127,6 @@
             parseInput();
          }
       });
-      document.getElementById("grade-calcu-input").addEventListener("focusout", parseInput);
+      document.getElementById("grade-calcu-input").addEventListener("change", parseInput);
 
    })

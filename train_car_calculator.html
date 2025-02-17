@@ -13,7 +13,7 @@ permalink: /train-car-calculator
 <body>
   {%include navigation.html %}
   <div class="home">
-    <h1 id="header-wrappable">LRT/MRT Train Car Calculator</h1>
+    <h1 class="calc-title">LRT/MRT Train Car Calculator<span class="beta-indicator" hidden><p class="badge badge-secondary">BETA</p></span></h1>
     <div class="calculator-container" id="check-id-number-container">
       <p class="center-paragraph" id="space-below-paragraph">Determine which train to board to arrive at the nearest exit at your destination.</p>
       <div class="form-container" id="train-car-calculator">
@@ -104,6 +104,10 @@ permalink: /train-car-calculator
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="priority-car">
                 <label class="form-check-label" for="priority-car">Include priority car</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="beta-features">
+                <label class="form-check-label" for="beta-features">Beta features</label>
               </div>
             </div>
           </div>

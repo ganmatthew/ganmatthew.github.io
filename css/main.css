@@ -205,6 +205,24 @@ nav a:hover {
   transition: 150ms ease-in-out;
 }
 
+h1.calc-title {
+  margin-bottom: 0;
+}
+
+span.beta-indicator {
+  position: absolute;
+  padding: 4px 6px 4px;
+  border-radius: 6px;
+}
+
+span.beta-indicator p {
+  background-color: #364877;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+  font-size: 12px;
+}
+
 .gridLinks {
   justify-content: center;
   display: flex;

@@ -59,46 +59,21 @@
   <div class="art-type">
     <h2>Logos</h2>
   </div>
-  <div class="grid art-grid">
+  <div class="grid art-grid" id="art-grid-logos">
     <!-- width of .grid-sizer used for columnWidth -->
     <div class="grid-sizer"></div>
-    <!-- <div class="grid-item"><img src="images\artworks\CentralandPH.png"></div>  -->
-    <div class="grid-item" data-title="JubiFries Logo" data-subtitle="Icon/Logo" data-project="JubiFries" data-year="2018" data-desc="A logo made for our food booth at my high school's student-run bazaar, which sold different flavors of French fries and some homemade brownies. The logo takes inspiration from the name of the school and is a subtle take on the school's branding and colors, as well as its core values insignia."><img src="images\artworks\Jubifries_V2_Background.png"></div>     
-    <div class="grid-item" data-title="CVRF Logo" data-subtitle="Icon/Logo" data-project="Cobalt Valley Research Facility" data-year="2018 (original)<br/>2020 (current)" data-desc="Logo of the Cobalt Valley Research Facility (CVRF), the setting of the namesake Roblox sci-fi facility roleplay game that I worked on. The logo was originally made in 2018 for its predecessor, the Hyptek Tyonek Research Facility (HTRF). After that project was cancelled and relaunched as CVRF in 2020, the HTRF logo was reused and improved on with the CVRF name."><img src="images\artworks\CVRF.png"></div>
-    <div class="grid-item" data-title="Tetris Logo" data-subtitle="Icon/Logo" data-project="Tetris" data-year="2021" data-desc="Logo that I made for an Android port of Tetris written in Java that me and a friend made as part of our final project for MOBDEVE at DLSU."><img src="images\artworks\TetrisIconForeground.png"></div>
-    <div class="grid-item" data-title="HYBB Logo" data-subtitle="Icon/Logo" data-project="How's Your Byahe Bes" data-year="2023" data-desc="Made a logo inspired by Philippine jeepney signage art for the mobility advocacy group and community &quot;How's Your Byahe, Bes&quot; on Facebook, where I currently am a moderator of."><img src="images\artworks\HYBB_logo.png"></div>
   </div>
   <div class="art-type">
     <h2>Thumbnails</h2>
   </div>
-  <div class="grid art-grid">
+  <div class="grid art-grid" id="art-grid-thumbnails">
     <div class="grid-sizer"></div>
-    <div class="grid-item"><img src="images\artworks\CVRFIntegratedThumbHidden.png"></div>
-    <div class="grid-item"><img src="images\artworks\CVRFIntegratedThumbProps.png"></div>
-    <div class="grid-item"><img src="images\artworks\CVRF015Thumb1.png"></div>
-    <div class="grid-item"><img src="images\artworks\CVRFIntegratedThumbHeadcrabs.png"></div>
   </div>
   <div class="art-type">
     <h2>Posters and Pubmats</h2>
   </div>
-  <div class="grid art-grid">
+  <div class="grid art-grid" id="art-grid-pubs">
     <div class="grid-sizer"></div>
-    <div class="grid-item"><img src="images\artworks\LSCS3rdGAMain_Edited.png"></div>
-    <div class="grid-item"><img src="images\artworks\LSCSCreativeProblemSolvingOriginal.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSDesignThinkingPub_Revised.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSFigmaWorkshop.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSFinalsGroupStudy2021C.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSFirebaseFlutterDartPub.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSJavaThreadingPub.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSLaTeXWorkshopPub.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSLetsGitReady.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSLifestreamPub.png"></div>
-    <div class="grid-item"><img src="images/artworks/LSCSNodeJSMiddlewares.png"></div>
-    <div class="grid-item"><img src="images\artworks\project hiraya de espana-compressed.jpg"></div>
-    <div class="grid-item"><img src="images\artworks\060419-1.jpeg"></div>
-    <div class="grid-item"><img src="images\artworks\061219-1.jpg"></div>
-    <div class="grid-item"><img src="images\artworks\project tanaw.png"></div>
-    <div class="grid-item"><img src="images\artworks\PressStartPoster.png"></div>
   </div>
 </section>
 <div class="image-modal" hidden>
@@ -137,80 +112,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  // Use masonry for image grids
-  let msnry;
-  let masonryOptions = {
-    itemSelector: '.grid-item',
-    columnWidth: '.grid-sizer',
-    resize: true,
-    gutter: 8,
-    stagger: 30
-  };
-  document.querySelectorAll('.grid').forEach(function(gridElement) {
-    imagesLoaded(gridElement, function() {
-      msnry = new Masonry(gridElement, masonryOptions);
-    });
-  });
-  // Image modal functionality
-  const modal = document.getElementsByClassName('image-modal')[0];
-  const modalImage = modal.querySelector('img');
-  const navbar = document.getElementsByClassName('nav-bg')[0];
-  // Modal elements
-  const modalTitle = document.getElementById('modal-title');
-  const modalSubtitle = document.getElementById('modal-subtitle');
-  const modalProject = document.getElementById('modal-project');
-  const modalYear = document.getElementById('modal-year');
-  const modalDesc = document.getElementById('modal-desc');
-  const closeBtn = document.getElementById('modal-close')
-  // Toggle scrolling when modal is open
-  document.querySelectorAll('.grid-item').forEach(function(gridItem) {
-    gridItem.addEventListener('click', (event) => {
-      const gridImage = gridItem.querySelector('img');    
-      // Modal data attributes
-      const title = gridItem.dataset.title;
-      const subtitle = gridItem.dataset.subtitle;
-      const project = gridItem.dataset.project;
-      const year = gridItem.dataset.year;
-      const desc = gridItem.dataset.desc;
-      // Use data attributes if they exist
-      if (title) { modalTitle.innerHTML = title; }
-      if (subtitle) { modalSubtitle.innerHTML = subtitle; }
-      if (project) { modalProject.innerHTML = project; }
-      if (year) { modalYear.innerHTML = year; }
-      if (desc) { modalDesc.innerHTML = desc; }
-      // Close modal by clicking the close button
-      closeBtn.addEventListener('click', (event) => {
-        if (!modal.hidden && modalImage.src) {
-          modalImage.src = "";
-          modal.hidden = true;
-          if (navbar.classList.contains('dark')) {
-            navbar.classList.remove('dark');
-          }
-          if (modal.classList.contains('horizontal')) {
-            modal.classList.remove('horizontal');
-          }
-          if (modal.classList.contains('vertical')) {
-            modal.classList.remove('vertical');
-          }
-          document.documentElement.style.overflow = 'auto';
-          if (title) { modalTitle.innerHTML = 'No title'; }
-          if (subtitle) { modalSubtitle.innerHTML = 'Image'; }
-          if (project) { modalProject.innerHTML = ''; }
-          if (year) { modalYear.innerHTML = ''; }
-          if (desc) { modalDesc.innerHTML = 'No description available'; }
-        }
-      });
-      // Get aspect ratio of image; horizontal > 1, vertical <= 1
-      if (gridImage.naturalWidth / gridImage.naturalHeight > 1) {
-        modal.classList.add('horizontal');
-      } else {
-        modal.classList.add('vertical');
-      }
-      modal.hidden = false;
-      modalImage.src = gridImage.src;
-      navbar.classList.add('dark');
-      document.documentElement.style.overflow = 'hidden';
-    })
-  });
-</script>

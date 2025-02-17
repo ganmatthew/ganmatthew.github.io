@@ -205,6 +205,24 @@ nav a:hover {
   transition: 150ms ease-in-out;
 }
 
+h1.calc-title {
+  margin-bottom: 0;
+}
+
+span.beta-indicator {
+  position: absolute;
+  padding: 4px 6px 4px;
+  border-radius: 6px;
+}
+
+span.beta-indicator p {
+  background-color: #364877;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+  font-size: 12px;
+}
+
 .gridLinks {
   justify-content: center;
   display: flex;
@@ -471,9 +489,13 @@ div.grid.art-grid {
   margin-bottom: 10px;
 }
 
+button.btn-close {
+  width: 2rem;
+  height: 2rem;
+}
+
 @media screen and (max-width: 780px) {
   .art-grid .grid-sizer, .art-grid .grid-item { width: 100%; }
-  button.btn-close { width: 2rem; height: 2rem; }
 }
 
 .art-grid .grid-item img {
@@ -515,8 +537,12 @@ div.image-modal {
 div.modal-header {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
+}
+
+.modal-right {
+  width: 45%;
 }
 
 .image-modal.vertical .modal-right {

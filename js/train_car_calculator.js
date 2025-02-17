@@ -70,21 +70,21 @@ const LRT2Data = {
 }
 
 const MRT3Data = {
-    "numberOfCars": 4,
+    "numberOfCars": 3,
     "directions": [ Direction.NB, Direction.SB ],
     "stations": [
-        { "name": "North Avenue", "exitMap": { "north": [ ], "south": [ ] } }, // index 0
-        { "name": "Quezon Avenue", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "GMA-Kamuning", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Araneta Center-Cubao", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Santolan-Annapolis", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Ortigas", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Shaw Bouelvard", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Boni", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Guadalupe", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Buendia", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Ayala", "exitMap": { "north": [ ], "south": [ ] } },
-        { "name": "Magallanes", "exitMap": { "north": [4], "south": [1] } },
+        { "name": "North Avenue", "exitMap": { "north": [3], "south": [2] } }, // index 0
+        { "name": "Quezon Avenue", "exitMap": { "north": [1], "south": [3] } },
+        { "name": "GMA-Kamuning", "exitMap": { "north": [3], "south": [2] } },
+        { "name": "Araneta Center-Cubao", "exitMap": { "north": [1,2,3], "south": [1,2,3] } },
+        { "name": "Santolan-Annapolis", "exitMap": { "north": [3], "south": [1] } },
+        { "name": "Ortigas", "exitMap": { "north": [3], "south": [2] } },
+        { "name": "Shaw Boulevard", "exitMap": { "north": [1,2,3], "south": [1,2,3] } },
+        { "name": "Boni", "exitMap": { "north": [1,2,3], "south": [1,2,3] } },
+        { "name": "Guadalupe", "exitMap": { "north": [3], "south": [1] } },
+        { "name": "Buendia", "exitMap": { "north": [1], "south": [3] } },
+        { "name": "Ayala", "exitMap": { "north": [1,2,3], "south": [1,2,3] } },
+        { "name": "Magallanes", "exitMap": { "north": [3], "south": [1] } },
         { "name": "Taft Avenue", "exitMap": { "north": [3], "south": [1] } }, // index 12
     ]
 }
@@ -240,33 +240,28 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     // Get destination station exit cars
     const direction = directionMap[directionText];
     let destExits = stationsData[destInd].exitMap[direction];
-    console.log(`Got ${destExits}`)
+    console.log(`${stationsData[originInd].name} -> ${stationsData[destInd].name} ${directionText.toLowerCase()} result: Car ${destExits}`);
 
     // If priorityCar is not checked, car 1 must be removed
-    if (!usePriorityCar) {
-        // If destExits contains cars 1 and 2, retain only car 2
-        if (destExits.length === 2 && destExits[0] === 1 && destExits[1] === 2) {
-            destExits = [2]; // assume 1 is at the top
-            console.log(`Changed to ${destExits}`);
-        // In other conditions where destExits contains car 1, simply remove it
-        } else if (destExits[0] === 1) {
-            // destExits = destExits.map(car => car === 1 ? 2 : car);
-            destExits.shift(); // assume car 1 is in front
-            console.log(`Changed to ${destExits}`);
-        }
+    if (!usePriorityCar && destExits[0] === 1 || (destExits.length === 2 && destExits[1] === 2)) {
+        // If the resulting car is car 1, shift to car 2
+        // If it is both cars 1 and 2, retain only car 2
+        const oldValue = destExits;
+        destExits = [2]; // assume 1 is at the top
+        console.log(`Priority Car disabled: Changed from ${oldValue} to ${destExits}`);
+    } else {
+        console.log(`Priority Car enabled: No changes made`);
     }
     return destExits;
 }
 
 function processData(data, origin, destination, direction, usePriorityCar, results, resultsCar, resultsMsg) {
-    console.log("Processing data")
     const carArr = calculateTrainCar(
         data, origin.value, destination.value, direction.value, usePriorityCar
     )
     const [message, carResult] = generateMessage(
         data, origin.value, destination.value, direction.value, carArr
     );
-    console.log(message)
     results.hidden = false;
     resultsCar.innerHTML = carResult;
     resultsMsg.innerHTML = message;
@@ -282,12 +277,60 @@ function processData(data, origin, destination, direction, usePriorityCar, resul
     }, 3)
 }
 
+function toggleBetaFeatures(betaFeatures, betaBadge, line) {
+    const betaOptions = [
+        { value: '1', text: 'LRT-2' },
+        { value: '2', text: 'MRT-3' }
+    ];
+    // Check if the checkbox is checked
+    if (betaFeatures.checked) {
+        // Add beta options if checked
+        betaOptions.forEach(optionData => {
+            // Check if the option already exists to avoid duplication
+            if (!Array.from(line.options).some(opt => opt.value === optionData.value)) {
+                const option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.text;
+                line.appendChild(option);
+            }
+        });
+        betaBadge.hidden = false;
+    } else {
+        // Remove beta options if unchecked
+        Array.from(line.options).forEach(option => {
+            if (betaOptions.some(betaOption => betaOption.value === option.value)) {
+                line.removeChild(option);
+            }
+        });
+        betaBadge.hidden = true
+    }
+}
+
+function saveCheckboxStates() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+      localStorage.setItem(checkbox.id, checkbox.checked);
+    });
+  }  
+
+function loadCheckboxStates() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+        const savedState = localStorage.getItem(checkbox.id);
+        if (savedState !== null) {
+            checkbox.checked = savedState === 'true';
+        }
+    });
+}
+
 document.addEventListener("DOMContentLoaded", (e) => {
     let line = document.getElementById('train-line');
     let origin = document.getElementById('origin-station');
     let destination = document.getElementById('destination-station');
     let direction = document.getElementById('direction');
     let priorityCar = document.getElementById('priority-car');
+    let betaFeatures = document.getElementById('beta-features');
+    let betaBadge = document.getElementsByClassName('beta-indicator');
     let submitBtn = document.getElementById('train-car-calculator-submit');
     let results = document.getElementById('train-car-results');
     let resultsCar = document.getElementById('train-car-number-result');
@@ -300,15 +343,26 @@ document.addEventListener("DOMContentLoaded", (e) => {
     };
 
     // Generate the dropdown options
-    line.addEventListener('change', (event) => {        
-        const data = dataMap[line.value || 0];
-        const stationsData = data['stations'];
-        const directionsData = data['directions'];
-        generateDropdownOptions(stationsData, [origin, destination]) 
-        updateDirectionValue(
-            directionsData, parseInt(origin.value), parseInt(destination.value), direction
-        )
+    [line, betaFeatures].forEach(element => {
+        element.addEventListener('change', (event) => {  
+            toggleBetaFeatures(betaFeatures, betaBadge[0], line)
+            const data = dataMap[line.value || 0];
+            const stationsData = data['stations'];
+            const directionsData = data['directions'];
+            generateDropdownOptions(stationsData, [origin, destination]) 
+            updateDirectionValue(
+                directionsData, parseInt(origin.value), parseInt(destination.value), direction
+            )
+        });
     });
+    toggleBetaFeatures(betaFeatures, betaBadge[0], line)
+
+    // Attach event listener to the checkboxes to save their states
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', saveCheckboxStates);
+    });
+    loadCheckboxStates()
 
     function validate() {
         const data = dataMap[line.value || 0];

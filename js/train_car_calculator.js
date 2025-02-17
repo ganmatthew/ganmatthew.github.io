@@ -240,33 +240,28 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     // Get destination station exit cars
     const direction = directionMap[directionText];
     let destExits = stationsData[destInd].exitMap[direction];
-    console.log(`Got ${destExits}`)
+    console.log(`${stationsData[originInd].name} -> ${stationsData[destInd].name} ${directionText.toLowerCase()} result: Car ${destExits}`);
 
     // If priorityCar is not checked, car 1 must be removed
-    if (!usePriorityCar) {
-        // If destExits contains cars 1 and 2, retain only car 2
-        if (destExits.length === 2 && destExits[0] === 1 && destExits[1] === 2) {
-            destExits = [2]; // assume 1 is at the top
-            console.log(`Changed to ${destExits}`);
-        // In other conditions where destExits contains car 1, simply remove it
-        } else if (destExits[0] === 1) {
-            // destExits = destExits.map(car => car === 1 ? 2 : car);
-            destExits.shift(); // assume car 1 is in front
-            console.log(`Changed to ${destExits}`);
-        }
+    if (!usePriorityCar && destExits[0] === 1 || (destExits.length === 2 && destExits[1] === 2)) {
+        // If the resulting car is car 1, shift to car 2
+        // If it is both cars 1 and 2, retain only car 2
+        const oldValue = destExits;
+        destExits = [2]; // assume 1 is at the top
+        console.log(`Priority Car disabled: Changed from ${oldValue} to ${destExits}`);
+    } else {
+        console.log(`Priority Car enabled: car number is already ${destExits}`);
     }
     return destExits;
 }
 
 function processData(data, origin, destination, direction, usePriorityCar, results, resultsCar, resultsMsg) {
-    console.log("Processing data")
     const carArr = calculateTrainCar(
         data, origin.value, destination.value, direction.value, usePriorityCar
     )
     const [message, carResult] = generateMessage(
         data, origin.value, destination.value, direction.value, carArr
     );
-    console.log(message)
     results.hidden = false;
     resultsCar.innerHTML = carResult;
     resultsMsg.innerHTML = message;

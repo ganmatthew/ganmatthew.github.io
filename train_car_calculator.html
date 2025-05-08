@@ -13,7 +13,7 @@ permalink: /train-car-calculator
 <body>
   {%include navigation.html %}
   <div class="home">
-    <h1 class="calc-title">LRT/MRT Train Car Calculator<span class="beta-indicator" hidden><p class="badge badge-secondary">BETA</p></span></h1>
+    <h1 class="calc-title">LRT/MRT Train Car Calculator<span class="beta-indicator"><p class="badge badge-secondary">BETA</p></span></h1>
     <div class="calculator-container" id="check-id-number-container">
       <p class="center-paragraph" id="space-below-paragraph">Determine which train to board to arrive at the nearest exit at your destination.</p>
       <div class="form-container" id="train-car-calculator">
@@ -23,8 +23,8 @@ permalink: /train-car-calculator
             <label for="train-line" class="form-label">Line</label>
             <select class="form-select" id="train-line">
                 <option value="0" readonly selected>LRT-1</option>
-                <!-- <option value="1">LRT-2</option>
-                <option value="2">MRT-3</option> -->
+                <option value="1">LRT-2</option>
+                <option value="2">MRT-3</option>
             </select>
             <div id="origin-station-feedback" class="invalid-feedback"></div>
           </div>
@@ -60,6 +60,12 @@ permalink: /train-car-calculator
             </select>
             <div id="origin-station-feedback" class="invalid-feedback"></div>
           </div>
+          <!--Entrance Options-->
+          <div class="mb-3" id="station-entrance-dropdown" hidden>
+            <label for="station-entrance" class="form-label">Entrance at Origin</label>
+            <select class="form-select" id="station-entrance">
+            </select>
+          </div>
           <!--Destination-->
           <div class="mb-3">
             <label for="destination-station" class="form-label">Destination</label>
@@ -92,22 +98,34 @@ permalink: /train-car-calculator
             </select>
             <div id="destination-station-feedback" class="invalid-feedback"></div>
           </div>
+          <!--Exit Options-->
+          <div class="mb-3" id="station-exit-dropdown" hidden>
+            <label for="station-exit" class="form-label">Exit at Destination</label>
+            <select class="form-select" id="station-exit">
+            </select>
+          </div>
           <div class="row mb-4">
-            <!--Direction-->
             <div class="col">
-              <label for="direction" class="form-label">Train Direction</label>
-              <input class="form-control" type="text" id="direction" value="Southbound" disabled readonly>
+              <!--Car Configuration-->
+              <div class="mb-3">
+                <label for="configuration" class="form-label">Train Configuration</label>
+                <select class="form-select" id="configuration" disabled>
+                  <option value="3">3-car</option>
+                  <option value="4" selected>4-car</option>
+                </select>
+              </div>
+              <!--Direction-->
+              <div class="mb-3">
+                <label for="direction" class="form-label">Train Direction</label>
+                <input class="form-control" type="text" id="direction" value="Southbound" disabled readonly>
+              </div>
             </div>
             <!--Priority Car Option-->
-            <div class="col d-flex align-items-center flex-wrap">
+            <div class="col">
               <label for="priority-car" class="form-label">Settings</label>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="priority-car">
                 <label class="form-check-label" for="priority-car">Include priority car</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="beta-features">
-                <label class="form-check-label" for="beta-features">Beta features</label>
               </div>
             </div>
           </div>

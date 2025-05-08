@@ -10,6 +10,13 @@ const Direction = {
     WB: 'west',
 }
 
+const DirectionMap = {
+    'Northbound': 'north', 
+    'Southbound': 'south', 
+    'Eastbound': 'east', 
+    'Westbound': 'west', 
+}
+
 const Ordinal = {
     1: 'first',
     2: 'second',
@@ -18,74 +25,74 @@ const Ordinal = {
 }
 
 const LRT1Data = {
-    "numberOfCars": 4,
+    "numberOfCars": [3,4],
     "directions": [ Direction.NB, Direction.SB ],
     "stations": [
-        { "name": "Fernando Poe Jr", "exitMap": { "north": [2,3], "south": [2,3] } }, // index 0
-        { "name": "Balintawak", "exitMap": { "north": [2,3], "south": [2,3] } },
-        { "name": "Monumento", "exitMap": { "north": [2], "south": [3] } },
-        { "name": "5th Avenue", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "R. Papa", "exitMap": { "north": [2,3], "south": [4] } },
-        { "name": "Abad Santos", "exitMap": { "north": [1], "south": [4] } },
-        { "name": "Blumentritt", "exitMap": { "north": [3], "south": [2] } },
-        { "name": "Tayuman", "exitMap": { "north": [2,3], "south": [1] } },
-        { "name": "Bambang", "exitMap": { "north": [3,4], "south": [2,3] } },
-        { "name": "Doroteo Jose", "exitMap": { "north": [2], "south": [3] } },
-        { "name": "Carriedo", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "Central Terminal","exitMap": { "north": [2,3], "south": [2,3] } },
-        { "name": "United Nations", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "Pedro Gil", "exitMap": { "north": [3], "south": [2] } },
-        { "name": "Quirino", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "Vito Cruz", "exitMap": { "north": [3], "south": [2] } },
-        { "name": "Gil Puyat", "exitMap": { "north": [1,4], "south": [1,3] } },
-        { "name": "Libertad", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "EDSA", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "Baclaran", "exitMap": { "north": [2,3], "south": [2,3] } },
-        { "name": "Redemptorist-Aseana", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "MIA Road", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "PITX", "exitMap": { "north": [1], "south": [4] } },
-        { "name": "Ninoy Aquino Avenue", "exitMap": { "north": [1,4], "south": [1,4] } },
-        { "name": "Dr. Santos", "exitMap": { "north": [1,2], "south": [3,4] } } // index 24
+        { "name": "Fernando Poe Jr", "exitMap": { "north": [[2,3]], "south": [[2,3]] } }, // index 0
+        { "name": "Balintawak", "exitMap": { "north": [[2,3]], "south": [[2,3]] } },
+        { "name": "Monumento", "exitMap": { "north": [[2]], "south": [[3]] } },
+        { "name": "5th Avenue", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
+        { "name": "R. Papa", "exitMap": { "north": [[2,3]], "south": [[4]] } },
+        { "name": "Abad Santos", "exitMap": { "north": [[1]], "south": [[4]] } },
+        { "name": "Blumentritt", "exitMap": { "north": [[3]], "south": [[2]] } },
+        { "name": "Tayuman", "exitMap": { "north": [[2,3]], "south": [[1]] } },
+        { "name": "Bambang", "exitMap": { "north": [[3,4]], "south": [[2,3]] } },
+        { "name": "Doroteo Jose", "exitMap": { "north": [[2]], "south": [[3]] } },
+        { "name": "Carriedo", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
+        { "name": "Central Terminal","exitMap": { "north": [[2,3]], "south": [[2,3]] } },
+        { "name": "United Nations", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
+        { "name": "Pedro Gil", "exitMap": { "north": [[3]], "south": [[2]] } },
+        { "name": "Quirino", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
+        { "name": "Vito Cruz", "exitMap": { "north":[[3]], "south": [[2]] } },
+        { "name": "Gil Puyat", "exitMap": { "north": [[1,4]], "south": [[1,3]] } },
+        { "name": "Libertad", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
+        { "name": "EDSA", "exits": ["E1/E3: Taft Avenue", "E2/E4: MRT-3 Taft Avenue / Metro Point Mall"], "exitMap": { "north": [[1,2], [3,4]], "south": [[1,2], [3,4]] } },
+        { "name": "Baclaran", "exits": ["E1/E3", "E2/E4"], "exitMap": { "north": [[2,3], [2,3]], "south": [[2,3], [2,3]] } },
+        { "name": "Redemptorist-Aseana", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
+        { "name": "MIA Road", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
+        { "name": "PITX", "exitMap": { "north": [[1]], "south": [[4]] } },
+        { "name": "Ninoy Aquino Avenue", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
+        { "name": "Dr. Santos", "exitMap": { "north": [[1,2]], "south": [[3,4]] } } // index 24
     ]
 }
 
 const LRT2Data = {
-    "numberOfCars": 4,
+    "numberOfCars": [4],
     "directions": [ Direction.WB, Direction.EB ],
     "stations": [
-        { "name": "Recto", "exitMap": { "west": [1,2,3,4], "east": [1,2,3,4] } }, // index 0
-        { "name": "Legarda", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "Pureza", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "V. Mapa", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "J. Ruiz", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "Gilmore", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "Betty Go-Belmonte", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "Araneta Center-Cubao", "exitMap": { "west": [1,2,3,4], "east": [1,2,3,4] } },
-        { "name": "Anonas", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "Katipunan", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "Santolan", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "Marikina-Pasig", "exitMap": { "west": [1,4], "east": [1,4] } },
-        { "name": "Antipolo", "exitMap": { "west": [1,4], "east": [1,4] } }, // index 12
+        { "name": "Recto", "exitMap": { "west": [[1,2,3,4]], "east": [[1,2,3,4]] } }, // index 0
+        { "name": "Legarda", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "Pureza", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "V. Mapa", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "J. Ruiz", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "Gilmore", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "Betty Go-Belmonte", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "Araneta Center-Cubao", "exitMap": { "west": [[1,2,3,4]], "east": [[1,2,3,4]] } },
+        { "name": "Anonas", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "Katipunan", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "Santolan", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "Marikina-Pasig", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
+        { "name": "Antipolo", "exitMap": { "west": [[1,4]], "east": [[1,4]] } }, // index 12
     ]
 }
 
 const MRT3Data = {
-    "numberOfCars": 3,
+    "numberOfCars": [3,4],
     "directions": [ Direction.NB, Direction.SB ],
     "stations": [
-        { "name": "North Avenue", "exitMap": { "north": [3], "south": [2] } }, // index 0
-        { "name": "Quezon Avenue", "exitMap": { "north": [1], "south": [3] } },
-        { "name": "GMA-Kamuning", "exitMap": { "north": [3], "south": [2] } },
-        { "name": "Araneta Center-Cubao", "exitMap": { "north": [1,2,3], "south": [1,2,3] } },
-        { "name": "Santolan-Annapolis", "exitMap": { "north": [3], "south": [1] } },
-        { "name": "Ortigas", "exitMap": { "north": [3], "south": [2] } },
-        { "name": "Shaw Boulevard", "exitMap": { "north": [1,2,3], "south": [1,2,3] } },
-        { "name": "Boni", "exitMap": { "north": [1,2,3], "south": [1,2,3] } },
-        { "name": "Guadalupe", "exitMap": { "north": [3], "south": [1] } },
-        { "name": "Buendia", "exitMap": { "north": [1], "south": [3] } },
-        { "name": "Ayala", "exitMap": { "north": [1,2,3], "south": [1,2,3] } },
-        { "name": "Magallanes", "exitMap": { "north": [3], "south": [1] } },
-        { "name": "Taft Avenue", "exitMap": { "north": [3], "south": [1] } }, // index 12
+        { "name": "North Avenue", "exitMap": { "north": [[3]], "south": [[2]] } }, // index 0
+        { "name": "Quezon Avenue", "exitMap": { "north": [[1]], "south": [[4]] } },
+        { "name": "GMA-Kamuning", "exitMap": { "north": [[3]], "south": [[2]] } },
+        { "name": "Araneta Center-Cubao", "exits": ["Farmers Plaza North", "Farmers Plaza South / Farmers Market / Arayat Market"], "exitMap": { "north": [[1,2], [3,4]], "south": [[3,4], [1,2]] } },
+        { "name": "Santolan-Annapolis", "exitMap": { "north": [[3]], "south": [[1]] } },
+        { "name": "Ortigas", "exitMap": { "north": [[3]], "south": [[2]] } },
+        { "name": "Shaw Boulevard", "exits": ["Shangri-La / Starmall EDSA", "EDSA Central / Greenfield District"], "exitMap": { "north": [[1,2], [3,4]], "south": [[3,4], [1,2]] } },
+        { "name": "Boni", "exits": ["GA Tower / SM Light", "Pinatubo St / Pioneer Woodlands"], "exitMap": { "north": [[1,2], [2,3]], "south": [[3,4], [1,2]] } },
+        { "name": "Guadalupe", "exitMap": { "north": [[4]], "south": [[1]] } },
+        { "name": "Buendia", "exitMap": { "north": [[1]], "south": [[4]] } },
+        { "name": "Ayala", "exitMap": { "north": [[1,2,3,4]], "south": [[1,2,3,4]] } },
+        { "name": "Magallanes", "exitMap": { "north": [[4]], "south": [[1]] } },
+        { "name": "Taft Avenue", "exitMap": { "north": [[4]], "south": [[1]] } }, // index 12
     ]
 }
 
@@ -109,7 +116,6 @@ function generateDropdownOptions(stationsData, selectList) {
         // Set default options
         select.selectedIndex = select.id === 'destination-station' ? '1' : '0';
     });
-    
 }
 
 function validateDirection(lastInd, originInd, direction, directionsData, origin, originFeedback) {
@@ -143,9 +149,38 @@ function validateDirection(lastInd, originInd, direction, directionsData, origin
 
 function updateDirectionValue(directionsData, originInd, destinationInd, direction) {
     if (directionsData.includes(Direction.NB, Direction.SB)) {
-        direction.value = originInd < destinationInd ? 'Southbound' : 'Northbound'
+        direction.value = originInd < destinationInd ? 'Southbound' : 'Northbound';
     } else if (directionsData.includes(Direction.WB, Direction.EB)) {
-        direction.value = originInd < destinationInd ? 'Eastbound' : 'Westbound'
+        direction.value = originInd < destinationInd ? 'Eastbound' : 'Westbound';
+    } else {
+        direction.value = '?';
+    }
+}
+
+function checkForStationExits(stationsData, destinationInd, direction) {
+    const directionText = DirectionMap[direction];
+    let exitDropdown = document.getElementById('station-exit-dropdown');
+    let select = document.getElementById('station-exit');
+    let destination = stationsData[destinationInd];
+    let destExits = destination.exitMap[directionText];
+    let exitNames = destination['exits'] || []
+
+    // Stations with array lengths of 2 and greater must have more than one exit for that direction
+    if (destExits.length >= 2 && destExits.length === exitNames.length) {
+        exitDropdown.hidden = false;
+        // Clear existing data
+        select.innerHTML = '';
+        // Populate dropdown options
+        exitNames.forEach((exitName, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = exitName;
+            select.appendChild(option);
+        });
+        // Set default options
+        select.selectedIndex = '0';
+    } else {
+        exitDropdown.hidden = true;
     }
 }
 
@@ -168,8 +203,8 @@ function validateInputData(data) {
     direction.classList.remove('is-invalid');
 
     // Ensure values are typed to int
-    originInd = parseInt(origin.value);
-    destinationInd = parseInt(destination.value);
+    const originInd = parseInt(origin.value);
+    const destinationInd = parseInt(destination.value);
 
     let passed = true;
 
@@ -200,7 +235,7 @@ function validateInputData(data) {
     return passed;
 }
 
-function generateMessage(data, originInd, destInd, directionText, carArr) {
+function generateMessage(data, originInd, destInd, directionText, exit, carArr) {
     const stationsData = data['stations'];
 
     const origin = stationsData[originInd].name;
@@ -209,20 +244,25 @@ function generateMessage(data, originInd, destInd, directionText, carArr) {
 
     let carResult = '';
     let carText = '';
+    let exitText = '';
 
-    if (carArr.length > 2) {
+    if (carArr.length >= 2) {
         carText = `the ${Ordinal[carArr[0]]} to ${Ordinal[carArr[carArr.length - 1]]} cars`;
-        carResult = `Cars No. ${carArr[0]} to ${carArr[carArr.length - 1]}`;
+        carResult = `Car Nos. ${carArr[0]} to ${carArr[carArr.length - 1]}`;
     } else {
         carText = `the ${Ordinal[carArr[0]]} car`;
         carResult = `Car No. ${carArr[0]}`;
     }
 
-    let message = `To arrive near the exit at ${destination}, board ${carText} at the ${direction} platform of ${origin}.`
+    if (exit.length > 0) {
+        exitText = stationsData[destInd].exits[exit];
+    }
+
+    let message = `To arrive near the ${exitText} exit at ${destination}, board ${carText} at the ${direction} platform of ${origin}.`
     return [message, carResult];
 }
 
-function calculateTrainCar(data, originInd, destInd, directionText, usePriorityCar) {
+function calculateTrainCar(data, originInd, destInd, directionText, usePriorityCar, configuration) {
     // Validate inputs
     const stationsData = data['stations'];
     if (!stationsData) {
@@ -231,36 +271,58 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     if (!stationsData[originInd] || !stationsData[destInd]) {
         throw new Error('Invalid station indices');
     }
-    const directionMap = {
-        'Northbound': 'north', 
-        'Southbound': 'south', 
-        'Eastbound': 'east', 
-        'Westbound': 'west', 
-    }
     // Get destination station exit cars
-    const direction = directionMap[directionText];
+    const direction = DirectionMap[directionText];
     let destExits = stationsData[destInd].exitMap[direction];
-    console.log(`${stationsData[originInd].name} -> ${stationsData[destInd].name} ${directionText.toLowerCase()} result: Car ${destExits}`);
+    let exit = document.getElementById('station-exit');
+    let exitValue = exit.value || 0
+
+    destExits = destExits[exitValue];
+    console.log(`Origin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name}  (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration}\nCar Result: ${destExits}`);
 
     // If priorityCar is not checked, car 1 must be removed
-    if (!usePriorityCar && destExits[0] === 1 || (destExits.length === 2 && destExits[1] === 2)) {
-        // If the resulting car is car 1, shift to car 2
-        // If it is both cars 1 and 2, retain only car 2
-        const oldValue = destExits;
-        destExits = [2]; // assume 1 is at the top
-        console.log(`Priority Car disabled: Changed from ${oldValue} to ${destExits}`);
-    } else {
+    if (!usePriorityCar) {
+        if (destExits[0] === 1) {
+            // If the resulting car is car 1, shift to car 2
+            // If it is both cars 1 and 2, retain only car 2
+            const oldValue = destExits;
+            destExits = [2]; // assume 1 is at the top
+            console.log(`Priority Car disabled: Changed from ${oldValue} to ${destExits}`);
+        } else {
+            console.log(`Priority Car disabled: No changes made`);
+        }
+    } else if (usePriorityCar) {
         console.log(`Priority Car enabled: No changes made`);
+    } else {
+        throw new Error('Error in priority car checking condition')
     }
+
+    // If not using 4-car, car 4 must be changed to car 3
+    if (configuration === "3") {
+        if (destExits[0] === 4) {
+            // If the resulting car is car 4, shift to car 3
+            // If it is both cars 3 and 4, retain only car 3
+            const oldValue = destExits;
+            destExits = [3]; // assume 1 is at the top
+            console.log(`Using 3-car config: Changed from ${oldValue} to ${destExits}`);
+        } else {
+            console.log(`Using 3-car config: No changes made`);
+        }
+    } else if (configuration === "4") {
+        console.log(`Using 4-car config: No changes made`);
+    } else {
+        throw new Error('Error in train car configuration checking condition')
+    }
+
     return destExits;
 }
 
-function processData(data, origin, destination, direction, usePriorityCar, results, resultsCar, resultsMsg) {
+function processData(data, origin, destination, direction, usePriorityCar, configuration, exit, results, resultsCar, resultsMsg) {
     const carArr = calculateTrainCar(
-        data, origin.value, destination.value, direction.value, usePriorityCar
+        data, origin.value, destination.value, direction.value, usePriorityCar, configuration
     )
     const [message, carResult] = generateMessage(
-        data, origin.value, destination.value, direction.value, carArr
+        data, origin.value, destination.value, direction.value, exit, carArr
     );
     results.hidden = false;
     resultsCar.innerHTML = carResult;
@@ -275,35 +337,6 @@ function processData(data, origin, destination, direction, usePriorityCar, resul
             })
         })
     }, 3)
-}
-
-function toggleBetaFeatures(betaFeatures, betaBadge, line) {
-    const betaOptions = [
-        { value: '1', text: 'LRT-2' },
-        { value: '2', text: 'MRT-3' }
-    ];
-    // Check if the checkbox is checked
-    if (betaFeatures.checked) {
-        // Add beta options if checked
-        betaOptions.forEach(optionData => {
-            // Check if the option already exists to avoid duplication
-            if (!Array.from(line.options).some(opt => opt.value === optionData.value)) {
-                const option = document.createElement('option');
-                option.value = optionData.value;
-                option.textContent = optionData.text;
-                line.appendChild(option);
-            }
-        });
-        betaBadge.hidden = false;
-    } else {
-        // Remove beta options if unchecked
-        Array.from(line.options).forEach(option => {
-            if (betaOptions.some(betaOption => betaOption.value === option.value)) {
-                line.removeChild(option);
-            }
-        });
-        betaBadge.hidden = true
-    }
 }
 
 function saveCheckboxStates() {
@@ -328,9 +361,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let origin = document.getElementById('origin-station');
     let destination = document.getElementById('destination-station');
     let direction = document.getElementById('direction');
+    let exit = document.getElementById('station-exit');
     let priorityCar = document.getElementById('priority-car');
-    let betaFeatures = document.getElementById('beta-features');
-    let betaBadge = document.getElementsByClassName('beta-indicator');
+    let configuration = document.getElementById('configuration');
     let submitBtn = document.getElementById('train-car-calculator-submit');
     let results = document.getElementById('train-car-results');
     let resultsCar = document.getElementById('train-car-number-result');
@@ -343,25 +376,36 @@ document.addEventListener("DOMContentLoaded", (e) => {
     };
 
     // Generate the dropdown options
-    [line, betaFeatures].forEach(element => {
+    [line, destination].forEach(element => {
         element.addEventListener('change', (event) => {  
-            toggleBetaFeatures(betaFeatures, betaBadge[0], line)
             const data = dataMap[line.value || 0];
+            const numberOfCarsData = data['numberOfCars'];
             const stationsData = data['stations'];
             const directionsData = data['directions'];
-            generateDropdownOptions(stationsData, [origin, destination]) 
+            const originInd = parseInt(origin.value);
+            const destinationInd = parseInt(destination.value);
+            if (element === line)
+                // Update the list of origin and destination stations
+                generateDropdownOptions(stationsData, [origin, destination])
+                // Number of cars is fixed at 4 if the line only supports 4-car configuration
+                configuration.disabled = numberOfCarsData.length == 1;
+                configuration.children[0].selected = !configuration.disabled;
+                configuration.children[1].selected = configuration.disabled;
+            // Update the train direction based on origin and destination
             updateDirectionValue(
-                directionsData, parseInt(origin.value), parseInt(destination.value), direction
+                directionsData, originInd, destinationInd, direction
             )
+            if (element === destination)
+                checkForStationExits(stationsData, destinationInd, direction.value)
         });
     });
-    toggleBetaFeatures(betaFeatures, betaBadge[0], line)
 
     // Attach event listener to the checkboxes to save their states
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', saveCheckboxStates);
     });
+
     loadCheckboxStates()
 
     function validate() {
@@ -371,7 +415,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
 
     // Validate inputs
-    [line, origin, destination, priorityCar].forEach(element => {
+    [line, origin, destination, priorityCar, configuration].forEach(element => {
         element.addEventListener('change', validate);
     });
 
@@ -381,8 +425,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
         if (!submitBtn.disabled) {
             const data = dataMap[line.value || 0];
             processData(
-                data, origin, destination, direction, priorityCar.checked,
-                results, resultsCar, resultsMsg
+                data, origin, destination, direction, priorityCar.checked, configuration.value,
+                exit.value, results, resultsCar, resultsMsg
             );
             submitBtn.disabled = false;
         }

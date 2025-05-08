@@ -1,8 +1,3 @@
-/* 
-    Notes:
-    - The car number is relative to the direction of the train.
-*/
-
 import { Direction, DirectionMap, Ordinal, LineData } from "./train_data.js"
 
 const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the same";
@@ -278,16 +273,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let resultsCar = document.getElementById('train-car-number-result');
     let resultsMsg = document.getElementById('train-car-message-result');
 
-    const dataMap = {
-        '0': LineData['LRT-1'],
-        '1': LineData['LRT-2'],
-        '2': LineData['MRT-3'],
-    };
-
     // Generate the dropdown options
     [line, origin, destination].forEach(element => {
         element.addEventListener('change', (event) => {  
-            const data = dataMap[line.value || 0];
+            const data = LineData[line.value || 0];
             const numberOfCarsData = data['numberOfCars'];
             const stationsData = data['stations'];
             const directionsData = data['directions'];
@@ -322,7 +311,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     loadCheckboxStates()
 
     function validate() {
-        const data = dataMap[line.value || 0];
+        const data = LineData[line.value || 0];
         const inputsValid = validateInputData(data);
         submitBtn.disabled = !inputsValid;
     }
@@ -336,7 +325,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         submitBtn.disabled = true;
         validate()
         if (!submitBtn.disabled) {
-            const data = dataMap[line.value || 0];
+            const data = LineData[line.value || 0];
             processData(
                 data, origin, destination, direction, priorityCar.checked, configuration.value,
                 exit.value, results, resultsCar, resultsMsg

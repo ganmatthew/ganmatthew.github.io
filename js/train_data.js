@@ -1,3 +1,8 @@
+/* 
+    Notes:
+    - The car number is relative to the direction of the train.
+*/
+
 const Direction = {
     NB: 'north',
     SB: 'south',
@@ -19,8 +24,9 @@ const Ordinal = {
     4: 'fourth'
 }
 
-const LineData = {
-    "LRT-1": {
+const LineData = [
+    {   
+        "name": "LRT-1",
         "numberOfCars": [3,4],
         "directions": [ Direction.NB, Direction.SB ],
         "stations": [
@@ -51,7 +57,8 @@ const LineData = {
             { "name": "Dr. Santos", "exitMap": { "north": [[1,2]], "south": [[3,4]] } } // index 24
         ]
     },
-    "LRT-2": {
+    {
+        "name": "LRT-2",
         "numberOfCars": [4],
         "directions": [ Direction.WB, Direction.EB ],
         "stations": [
@@ -70,7 +77,8 @@ const LineData = {
             { "name": "Antipolo", "exitMap": { "west": [[1,4]], "east": [[1,4]] } }, // index 12
         ]
     },
-    "MRT-3": {
+    {
+        "name": "MRT-3",
         "numberOfCars": [3,4],
         "directions": [ Direction.NB, Direction.SB ],
         "stations": [
@@ -89,6 +97,6 @@ const LineData = {
             { "name": "Taft Avenue", "exitMap": { "north": [[4]], "south": [[1]] } }, // index 12
         ]
     }
-}
+]
 
 export { Direction, DirectionMap, Ordinal, LineData }

@@ -422,12 +422,11 @@ p.calcu-result#train-car-number-result{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  height: 80px;
 }
 
 #train-car-graphic {
   display: block;
-  height: 100%;
+  max-width: 100%;
   width: auto;
 }
 
@@ -455,7 +454,15 @@ svg#train-car-graphic .car-number {
 }
 
 .train-car-graphic-group .direction-text.active-direction {
-  color: #000000; 
+  color: #000000;
+}
+
+.train-car-graphic-group .direction-text .arrow-svg {
+  fill: #ababab;
+}
+
+.train-car-graphic-group .direction-text.active-direction .arrow-svg {
+  fill: #000000;
 }
 
 .small-calcu-result {

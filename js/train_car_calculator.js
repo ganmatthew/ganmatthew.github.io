@@ -157,13 +157,13 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
         carText = `the ${Ordinal[carArr[0]]} car`;
         carResult = `Car No. ${carArr[0]}`;
     } else if (carArr.length === 2) {
-        carText = `the ${Ordinal[carArr[0]]} and ${Ordinal[carArr[1]]} cars`;
-        carResult = `Car Nos. ${carArr[0]} and ${carArr[1]}`;
+        carText = `the ${Ordinal[carArr[0]]} or ${Ordinal[carArr[1]]} cars`;
+        carResult = `Car Nos. ${carArr[0]} or ${carArr[1]}`;
     } else {
         const ordinals = carArr.map(num => Ordinal[num]);
         const numbers = carArr.map(num => num.toString());
-        carText = `the ${ordinals.slice(0, -1).join(', ')} and ${ordinals.slice(-1)}` + ' cars';
-        carResult = `Car Nos. ${numbers.slice(0, -1).join(', ')} and ${numbers.slice(-1)}`;
+        carText = `the ${ordinals.slice(0, -1).join(', ')} or ${ordinals.slice(-1)}` + ' cars';
+        carResult = `Car Nos. ${numbers.slice(0, -1).join(', ')} or ${numbers.slice(-1)}`;
     }
     let exitList = stationsData[destInd].exitMap[DirectionMap[directionText]]
     if (exitList.length > 1) {

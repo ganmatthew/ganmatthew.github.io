@@ -1,4 +1,4 @@
-import { Direction, DirectionMap, Ordinal, LineData } from "./train_data.js"
+import { Direction, DirectionMap, Ordinal, LineData, TrainSVG } from "./train_data.js"
 
 const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the same";
 const ERROR_MSG_NORTH_END = "Origin station is the northern terminus";
@@ -221,16 +221,58 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     return carArr;
 }
 
-function processData(data, origin, destination, direction, usePriorityCar, configuration, exit, results, resultsCar, resultsMsg) {
+// function loadTerminals(stationsData, directionText) {
+//     const terminus1 = document.getElementById('terminus1');
+//     const terminus2 = document.getElementById('terminus2');
+//     const terminus1Text = document.getElementById('terminus1-text')
+//     const terminus2Text = document.getElementById('terminus2-text')
+//     const NB_WB = [DirectionMap.Northbound, DirectionMap.Westbound]
+//     const SB_EB = [DirectionMap.Southbound, DirectionMap.Eastbound]
+//     const direction = DirectionMap[directionText]
+
+//     let station1 = stationsData[0];
+//     let station2 = stationsData[stationsData.length - 1];
+
+//     terminus1Text.innerHTML = `To ${station1.name}`
+//     terminus2Text.innerHTML = `To ${station2.name}`
+
+//     if (NB_WB.includes(direction)) {
+//         terminus1.classList.add('active-direction')
+//         if (terminus2.classList.contains('active-direction'))
+//             terminus2.classList.remove('active-direction')
+//     } else if (SB_EB.includes(direction)) {
+//         terminus2.classList.add('active-direction')
+//         if (terminus1.classList.contains('active-direction'))
+//             terminus1.classList.remove('active-direction')
+//     } else {
+//         terminus1.innerHTML = ''
+//         terminus2.innerHTML = ''
+//     }
+// }
+
+// function loadTrainSVG(configuration, carArr) {
+//
+// }
+
+function processData(data, origin, destination, direction, usePriorityCar, configuration, exit, results, resultsCar, resultsMsg, svgContainer) {
+    // Determine the terminals of the line based on direction
+    const stationsData = data['stations'];
+    
+    // loadTerminals(stationsData, direction.value)
+
     const carArr = calculateTrainCar(
         data, origin.value, destination.value, direction.value, usePriorityCar, configuration
     )
     const [message, carResult] = generateMessage(
         data, origin.value, destination.value, direction.value, exit, carArr
     );
+    // svgContainer.innerHTML = loadTrainSVG(
+    //     data, direction.value, carArr
+    // )
     results.hidden = false;
     resultsCar.innerHTML = carResult;
     resultsMsg.innerHTML = message;
+    
     // Move to bottom of page
     setTimeout(() => {
         requestAnimationFrame(() => {
@@ -272,6 +314,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let results = document.getElementById('train-car-results');
     let resultsCar = document.getElementById('train-car-number-result');
     let resultsMsg = document.getElementById('train-car-message-result');
+    let svgContainer = document.getElementById('train-car-graphic-container');
 
     // Generate the dropdown options
     [line, origin, destination].forEach(element => {
@@ -328,7 +371,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             const data = LineData[line.value || 0];
             processData(
                 data, origin, destination, direction, priorityCar.checked, configuration.value,
-                exit.value, results, resultsCar, resultsMsg
+                exit.value, results, resultsCar, resultsMsg, svgContainer
             );
             submitBtn.disabled = false;
         }

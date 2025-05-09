@@ -417,6 +417,47 @@ p.calcu-result#train-car-number-result{
   font-size: 21px;
 }
 
+.train-car-graphic-group {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 80px;
+}
+
+#train-car-graphic {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+svg#train-car-graphic .selected {
+  fill: #2dff9d;
+}
+
+svg#train-car-graphic path, rect {
+  fill: #ccc;
+}
+
+.mc-car {
+  fill-rule: evenodd;
+}
+
+svg#train-car-graphic .car-number {
+  font-size: 86px;
+  fill: #ffffff;
+  text-anchor: middle;
+  font-family: "Rubik";
+}
+
+.train-car-graphic-group .direction-text {
+  color: #ababab;
+}
+
+.train-car-graphic-group .direction-text.active-direction {
+  color: #000000; 
+}
+
 .small-calcu-result {
   padding-left: 0.25em;
   padding-right: 0.25em;

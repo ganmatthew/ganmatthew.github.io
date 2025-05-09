@@ -432,11 +432,11 @@ p.calcu-result#train-car-number-result{
 }
 
 svg#train-car-graphic .selected {
-  fill: #2dff9d;
+  fill: #22bf76;
 }
 
 svg#train-car-graphic path, rect {
-  fill: #ccc;
+  fill: #ababab;
 }
 
 .mc-car {

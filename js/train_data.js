@@ -24,10 +24,15 @@ const Ordinal = {
     4: 'fourth'
 }
 
+const CarConfig = {
+    'ThreeCar': 3,
+    'FourCar': 4
+}
+
 const LineData = [
     {   
         "name": "LRT-1",
-        "numberOfCars": [3,4],
+        "numberOfCars": [CarConfig.ThreeCar, CarConfig.FourCar],
         "directions": [ Direction.NB, Direction.SB ],
         "stations": [
             { "name": "Fernando Poe Jr", "exitMap": { "north": [[2,3]], "south": [[2,3]] } }, // index 0
@@ -59,7 +64,7 @@ const LineData = [
     },
     {
         "name": "LRT-2",
-        "numberOfCars": [4],
+        "numberOfCars": [CarConfig.FourCar],
         "directions": [ Direction.WB, Direction.EB ],
         "stations": [
             { "name": "Recto", "exitMap": { "west": [[1,2,3,4]], "east": [[1,2,3,4]] } }, // index 0
@@ -79,7 +84,7 @@ const LineData = [
     },
     {
         "name": "MRT-3",
-        "numberOfCars": [3,4],
+        "numberOfCars": [CarConfig.ThreeCar, CarConfig.FourCar],
         "directions": [ Direction.NB, Direction.SB ],
         "stations": [
             { "name": "North Avenue", "exitMap": { "north": [[3]], "south": [[2]] } }, // index 0
@@ -100,7 +105,7 @@ const LineData = [
 ]
 
 const TrainSVG = [
-    `<svg id="NB_WB_3-Car" data-name="3-Car NB/WB Train" xmlns="http://www.w3.org/2000/svg" width="900" height="150" viewBox="150 0 900 150">
+    `<svg id="train-car-graphic" data-name="3-Car NB/WB Train" xmlns="http://www.w3.org/2000/svg" width="900" height="150" viewBox="150 0 900 150">
         <path id="Car1" class="mc-car" d="M220,17H443a4,4,0,0,1,4,4V131a4,4,0,0,1-4,4H161a4,4,0,0,1-4-4l1-32c0.064-21.5,22.217-72.847,33-78C199.412,16.981,220,17,220,17Z"/>
         <rect id="Car2" class="m-car" x="455" y="17" width="290" height="118" rx="4" ry="4"/>
         <rect id="Car3" class="m-car" x="753" y="17" width="290" height="118" rx="4" ry="4"/>
@@ -109,7 +114,7 @@ const TrainSVG = [
         <text id="_3" data-name="3" class="car-number" x="897.787" y="110.112"><tspan x="897.787">3</tspan></text>
     </svg>
     `,
-    `<svg id="SB_EB_3-Car" data-name="3-Car SB/EB Train" xmlns="http://www.w3.org/2000/svg" width="900" height="150" viewBox="150 0 900 150">
+    `<svg id="train-car-graphic" data-name="3-Car SB/EB Train" xmlns="http://www.w3.org/2000/svg" width="900" height="150" viewBox="150 0 900 150">
         <path id="Car1" class="mc-car" d="M980,17.031H757a4,4,0,0,0-4,4V131a4,4,0,0,0,4,4h282a4,4,0,0,0,4-4l-1-31.992c-0.06-21.494-22.22-72.828-33-77.979C1000.59,17.012,980,17.031,980,17.031Z"/>
         <rect id="Car2" class="m-car" x="455" y="17.031" width="290" height="117.969" rx="4" ry="4"/>
         <rect id="Car3" class="m-car" x="157" y="17.031" width="290" height="117.969" rx="4" ry="4"/>
@@ -129,7 +134,7 @@ const TrainSVG = [
         <text id="_4" data-name="4" class="car-number" x="1046.788" y="110.112"><tspan x="1046.788">4</tspan></text>
     </svg>
     `,
-    `<svg id="SB_EB_4-Car" data-name="4-Car SB/EB Train" xmlns="http://www.w3.org/2000/svg" width="1200" height="150" viewBox="0 0 1200 150">
+    `<svg id="train-car-graphic" data-name="4-Car SB/EB Train" xmlns="http://www.w3.org/2000/svg" width="1200" height="150" viewBox="0 0 1200 150">
         <path id="Car1" class="mc-car" d="M1129,17H906a4,4,0,0,0-4,4V131a4,4,0,0,0,4,4h282a4,4,0,0,0,4-4l-1-32c-0.06-21.5-22.22-72.847-33-78C1149.59,16.981,1129,17,1129,17Z"/>
         <rect id="Car2" class="m-car" x="604" y="17" width="290" height="118" rx="4" ry="4"/>
         <rect id="Car3" class="m-car" x="306" y="17" width="290" height="118" rx="4" ry="4"/>
@@ -142,4 +147,4 @@ const TrainSVG = [
     `
 ]
 
-export { Direction, DirectionMap, Ordinal, LineData, TrainSVG }
+export { Direction, DirectionMap, Ordinal, LineData, CarConfig, TrainSVG }

@@ -33,7 +33,7 @@ const LineData = [
     {   
         "name": "LRT-1",
         "numberOfCars": [CarConfig.ThreeCar, CarConfig.FourCar],
-        "directions": [ Direction.NB, Direction.SB ],
+        "directions": [ Direction.NB, Direction.SB],
         "stations": [
             { "name": "Fernando Poe Jr", "exitMap": { "north": [[2,3]], "south": [[2,3]] } }, // index 0
             { "name": "Balintawak", "exitMap": { "north": [[2,3]], "south": [[2,3]] } },
@@ -65,7 +65,7 @@ const LineData = [
     {
         "name": "LRT-2",
         "numberOfCars": [CarConfig.FourCar],
-        "directions": [ Direction.WB, Direction.EB ],
+        "directions": [ Direction.WB, Direction.EB],
         "stations": [
             { "name": "Recto", "exitMap": { "west": [[1,2,3,4]], "east": [[1,2,3,4]] } }, // index 0
             { "name": "Legarda", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
@@ -85,7 +85,7 @@ const LineData = [
     {
         "name": "MRT-3",
         "numberOfCars": [CarConfig.ThreeCar, CarConfig.FourCar],
-        "directions": [ Direction.NB, Direction.SB ],
+        "directions": [Direction.NB, Direction.SB],
         "stations": [
             { "name": "North Avenue", "exitMap": { "north": [[3]], "south": [[2]] } }, // index 0
             { "name": "Quezon Avenue", "exitMap": { "north": [[1]], "south": [[4]] } },

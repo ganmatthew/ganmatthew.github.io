@@ -174,9 +174,9 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
     return [message, carResult];
 }
 
-function filterAllowedTrainCars(carArr, oldNum, newNum, minNum, maxNum) {
+function filterAllowedTrainCars(carArr, numToRemove, newNum, minNum, maxNum) {
     let updatedCars = carArr.map(num => {
-        return num === oldNum ? newNum : num;
+        return num === numToRemove ? newNum : num;
     });
     updatedCars = [...new Set(updatedCars)];
     updatedCars = updatedCars.filter(num => num >= minNum && num <= maxNum);
@@ -199,26 +199,11 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     let exitValue = exit.value || 0
 
     carArr = carArr[exitValue];
-    console.log(`Origin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration}\nCar Result: ${carArr}`);
-
-    // If priorityCar is not checked, car 1 must be removed
-    if (!usePriorityCar) {
-        if (carArr[0] === 1) {
-            const oldValue = carArr;
-            carArr = filterAllowedTrainCars(carArr, 1, 2, 2, 4);
-            console.log(`Priority Car disabled: Changed from ${oldValue} to ${carArr}`);
-        } else {
-            console.log(`Priority Car disabled: No changes made`);
-        }
-    } else if (usePriorityCar) {
-        console.log(`Priority Car enabled: No changes made`);
-    } else {
-        throw new Error('Error in priority car checking condition')
-    }
+    console.log(`Origin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration.value}\nCar Result: [${carArr}]`);
 
     // If not using 4-car, car 4 must be changed to car 3
     if (configValue === CarConfig.ThreeCar) {
-        if (carArr[1] === 4) {
+        if (carArr.includes(4)) {
             const oldValue = carArr;
             carArr = filterAllowedTrainCars(carArr, 4, 3, 1, 3);
             console.log(`Using 3-car config: Changed from ${oldValue} to ${carArr}`);
@@ -229,6 +214,21 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
         console.log(`Using 4-car config: No changes made`);
     } else {
         throw new Error('Error in train car configuration checking condition')
+    }
+
+    // If priorityCar is not checked, car 1 must be removed
+    if (!usePriorityCar) {
+        if (carArr.includes(1)) {
+            const oldValue = carArr;
+            carArr = filterAllowedTrainCars(carArr, 1, 2, 2, 4);
+            console.log(`Priority Car disabled: Changed from ${oldValue} to ${carArr}`);
+        } else {
+            console.log(`Priority Car disabled: No changes made`);
+        }
+    } else if (usePriorityCar) {
+        console.log(`Priority Car enabled: No changes made`);
+    } else {
+        throw new Error('Error in priority car checking condition')
     }
 
     return carArr;

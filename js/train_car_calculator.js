@@ -1,4 +1,4 @@
-import { Direction, DirectionMap, Ordinal, LineData, CarConfig, TrainSVG } from "./train_data.js"
+import { Direction, DirectionMap, Ordinal, CarConfig, LineName, LineData, TrainSVG } from "./train_data.js"
 
 const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the same";
 const ERROR_MSG_NORTH_END = "Origin station is the northern terminus";
@@ -9,7 +9,7 @@ const ERROR_MSG_WEST_END = "Origin station is the western terminus";
 function generateDropdownOptions(stationsData, selectList) {
     selectList.forEach(select => {
         // Clear existing data
-        select.innerHTML = '';
+        select.innerHTML = null;
         // Populate dropdown options
         stationsData.forEach((station, index) => {
             const option = document.createElement('option');
@@ -62,15 +62,16 @@ function updateDirectionValue(directionsData, originInd, destinationInd, directi
 }
 
 function checkForStationExits(stationsData, destinationInd, direction) {
-    const directionText = DirectionMap[direction];
+    // const directionText = DirectionMap[direction];
     let exitDropdown = document.getElementById('station-exit-dropdown');
     let select = document.getElementById('station-exit');
     let destination = stationsData[destinationInd];
-    let carArr = destination.exitMap[directionText];
+    // let carArr = destination.exitMap[directionText];
     let exitNames = destination['exits'] || []
 
     // Stations with array lengths of 2 and greater must have more than one exit for that direction
-    if (carArr.length >= 2 && carArr.length === exitNames.length) {
+    // if (carArr.length >= 2 && carArr.length === exitNames.length) {
+    if (exitNames.length > 0) {
         exitDropdown.hidden = false;
         // Clear existing data
         select.innerHTML = '';
@@ -148,7 +149,7 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
 
     let carResult = '';
     let carText = '';
-    let exitText = '';
+    let exitText = 'exit';
 
     if (carArr.length === 0) {
         carText = '[no cars selected]';
@@ -159,24 +160,29 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
     } else if (carArr.length === 2) {
         carText = `the ${Ordinal[carArr[0]]} or ${Ordinal[carArr[1]]} cars`;
         carResult = `Car Nos. ${carArr[0]} or ${carArr[1]}`;
-    } else {
-        const ordinals = carArr.map(num => Ordinal[num]);
-        const numbers = carArr.map(num => num.toString());
-        carText = `the ${ordinals.slice(0, -1).join(', ')} or ${ordinals.slice(-1)}` + ' cars';
-        carResult = `Car Nos. ${numbers.slice(0, -1).join(', ')} or ${numbers.slice(-1)}`;
+    } else if (carArr.length === 3) {
+        carText = `the ${Ordinal[carArr[0]]}, ${carArr[1]}, or ${Ordinal[carArr[2]]} cars`;
+        carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, or ${carArr[2]}`;
+    } else if (carArr.length === 4) {
+        carText = `the ${Ordinal[carArr[0]]}, ${carArr[1]}, ${carArr[2]}, or ${Ordinal[carArr[3]]} cars`;
+        carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, ${carArr[2]}, or ${carArr[3]}`;
     }
+    
     let exitList = stationsData[destInd].exitMap[DirectionMap[directionText]]
     if (exitList.length > 1) {
         exitText = stationsData[destInd].exits[exit];
+        if (data['line'] !== LineName.Line2) {
+            exitText = `${exitText} exit`;
+        }
     }
 
-    let message = `To arrive near the ${exitText} exit at ${destination}, board ${carText} at the ${direction} platform of ${origin}.`
+    let message = `To arrive near the ${exitText} at ${destination}, board ${carText} at the ${direction} platform of ${origin}.`
     return [message, carResult];
 }
 
-function filterAllowedTrainCars(carArr, oldNum, newNum, minNum, maxNum) {
+function filterAllowedTrainCars(carArr, numToRemove, newNum, minNum, maxNum) {
     let updatedCars = carArr.map(num => {
-        return num === oldNum ? newNum : num;
+        return num === numToRemove ? newNum : num;
     });
     updatedCars = [...new Set(updatedCars)];
     updatedCars = updatedCars.filter(num => num >= minNum && num <= maxNum);
@@ -199,11 +205,26 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     let exitValue = exit.value || 0
 
     carArr = carArr[exitValue];
-    console.log(`Origin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration}\nCar Result: ${carArr}`);
+    console.log(`Line: ${data['line'].name}\nOrigin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration.value}\nCar Result: [${carArr}]`);
+
+    // If not using 4-car, car 4 must be changed to car 3
+    if (configValue === CarConfig.ThreeCar.index) {
+        if (carArr.includes(4)) {
+            const oldValue = carArr;
+            carArr = filterAllowedTrainCars(carArr, 4, 3, 1, 3);
+            console.log(`Using 3-car config: Changed from ${oldValue} to ${carArr}`);
+        } else {
+            console.log(`Using 3-car config: No changes made`);
+        }
+    } else if (configValue === CarConfig.FourCar.index) {
+        console.log(`Using 4-car config: No changes made`);
+    } else {
+        throw new Error('Error in train car configuration checking condition')
+    }
 
     // If priorityCar is not checked, car 1 must be removed
     if (!usePriorityCar) {
-        if (carArr[0] === 1) {
+        if (carArr.includes(1)) {
             const oldValue = carArr;
             carArr = filterAllowedTrainCars(carArr, 1, 2, 2, 4);
             console.log(`Priority Car disabled: Changed from ${oldValue} to ${carArr}`);
@@ -214,21 +235,6 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
         console.log(`Priority Car enabled: No changes made`);
     } else {
         throw new Error('Error in priority car checking condition')
-    }
-
-    // If not using 4-car, car 4 must be changed to car 3
-    if (configValue === CarConfig.ThreeCar) {
-        if (carArr[1] === 4) {
-            const oldValue = carArr;
-            carArr = filterAllowedTrainCars(carArr, 4, 3, 1, 3);
-            console.log(`Using 3-car config: Changed from ${oldValue} to ${carArr}`);
-        } else {
-            console.log(`Using 3-car config: No changes made`);
-        }
-    } else if (configValue === CarConfig.FourCar) {
-        console.log(`Using 4-car config: No changes made`);
-    } else {
-        throw new Error('Error in train car configuration checking condition')
     }
 
     return carArr;
@@ -263,9 +269,9 @@ function loadTrainSVG(svgContainer, directionText, configValue, carArr) {
     const isSBOrEB = [DirectionMap.Southbound, DirectionMap.Eastbound].includes(direction);
     let svgStr = '';
 
-    if (configValue === CarConfig.ThreeCar) {
+    if (configValue === CarConfig.ThreeCar.index) {
         svgStr = isNBOrWB ? TrainSVG[0] : TrainSVG[1];
-    } else if (configValue === CarConfig.FourCar) {
+    } else if (configValue === CarConfig.FourCar.index) {
         svgStr = isSBOrEB ? TrainSVG[3] : TrainSVG[2];
     }
 
@@ -349,32 +355,41 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let resultsMsg = document.getElementById('train-car-message-result');
     let svgContainer = document.getElementById('train-car-graphic-container');
 
-    // Generate the dropdown options
-    [line, origin, destination].forEach(element => {
-        element.addEventListener('change', (event) => {  
-            const data = LineData[line.value || 0];
+    function generate(getNewLineData) {
+        const data = LineData[line.value || 0];
             const numberOfCarsData = data['numberOfCars'];
             const stationsData = data['stations'];
             const directionsData = data['directions'];
-            const originInd = parseInt(origin.value);
-            const destinationInd = parseInt(destination.value);
-            if (element === line) {
+            if (getNewLineData) {
                 // Update the list of origin and destination stations
                 generateDropdownOptions(stationsData, [origin, destination])
+                // Clear exit data
+                exit.innerHTML = null;
                 // Number of cars is fixed at 4 if the line only supports 4-car configuration
                 configuration.disabled = numberOfCarsData.length === 1;
                 if (numberOfCarsData.length === 1) {
                     // Switch to the option matching the line's number of cars
-                    let defaultOption = configuration.querySelector(`[value='${numberOfCarsData[0]}']`)
+                    let defaultOption = configuration.querySelector(`[value='${numberOfCarsData[0].index}']`)
                     configuration.selectedIndex = defaultOption.index;
                 }
             }
+            // NOTE: This must be declared here so that default stations are changed whenever the line changes
+            const originInd = parseInt(origin.value);
+            const destinationInd = parseInt(destination.value);
             // Update the train direction based on origin and destination
             updateDirectionValue(
                 directionsData, originInd, destinationInd, direction
             )
             // Update whether to allow selecting multiple exits
-            checkForStationExits(stationsData, destinationInd, direction.value)
+            checkForStationExits(stationsData, destinationInd, direction.value)  
+    }
+
+    generate(true);
+
+    // Generate the dropdown options
+    [line, origin, destination].forEach(select => {
+        select.addEventListener('change', () => {
+            generate(select === line);
         });
     });
 

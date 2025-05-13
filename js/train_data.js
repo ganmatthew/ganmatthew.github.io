@@ -11,10 +11,10 @@ const Direction = {
 }
 
 const DirectionMap = {
-    'Northbound': 'north', 
-    'Southbound': 'south', 
-    'Eastbound': 'east', 
-    'Westbound': 'west', 
+    Northbound: 'north', 
+    Southbound: 'south', 
+    Eastbound: 'east', 
+    Westbound: 'west', 
 }
 
 const Ordinal = {
@@ -25,15 +25,21 @@ const Ordinal = {
 }
 
 const CarConfig = {
-    'ThreeCar': 3,
-    'FourCar': 4
+    ThreeCar: { index: 3, name: '3-car' },
+    FourCar: { index: 4, name: '4-car' }
+}
+
+const LineName = {
+    Line1: { index: 0, name: 'LRT-1' },
+    Line2: { index: 1, name: 'LRT-2' },
+    Line3: { index: 2, name: 'MRT-3' }
 }
 
 const LineData = [
     {   
-        "name": "LRT-1",
+        "line": LineName.Line1,
         "numberOfCars": [CarConfig.ThreeCar, CarConfig.FourCar],
-        "directions": [ Direction.NB, Direction.SB ],
+        "directions": [ Direction.NB, Direction.SB],
         "stations": [
             { "name": "Fernando Poe Jr", "exitMap": { "north": [[2,3]], "south": [[2,3]] } }, // index 0
             { "name": "Balintawak", "exitMap": { "north": [[2,3]], "south": [[2,3]] } },
@@ -63,37 +69,37 @@ const LineData = [
         ]
     },
     {
-        "name": "LRT-2",
+        "line": LineName.Line2,
         "numberOfCars": [CarConfig.FourCar],
-        "directions": [ Direction.WB, Direction.EB ],
+        "directions": [ Direction.WB, Direction.EB],
         "stations": [
-            { "name": "Recto", "exitMap": { "west": [[1,2,3,4]], "east": [[1,2,3,4]] } }, // index 0
-            { "name": "Legarda", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "Pureza", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "V. Mapa", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "J. Ruiz", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "Gilmore", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "Betty Go-Belmonte", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "Araneta Center-Cubao", "exitMap": { "west": [[1,2,3,4]], "east": [[1,2,3,4]] } },
-            { "name": "Anonas", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "Katipunan", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "Santolan", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "Marikina-Pasig", "exitMap": { "west": [[1,4]], "east": [[1,4]] } },
-            { "name": "Antipolo", "exitMap": { "west": [[1,4]], "east": [[1,4]] } }, // index 12
+            { "name": "Recto", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } }, // index 0
+            { "name": "Legarda", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Pureza", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "V. Mapa", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "J. Ruiz", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Gilmore", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Betty Go-Belmonte", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Araneta Center-Cubao", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Anonas", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Katipunan", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Santolan", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Marikina-Pasig", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } },
+            { "name": "Antipolo", "exits": ["Elevator", "Stairs"], "exitMap": { "west": [[2], [1,3,4]], "east": [[3], [1,2,4]] } }, // index 12
         ]
     },
     {
-        "name": "MRT-3",
+        "line": LineName.Line3,
         "numberOfCars": [CarConfig.ThreeCar, CarConfig.FourCar],
-        "directions": [ Direction.NB, Direction.SB ],
+        "directions": [Direction.NB, Direction.SB],
         "stations": [
             { "name": "North Avenue", "exitMap": { "north": [[3]], "south": [[2]] } }, // index 0
             { "name": "Quezon Avenue", "exitMap": { "north": [[1]], "south": [[4]] } },
             { "name": "GMA-Kamuning", "exitMap": { "north": [[3]], "south": [[2]] } },
-            { "name": "Araneta Center-Cubao", "exits": ["Farmers Plaza North", "Farmers Plaza South / Farmers Market / Arayat Market"], "exitMap": { "north": [[1,2], [3,4]], "south": [[3,4], [1,2]] } },
+            { "name": "Araneta Center-Cubao", "exits": ["Farmers Plaza (North)", "Farmers Plaza (South) / Farmers Market / Arayat Market"], "exitMap": { "north": [[1,2], [3,4]], "south": [[3,4], [1,2]] } },
             { "name": "Santolan-Annapolis", "exitMap": { "north": [[3]], "south": [[1]] } },
             { "name": "Ortigas", "exitMap": { "north": [[3]], "south": [[2]] } },
-            { "name": "Shaw Boulevard", "exits": ["Shangri-La / Starmall EDSA", "EDSA Central / Greenfield District"], "exitMap": { "north": [[1,2], [3,4]], "south": [[3,4], [1,2]] } },
+            { "name": "Shaw Boulevard", "exits": ["Shangri-La Plaza / Starmall EDSA", "EDSA Central / Greenfield District"], "exitMap": { "north": [[1,2], [3,4]], "south": [[3,4], [1,2]] } },
             { "name": "Boni", "exits": ["GA Tower / SM Light", "Pinatubo St / Pioneer Woodlands"], "exitMap": { "north": [[1,2], [2,3]], "south": [[3,4], [1,2]] } },
             { "name": "Guadalupe", "exitMap": { "north": [[4]], "south": [[1]] } },
             { "name": "Buendia", "exitMap": { "north": [[1]], "south": [[4]] } },
@@ -147,4 +153,4 @@ const TrainSVG = [
     `
 ]
 
-export { Direction, DirectionMap, Ordinal, LineData, CarConfig, TrainSVG }
+export { Direction, DirectionMap, Ordinal, CarConfig, LineName, LineData, TrainSVG }

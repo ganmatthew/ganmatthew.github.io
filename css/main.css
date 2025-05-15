@@ -77,13 +77,25 @@ hr.dark {
 
 h1 {
   text-align: center;
-  font-size: 42px;
+  font-size: 38px;
   font-weight: 500;
   margin-bottom: 24px;
 }
 
 h1#greeting {
   text-align: left;
+}
+
+@media only screen and (max-width: 370px) {
+  h1 {
+    font-size: 34px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  h1 {
+    font-size: 30px;
+  }
 }
 
 @media screen and (max-width: 680px) {
@@ -131,7 +143,8 @@ img#bio-pic  {
 
 .center-paragraph {
   text-align: center;
-  width: 70%;
+  width: 100em;
+  max-width: 90%;
   margin: auto;
   margin-bottom: 0.5em;
 }
@@ -206,7 +219,7 @@ nav a:hover {
 }
 
 h1.calc-title {
-  margin-bottom: 0;
+  margin: 0 10 0;
 }
 
 span.beta-indicator {
@@ -383,7 +396,7 @@ p.calcu-result#train-car-number-result{
 }
 
 #header-center {
-  width: 20em;
+  max-width: 20em;
   font-size: 24px;
   text-align: center;
   margin-left: auto;
@@ -415,6 +428,12 @@ p.calcu-result#train-car-number-result{
 .calcu-result#train-car-message-result {
   font-weight: 300;
   font-size: 21px;
+}
+
+@media only screen and (max-width: 700px) {
+  div.calcu-lower {
+    flex-direction: column;
+  }
 }
 
 .train-car-graphic-group {

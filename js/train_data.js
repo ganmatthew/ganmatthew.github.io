@@ -59,7 +59,7 @@ const LineData = [
             { "name": "Vito Cruz", "exitMap": { "north":[[3]], "south": [[2]] } },
             { "name": "Gil Puyat", "exitMap": { "north": [[1,4]], "south": [[1,3]] } },
             { "name": "Libertad", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
-            { "name": "EDSA", "exits": ["E1/E3: Taft Avenue", "E2/E4: MRT-3 Taft Avenue / Metro Point Mall"], "exitMap": { "north": [[1,2], [3,4]], "south": [[1,2], [3,4]] } },
+            { "name": "EDSA", "exits": ["E1/E3: Taft Avenue", "E2/E4: MRT-3 Taft Avenue / Metro Point Mall"], "exitMap": { "north": [[1,2], [3,4]], "south": [[3,4], [1,2]] } },
             { "name": "Baclaran", "exits": ["E1/E3", "E2/E4"], "exitMap": { "north": [[2,3], [2,3]], "south": [[2,3], [2,3]] } },
             { "name": "Redemptorist-Aseana", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },
             { "name": "MIA Road", "exitMap": { "north": [[1,4]], "south": [[1,4]] } },

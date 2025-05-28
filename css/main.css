@@ -357,7 +357,7 @@ span.beta-indicator p {
   width: 23em;
 }
 
-div#train-car-results {
+div#train-car-results, div#number-coding-results {
   max-width: 720px;
   width: 95%;
   margin: auto;
@@ -376,7 +376,7 @@ p.calcu-result#train-car-number-result{
 }
 
 @media only screen and (max-width: 780px) {
-  div#train-car-results {
+  div#train-car-results, div#number-coding-results {
     width: 95%;
   }
 
@@ -406,6 +406,10 @@ p.calcu-result#train-car-number-result{
 
 .calculator-container {
   margin-top: 2em;
+}
+
+#number-coding-calculator-submit {
+  background-color: #285dbf;
 }
 
 .wide-submit {
@@ -449,6 +453,71 @@ p.calcu-result#train-car-number-result{
   width: auto;
 }
 
+.number-coding-graphic-group {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#number-coding-graphic {
+  display: block;
+  max-width: 100%;
+  width: auto;
+}
+
+#number-coding-calculator-legend {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+div.legend-item .legend-text {
+  font-size: 16px;
+  line-height: 1.15em;
+}
+
+#number-coding-calculator-legend div.legend-item {
+  width: auto;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 560px) {
+  div#number-coding-calculator-legend {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #number-coding-calculator-legend div.legend-item {
+    width: 90%;
+    margin: auto;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.day-square {
+  margin-right: 10px;
+  fill: #ababab;
+}
+
+.day-square.major-restricted rect {
+  fill: #c82438;
+}
+
+.day-square.edsa-restricted rect {
+  fill: #dbb13e;
+}
+
+.day-square.allowed rect {
+  fill: #24c866;
+}
+
 svg#train-car-graphic .selected {
   fill: #22bf76;
 }
@@ -457,12 +526,35 @@ svg#train-car-graphic path, rect {
   fill: #ababab;
 }
 
-.mc-car {
+svg#number-coding-graphic .major-restricted {
+  fill: #c82438;
+}
+
+svg#number-coding-graphic .edsa-restricted {
+  fill: #dbb13e;
+}
+
+svg#number-coding-graphic .allowed {
+  fill: #24c866;
+}
+
+svg#number-coding-graphic path, rect {
+  fill: #ababab;
+}
+
+.mc-car, .day-obj {
   fill-rule: evenodd;
 }
 
 svg#train-car-graphic .car-number {
   font-size: 86px;
+  fill: #ffffff;
+  text-anchor: middle;
+  font-family: "Rubik";
+}
+
+svg#number-coding-graphic .day-text {
+  font-size: 48px;
   fill: #ffffff;
   text-anchor: middle;
   font-family: "Rubik";
@@ -482,6 +574,10 @@ svg#train-car-graphic .car-number {
 
 .train-car-graphic-group .direction-text.active-direction .arrow-svg {
   fill: #000000;
+}
+
+.number-coding-graphic-group .day-text {
+  color: #ababab;
 }
 
 .small-calcu-result {

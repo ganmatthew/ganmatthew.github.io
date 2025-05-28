@@ -1,0 +1,83 @@
+---
+title: Number Coding Calculator
+description: Calculate which days of the week a car is not allowed on major roads in Metro Manila, including the new Odd-Even Scheme on EDSA of the MMDA.
+permalink: /number-coding-calculator
+---
+<head>
+  {% capture override_dependencies %}
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.3/dist/bootstrap-table.min.css">
+  {% endcapture %}
+  {% include imports.html content=override_dependencies %}
+  <script type="module" src="js/number-coding-calculator.js"></script>
+</head>
+<body>
+  {%include navigation.html %}
+  <div class="home">
+    <h1 class="calc-title">Number Coding Calculator<span class="beta-indicator"><p class="badge badge-secondary">BETA</p></span></h1>
+    <div class="calculator-container" id="check-id-number-container">
+      <p class="center-paragraph" id="space-below-paragraph">Determine what days of the week a car is restricted from EDSA or from major roads.</p>
+      <div class="form-container" id="number-coding-calculator">
+        <form>
+          <!--Last Digit-->
+          <div class="mb-3">
+            <label for="last-digit" class="form-label">Last Digit of Plate Number</label>
+            <input type="number" class="form-control" placeholder="1" id="last-digit" min="0" max="9" step="1">
+          </div>
+          <!--Number Coding Type-->
+          <div class="mb-3">
+            <label for="number-coding-type" class="form-label">Number Coding Type</label>
+            <select class="form-select" id="number-coding-type" disabled>
+                <option value="0">Regular Number Coding (UUVRP)</option>
+                <option value="1">EDSA Odd-Even Scheme</option>
+                <option value="2"selected>Both</option>
+            </select>
+          </div>
+          <!--Settings-->
+          <!-- <div class="calcu-lower row mb-4"> -->
+            <!-- <div class="col">
+              <label class="form-label">Settings</label>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="">
+                <label class="form-check-label" for=""></label>
+              </div>
+            </div> -->
+          <!-- </div> -->
+          <div class="row mb-5">
+            <button type="button" class="btn btn-primary btn-lg mr-2 wide-submit" id="number-coding-calculator-submit">Calculate</button>
+          </div>
+        </form>
+      </div>
+      <!--Output-->
+      <div class="row mb-4" id="number-coding-results" hidden>
+        <label class="mb-3" id="number-coding-calculator-result-label">Result:</label>
+        <div class="number-coding-graphic-group mb-0">
+          <div id="number-coding-graphic-container"></div>
+        </div>
+        <div id="number-coding-calculator-legend" style="font-size: 1em;">
+          <div class="legend-item">
+            <span class="day-square major-restricted">
+              <svg width="20" height="20"><rect width="20" height="20" /></svg>
+            </span>
+            <span class="legend-text">Not allowed on major roads only</span>
+          </div>
+          <div class="legend-item">
+            <span class="day-square edsa-restricted">
+              <svg width="20" height="20"><rect width="20" height="20" /></svg>
+            </span>
+            <span class="legend-text">Not allowed on EDSA only</span>
+          </div>
+          <div class="legend-item">
+            <span class="day-square allowed">
+              <svg width="20" height="20"><rect width="20" height="20" /></svg>
+            </span>
+            <span class="legend-text">Allowed on both EDSA and major roads</span>
+          </div>
+        </div>
+        <p class="calcu-result" id="number-coding-number-result"></p>
+        <p class="calcu-result" id="number-coding-message-result"></p>
+      </div>
+    </div>
+  <footer>
+    {% include footer.html %}
+  </footer>
+</body>

@@ -507,7 +507,7 @@ div.legend-item .legend-text {
 }
 
 .day-square.major-restricted rect {
-  fill: #c82438;
+  fill: #e573a5;
 }
 
 .day-square.edsa-restricted rect {
@@ -519,7 +519,7 @@ div.legend-item .legend-text {
 }
 
 .day-square.both-restricted rect {
-  fill: #eea2ad;
+  fill: #c82438;
 }
 
 svg#train-car-graphic .selected {
@@ -531,7 +531,7 @@ svg#train-car-graphic path, rect {
 }
 
 svg#number-coding-graphic .major-restricted {
-  fill: #c82438;
+  fill: #e573a5;
 }
 
 svg#number-coding-graphic .edsa-restricted {
@@ -543,7 +543,7 @@ svg#number-coding-graphic .allowed {
 }
 
 svg#number-coding-graphic .both-restricted {
-  fill: #eea2ad;
+  fill: #c82438;
 }
 
 svg#number-coding-graphic path, rect {
@@ -562,10 +562,18 @@ svg#train-car-graphic .car-number {
 }
 
 svg#number-coding-graphic .day-text {
-  font-size: 48px;
+  font-size: 54px;
+  letter-spacing: 2px;
   fill: #ffffff;
   text-anchor: middle;
   font-family: "Rubik";
+}
+
+@media screen and (max-width: 560px) {
+  svg#number-coding-graphic .day-text {
+    font-size: 64px;
+    letter-spacing: 4px;
+  }
 }
 
 .train-car-graphic-group .direction-text {

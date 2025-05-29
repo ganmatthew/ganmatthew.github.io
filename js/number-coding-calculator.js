@@ -71,30 +71,43 @@ function validateInputs(lastDigit) {
     return passed;
 }
 
-function loadWeekSVG(svgContainer, daysArr) {
-    const svgStr = `<svg id="number-coding-graphic" xmlns="http://www.w3.org/2000/svg" width="1650" height="100" viewBox="0 0 1650 100">
-    <rect id="Day1" class="day-obj" x="16" y="16" width="220" height="118" rx="4" ry="4"/>
-    <text id="_1" data-name="Day1" class="day-text" x="126.787" y="95.112"><tspan x="126.787">Mon</tspan></text>
+function generateDaySVG(index, text, rect_x, rect_y, text_x, text_y, tspan_x) {
+    if (isNaN(index) || text.length === 0 || isNaN(rect_x) || isNaN(rect_y) || isNaN(text_x) || isNaN(text_y) || isNaN(tspan_x)) {
+        console.error("One or more parameters for generateDaySVG() is not valid");
+        return ``
+    }
+    return `<rect id="Day${index}" class="day-obj" x="${rect_x}" y="${rect_y}" width="220" height="118" rx="4" ry="4"/>
+    <text id="_${index}" data-name="Day${index}" class="day-text" x="${text_x}" y="${text_y}"><tspan x="${tspan_x}">${text}</tspan></text>`;
+}
 
-    <rect id="Day2" data-name="Day2" class="day-obj" x="249" y="16" width="220" height="118" rx="4" ry="4"/>
-    <text id="_2" data-name="2" class="day-text" x="359.787" y="95.112"><tspan x="359.787">Tue</tspan></text>
+function generateWeekSVG(numOfDays, width=1650, height=100) {
+    const shapeWidth = 220;
+    const shapeSpacing = 233; // 220px width + 13px space
+    const totalWidth = numOfDays * shapeSpacing;
+    const startX = (width - totalWidth) / 2;
 
-    <rect id="Day3" data-name="Day3" class="day-obj" x="482" y="15" width="220" height="118" rx="4" ry="4"/>
-    <text id="_3" data-name="3" class="day-text" x="592.787" y="95.112"><tspan x="592.787">Wed</tspan></text>
+    const svgOpenTag = `<svg id="number-coding-graphic" xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`;
+    const svgCloseTag = `</svg>`;
+    const dayNames = Object.values(Day);
 
-    <rect id="Day4" data-name="Day4" class="day-obj" x="715" y="15" width="220" height="118" rx="4" ry="4"/>
-    <text id="_4" data-name="4" class="day-text" x="825.787" y="95.112"><tspan x="825.787">Thu</tspan></text>
+    let svg = svgOpenTag;
 
-    <rect id="Day5" data-name="Day5" class="day-obj" x="948" y="15" width="220" height="118" rx="4" ry="4"/>
-    <text id="_5" data-name="5" class="day-text" x="1058.787" y="95.112"><tspan x="1058.787">Fri</tspan></text>
+    for (let index = 0; index < numOfDays; index++) {
+        const rect_x = startX + index * shapeSpacing;
+        const rect_y = 16;
+        const text_x = rect_x + shapeWidth / 2;
+        const text_y = 95.112;
+        const tspan_x = text_x;
+        const text = dayNames[index];
+        svg += generateDaySVG(index + 1, text, rect_x, rect_y, text_x, text_y, tspan_x);
+    }
 
-    <rect id="Day6" data-name="Day6" class="day-obj" x="1181" y="16" width="220" height="118" rx="4" ry="4"/>
-    <text id="_6" data-name="6" class="day-text" x="1291.787" y="95.112"><tspan x="1291.787">Sat</tspan></text>    
+    svg += svgCloseTag;
+    return svg;
+}
 
-    <rect id="Day7" data-name="Day7" class="day-obj" x="1414" y="16" width="220" height="118" rx="4" ry="4"/>
-    <text id="_7" data-name="7" class="day-text" x="1524.788" y="95.112"><tspan x="1524.788">Sun</tspan></text>
-    </svg>`;
-
+function loadWeekSVG(svgContainer, daysArr, numOfDays) {
+    const svgStr = generateWeekSVG(numOfDays);
     svgContainer.innerHTML = svgStr;
 
     const svg = svgContainer.querySelector('svg');
@@ -120,31 +133,39 @@ function generateDaysArray(lastDigit) {
     return daysArr
 }
 
-// function loadCheckboxStates() {
-//     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-//     checkboxes.forEach((checkbox) => {
-//         const savedState = localStorage.getItem(checkbox.id);
-//         if (savedState !== null) {
-//             checkbox.checked = savedState === 'true';
-//         }
-//     });
-// }
+function saveCheckboxStates() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+      localStorage.setItem(checkbox.id, checkbox.checked);
+    });
+}  
+
+function loadCheckboxStates() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+        const savedState = localStorage.getItem(checkbox.id);
+        if (savedState !== null) {
+            checkbox.checked = savedState === 'true';
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", (e) => {
     let form = document.getElementById('number-coding-calculator').querySelector('form');
     let lastDigit = document.getElementById('last-digit');
     let numberCodingType = document.getElementById('number-coding-type');
+    let includeSundays = document.getElementById('include-sundays');
     let submitBtn = document.getElementById('number-coding-calculator-submit');
     let results = document.getElementById('number-coding-results');
     let svgContainer = document.getElementById('number-coding-graphic-container');
 
     // Attach event listener to the checkboxes to save their states
-    // const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    // checkboxes.forEach((checkbox) => {
-    //     checkbox.addEventListener('change', saveCheckboxStates);
-    // });
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', saveCheckboxStates);
+    });
 
-    // loadCheckboxStates()
+    loadCheckboxStates()
 
     function validate() {
         const inputsValid = validateInputs(lastDigit);
@@ -160,8 +181,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
         }
 
         let daysArr = generateDaysArray(lastDigit.value)
+        const numOfDays = includeSundays.checked ? 7 : 6;
 
-        loadWeekSVG(svgContainer, daysArr, numberCodingType.value)
+        loadWeekSVG(svgContainer, daysArr, numOfDays)
         results.hidden = false;
     }
 

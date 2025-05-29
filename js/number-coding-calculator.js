@@ -11,7 +11,8 @@ const Day = {
 const Allowed = {
     NoMajor: 0,
     NoEDSA: 1,
-    Yes: 2
+    NoBoth: 2,
+    Yes: 3,
 }
 
 const NumberCodingType = {
@@ -23,21 +24,22 @@ const NumberCodingType = {
 const CodingMap = [
     { 'flag': Allowed.NoMajor, 'cssClass': 'major-restricted' },
     { 'flag': Allowed.NoEDSA, 'cssClass': 'edsa-restricted' },
-    { 'flag': Allowed.Allowed, 'cssClass': 'allowed' }
+    { 'flag': Allowed.Allowed, 'cssClass': 'allowed' },
+    { 'flag': Allowed.NoBoth, 'cssClass': 'both-restricted' }
 ]
 
 const NumberCodingData = [
-    // Mon             Tue          Wed             Thu             Fri             Sat             Sun
-    [Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes],   // digit 0
-    [Allowed.NoMajor, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.Yes],    // digit 1
-    [Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes],   // digit 2
-    [Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.Yes],   // digit 3
-    [Allowed.Yes,   Allowed.NoMajor, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes],    // digit 4
-    [Allowed.NoEDSA, Allowed.Yes,   Allowed.NoMajor, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.Yes],    // digit 5
-    [Allowed.Yes,   Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes],   // digit 6
-    [Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes,   Allowed.Yes],   // digit 7
-    [Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.NoMajor, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes],    // digit 8
-    [Allowed.NoEDSA, Allowed.Yes,   Allowed.NoEDSA, Allowed.Yes,   Allowed.NoMajor, Allowed.Yes,   Allowed.Yes]    // digit 9
+    // Mon          Tue              Wed            Thu             Fri             Sat             Sun
+    [Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes],   // digit 0
+    [Allowed.NoBoth, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.Yes],       // digit 1
+    [Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes],   // digit 2
+    [Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.Yes],   // digit 3
+    [Allowed.Yes, Allowed.NoBoth, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes],       // digit 4
+    [Allowed.NoEDSA, Allowed.Yes, Allowed.NoBoth, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.Yes],       // digit 5
+    [Allowed.Yes, Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes],   // digit 6
+    [Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes, Allowed.Yes],   // digit 7
+    [Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoBoth, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes],       // digit 8
+    [Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoBoth, Allowed.Yes, Allowed.Yes],       // digit 9
 ];
 
 function clamp(min, max, value) {

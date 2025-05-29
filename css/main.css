@@ -518,6 +518,10 @@ div.legend-item .legend-text {
   fill: #24c866;
 }
 
+.day-restricted .both-restricted {
+  fill: #eea2ad;
+}
+
 svg#train-car-graphic .selected {
   fill: #22bf76;
 }
@@ -536,6 +540,10 @@ svg#number-coding-graphic .edsa-restricted {
 
 svg#number-coding-graphic .allowed {
   fill: #24c866;
+}
+
+svg#number-coding-graphic .both-restricted {
+  fill: #eea2ad;
 }
 
 svg#number-coding-graphic path, rect {

@@ -24,8 +24,8 @@ const NumberCodingType = {
 const CodingMap = [
     { 'flag': Allowed.NoMajor, 'cssClass': 'major-restricted' },
     { 'flag': Allowed.NoEDSA, 'cssClass': 'edsa-restricted' },
-    { 'flag': Allowed.Allowed, 'cssClass': 'allowed' },
-    { 'flag': Allowed.NoBoth, 'cssClass': 'both-restricted' }
+    { 'flag': Allowed.NoBoth, 'cssClass': 'both-restricted' },
+    { 'flag': Allowed.Allowed, 'cssClass': 'allowed' }
 ]
 
 const NumberCodingData = [
@@ -71,7 +71,7 @@ function validateInputs(lastDigit) {
     return passed;
 }
 
-function loadWeekSVG(svgContainer, daysArr, numberCodingType) {
+function loadWeekSVG(svgContainer, daysArr) {
     const svgStr = `<svg id="number-coding-graphic" xmlns="http://www.w3.org/2000/svg" width="1650" height="100" viewBox="0 0 1650 100">
     <rect id="Day1" class="day-obj" x="16" y="16" width="220" height="118" rx="4" ry="4"/>
     <text id="_1" data-name="Day1" class="day-text" x="126.787" y="95.112"><tspan x="126.787">Mon</tspan></text>

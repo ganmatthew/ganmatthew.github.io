@@ -518,7 +518,7 @@ div.legend-item .legend-text {
   fill: #24c866;
 }
 
-.day-restricted .both-restricted {
+.day-square.both-restricted rect {
   fill: #eea2ad;
 }
 

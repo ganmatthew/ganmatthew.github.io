@@ -36,8 +36,9 @@ div#bio-info {
 }
 
 footer {
-  /* transform: translateY(70px); */
-  /* padding: 40px 0 40px 0; */
+  border-top: 1px solid rgb(210,210,210);
+  padding-top: 30px;
+  height: 120px;
 }
 
 a {
@@ -153,11 +154,22 @@ img#bio-pic  {
   margin-bottom: 1em;
 }
 
-#betaText {
-  border-top: 1px solid rgb(210,210,210);
-  padding-top: 30px;
-  height: 100px;
+div#footer-text p {
+  margin-bottom: 5px;
   text-align: center;
+}
+
+footer a.socmed-icon img {
+  width: 16px;
+  margin: 12px;
+}
+
+footer a.socmed-icon p {
+  font-size: 16px;
+}
+
+footer a.socmed-icon span {
+  height: 10px;
 }
 
 a.hyperlink {
@@ -220,6 +232,17 @@ nav a:hover {
 
 h1.calc-title {
   margin: 0 10 0;
+}
+
+h3.external-link-text::after {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 0.3em;
+  background: url('/images/icons/external.svg') no-repeat center center;
+  background-size: contain;
+  vertical-align: middle;
 }
 
 span.beta-indicator {
@@ -827,6 +850,8 @@ div.socmed-table {
   align-items: center;
   flex-wrap: wrap;
   margin: auto;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 a.socmed-icon {

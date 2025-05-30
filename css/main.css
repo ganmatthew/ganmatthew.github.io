@@ -36,8 +36,9 @@ div#bio-info {
 }
 
 footer {
-  /* transform: translateY(70px); */
-  /* padding: 40px 0 40px 0; */
+  border-top: 1px solid rgb(210,210,210);
+  padding-top: 30px;
+  height: 120px;
 }
 
 a {
@@ -153,11 +154,22 @@ img#bio-pic  {
   margin-bottom: 1em;
 }
 
-#betaText {
-  border-top: 1px solid rgb(210,210,210);
-  padding-top: 30px;
-  height: 100px;
+div#footer-text p {
+  margin-bottom: 5px;
   text-align: center;
+}
+
+footer a.socmed-icon img {
+  width: 16px;
+  margin: 12px;
+}
+
+footer a.socmed-icon p {
+  font-size: 16px;
+}
+
+footer a.socmed-icon span {
+  height: 10px;
 }
 
 a.hyperlink {

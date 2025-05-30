@@ -56,7 +56,7 @@ section {
 }
 
 section.projects {
-  
+
 }
 
 section#home {
@@ -228,6 +228,28 @@ nav a:hover {
   color: rgb(48,216,112);
   transform: scale(1.05);
   transition: 150ms ease-in-out;
+}
+
+span.collapse-arrow {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 0.3em;
+  background: url('/images/icons/collapse.svg') no-repeat center center;
+  background-size: contain;
+  vertical-align: middle;
+  user-select: none;
+  cursor: pointer;
+  transform-origin: center;
+  transition: 0.2s ease-in-out;
+}
+
+span.collapse-arrow.closed{
+  transform: rotateZ(180deg);
+}
+
+div.collapsible-section {
+  overflow: hidden;
 }
 
 h1.calc-title {

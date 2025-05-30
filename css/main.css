@@ -571,7 +571,7 @@ svg#number-coding-graphic .day-text {
 
 @media screen and (max-width: 560px) {
   svg#number-coding-graphic .day-text {
-    font-size: 64px;
+    font-size: 66px;
     letter-spacing: 4px;
   }
 }

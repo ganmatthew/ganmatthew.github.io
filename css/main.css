@@ -234,6 +234,17 @@ h1.calc-title {
   margin: 0 10 0;
 }
 
+h3.external-link-text::after {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 0.3em;
+  background: url('/images/icons/external.svg') no-repeat center center;
+  background-size: contain;
+  vertical-align: middle;
+}
+
 span.beta-indicator {
   position: absolute;
   padding: 4px 6px 4px;
@@ -839,6 +850,8 @@ div.socmed-table {
   align-items: center;
   flex-wrap: wrap;
   margin: auto;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 a.socmed-icon {

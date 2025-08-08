@@ -62,24 +62,28 @@ function updateDirectionValue(directionsData, originInd, destinationInd, directi
 }
 
 function checkForStationExits(stationsData, destinationInd, direction) {
-    // const directionText = DirectionMap[direction];
+    let directionText = DirectionMap[direction];
     let exitDropdown = document.getElementById('station-exit-dropdown');
     let select = document.getElementById('station-exit');
     let destination = stationsData[destinationInd];
-    // let carArr = destination.exitMap[directionText];
     let exitNames = destination['exits'] || []
+    let carsPerExit = destination.exitMap[directionText] || [];
 
-    // Stations with array lengths of 2 and greater must have more than one exit for that direction
-    // if (carArr.length >= 2 && carArr.length === exitNames.length) {
-    if (exitNames.length > 0) {
+    // Map available exits per direction
+    const availableExits = exitNames
+        .map((name, i) => ({ name, cars: carsPerExit[i] }))
+        .filter(exit => Array.isArray(exit.cars) && exit.cars.length > 0);
+
+    if (availableExits.length > 0) {
         exitDropdown.hidden = false;
         // Clear existing data
         select.innerHTML = '';
         // Populate dropdown options
-        exitNames.forEach((exitName, index) => {
+        availableExits.forEach((exit) => {
             const option = document.createElement('option');
-            option.value = index;
-            option.textContent = exitName;
+            // Use the index from the unfiltered array
+            option.value = exitNames.indexOf(exit.name);
+            option.textContent = exit.name;
             select.appendChild(option);
         });
         // Set default options

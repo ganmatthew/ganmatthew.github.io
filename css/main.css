@@ -8,6 +8,19 @@ body {
   background-color: #fafafa;
 }
 
+#lrt1 + label {
+  --line-color: #047443;
+}
+
+#lrt2 + label {
+  --line-color: #690dac;
+}
+
+#mrt3 + label {
+  --line-color: #facc2e;
+  --line-text-color: #000000;
+}
+
 header.bio {
   display: flex;
   align-items: center;
@@ -711,6 +724,30 @@ div.grid.art-grid {
 
 .art-grid .grid-item { 
   margin-bottom: 10px;
+}
+
+#train-car-calculator legend {
+  font-size: 18px;
+}
+
+.btn-check + .btn {
+  border: 1px solid var(--bs-border-color);
+  width: 30%;
+}
+
+@media screen and (max-width: 780px) {
+  .btn-check + .btn { width: 33%; height: 50px; }
+  .btn-check + label { place-content: center; }
+}
+
+.btn-check + .btn:hover {
+  border: 1px solid var(--line-color);
+}
+
+.btn-check:checked + .btn {
+  border: 1px solid var(--line-color);
+  background-color: var(--line-color);
+  color: var(--line-text-color, white);
 }
 
 button.btn-close {

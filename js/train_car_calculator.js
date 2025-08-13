@@ -62,12 +62,12 @@ function updateDirectionValue(directionsData, originInd, destinationInd, directi
 }
 
 function checkForStationExits(stationsData, destinationInd, direction) {
-    let directionText = DirectionMap[direction];
-    let exitDropdown = document.getElementById('station-exit-dropdown');
-    let select = document.getElementById('station-exit');
-    let destination = stationsData[destinationInd];
-    let exitNames = destination['exits'] || []
-    let carsPerExit = destination.exitMap[directionText] || [];
+    const directionText = DirectionMap[direction];
+    const exitDropdown = document.getElementById('station-exit-dropdown');
+    const select = document.getElementById('station-exit');
+    const destination = stationsData[destinationInd];
+    const exitNames = destination['exits'] || []
+    const carsPerExit = destination.exitMap[directionText] || [];
 
     // Map available exits per direction
     const availableExits = exitNames
@@ -94,11 +94,11 @@ function checkForStationExits(stationsData, destinationInd, direction) {
 }
 
 function validateInputData(data) {
-    let origin = document.getElementById('origin-station');
-    let originFeedback = document.getElementById('origin-station-feedback');
-    let destination = document.getElementById('destination-station');
-    let destinationFeedback = document.getElementById('destination-station-feedback');
-    let direction = document.getElementById('direction');
+    const origin = document.getElementById('origin-station');
+    const originFeedback = document.getElementById('origin-station-feedback');
+    const destination = document.getElementById('destination-station');
+    const destinationFeedback = document.getElementById('destination-station-feedback');
+    const direction = document.getElementById('direction');
 
     const stationsData = data['stations'];
     const directionsData = data['directions'];
@@ -172,7 +172,7 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
         carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, ${carArr[2]}, or ${carArr[3]}`;
     }
     
-    let exitList = stationsData[destInd].exitMap[DirectionMap[directionText]]
+    const exitList = stationsData[destInd].exitMap[DirectionMap[directionText]]
     if (exitList.length > 1) {
         exitText = stationsData[destInd].exits[exit];
         if (data['line'] !== LineName.Line2) {
@@ -180,7 +180,7 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
         }
     }
 
-    let message = `To arrive near the ${exitText} at ${destination}, board ${carText} at the ${direction} platform of ${origin}.`
+    const message = `To arrive near the ${exitText} at ${destination}, board ${carText} at the ${direction} platform of ${origin}.`
     return [message, carResult];
 }
 
@@ -205,8 +205,8 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     // Get destination station exit cars
     const direction = DirectionMap[directionText];
     let carArr = stationsData[destInd].exitMap[direction];
-    let exit = document.getElementById('station-exit');
-    let exitValue = exit.value || 0
+    const exit = document.getElementById('station-exit');
+    const exitValue = exit.value || 0
 
     carArr = carArr[exitValue];
     console.log(`Line: ${data['line'].name}\nOrigin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration.value}\nCar Result: [${carArr}]`);
@@ -253,8 +253,8 @@ function loadTerminals(stationsData, directionText) {
     const isNBOrWB = [DirectionMap.Northbound, DirectionMap.Westbound].includes(direction);
     const isSBOrEB = [DirectionMap.Southbound, DirectionMap.Eastbound].includes(direction);
 
-    let station1 = stationsData[0];
-    let station2 = stationsData[stationsData.length - 1];
+    const station1 = stationsData[0];
+    const station2 = stationsData[stationsData.length - 1];
 
     terminus1Text.innerHTML = `To ${station1.name}`
     terminus2Text.innerHTML = `To ${station2.name}`
@@ -328,16 +328,18 @@ function processData(data, origin, destination, direction, usePriorityCar, confi
     }, 3)
 }
 
+function getTrainLineValue() {
+  return document.querySelector('input[name="train-line"]:checked').value;
+}
+
 function saveCheckboxStates() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       localStorage.setItem(checkbox.id, checkbox.checked);
     });
   }  
 
 function loadCheckboxStates() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         const savedState = localStorage.getItem(checkbox.id);
         if (savedState !== null) {
             checkbox.checked = savedState === 'true';
@@ -346,73 +348,81 @@ function loadCheckboxStates() {
 }
 
 document.addEventListener("DOMContentLoaded", (e) => {
-    let line = document.getElementById('train-line');
-    let origin = document.getElementById('origin-station');
-    let destination = document.getElementById('destination-station');
-    let direction = document.getElementById('direction');
-    let exit = document.getElementById('station-exit');
-    let priorityCar = document.getElementById('priority-car');
-    let configuration = document.getElementById('configuration');
-    let submitBtn = document.getElementById('train-car-calculator-submit');
-    let results = document.getElementById('train-car-results');
-    let resultsCar = document.getElementById('train-car-number-result');
-    let resultsMsg = document.getElementById('train-car-message-result');
-    let svgContainer = document.getElementById('train-car-graphic-container');
+    const lines = document.querySelectorAll('input[name="train-line"]');
+    const origin = document.getElementById('origin-station');
+    const destination = document.getElementById('destination-station');
+    const direction = document.getElementById('direction');
+    const exit = document.getElementById('station-exit');
+    const priorityCar = document.getElementById('priority-car');
+    const configuration = document.getElementById('configuration');
+    const submitBtn = document.getElementById('train-car-calculator-submit');
+    const results = document.getElementById('train-car-results');
+    const resultsCar = document.getElementById('train-car-number-result');
+    const resultsMsg = document.getElementById('train-car-message-result');
+    const svgContainer = document.getElementById('train-car-graphic-container');
 
     function generate(getNewLineData) {
-        const data = LineData[line.value || 0];
-            const numberOfCarsData = data['numberOfCars'];
-            const stationsData = data['stations'];
-            const directionsData = data['directions'];
-            if (getNewLineData) {
-                // Update the list of origin and destination stations
-                generateDropdownOptions(stationsData, [origin, destination])
-                // Clear exit data
-                exit.innerHTML = null;
-                // Number of cars is fixed at 4 if the line only supports 4-car configuration
-                configuration.disabled = numberOfCarsData.length === 1;
-                if (numberOfCarsData.length === 1) {
-                    // Switch to the option matching the line's number of cars
-                    let defaultOption = configuration.querySelector(`[value='${numberOfCarsData[0].index}']`)
-                    configuration.selectedIndex = defaultOption.index;
-                }
+        const data = LineData[getTrainLineValue() || 0];
+        const numberOfCarsData = data['numberOfCars'];
+        const stationsData = data['stations'];
+        const directionsData = data['directions'];
+        if (getNewLineData) {
+            // Update the list of origin and destination stations
+            generateDropdownOptions(stationsData, [origin, destination])
+            // Clear exit data
+            exit.innerHTML = null;
+            // Number of cars is fixed at 4 if the line only supports 4-car configuration
+            configuration.disabled = numberOfCarsData.length === 1;
+            if (numberOfCarsData.length === 1) {
+                // Switch to the option matching the line's number of cars
+                const defaultOption = configuration.querySelector(`[value='${numberOfCarsData[0].index}']`)
+                configuration.selectedIndex = defaultOption.index;
             }
-            // NOTE: This must be declared here so that default stations are changed whenever the line changes
-            const originInd = parseInt(origin.value);
-            const destinationInd = parseInt(destination.value);
-            // Update the train direction based on origin and destination
-            updateDirectionValue(
-                directionsData, originInd, destinationInd, direction
-            )
-            // Update whether to allow selecting multiple exits
-            checkForStationExits(stationsData, destinationInd, direction.value)  
+        }
+        // NOTE: This must be declared here so that default stations are changed whenever the line changes
+        const originInd = parseInt(origin.value);
+        const destinationInd = parseInt(destination.value);
+        // Update the train direction based on origin and destination
+        updateDirectionValue(
+            directionsData, originInd, destinationInd, direction
+        )
+        // Update whether to allow selecting multiple exits
+        checkForStationExits(stationsData, destinationInd, direction.value)  
     }
 
     generate(true);
 
     // Generate the dropdown options
-    [line, origin, destination].forEach(select => {
+    lines.forEach(line => {
+        line.addEventListener('change', () => {
+            generate(true);
+            validate();
+        })
+    });
+
+    const selectedLine = [...lines].filter(line => line.checked);
+
+    [origin, destination].forEach(select => {
         select.addEventListener('change', () => {
-            generate(select === line);
+            generate(select === selectedLine);
         });
     });
 
     // Attach event listener to the checkboxes to save their states
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         checkbox.addEventListener('change', saveCheckboxStates);
     });
 
     loadCheckboxStates()
 
     function validate() {
-        const data = LineData[line.value || 0];
+        const data = LineData[getTrainLineValue() || 0];
         const inputsValid = validateInputData(data);
         submitBtn.disabled = !inputsValid;
     }
 
     // Validate inputs
-    [line, origin, destination, priorityCar, configuration].forEach(element => {
+    [origin, destination, priorityCar, configuration].forEach(element => {
         element.addEventListener('change', validate);
     });
 
@@ -420,7 +430,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         submitBtn.disabled = true;
         validate()
         if (!submitBtn.disabled) {
-            const data = LineData[line.value || 0];
+            const data = LineData[getTrainLineValue() || 0];
             processData(
                 data, origin, destination, direction, priorityCar.checked, configuration,
                 exit.value, results, resultsCar, resultsMsg, svgContainer

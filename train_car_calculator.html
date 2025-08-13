@@ -20,12 +20,15 @@ permalink: /train-car-calculator
         <form>
           <!--Line-->
           <div class="mb-3">
-            <label for="train-line" class="form-label">Line</label>
-            <select class="form-select" id="train-line">
-                <option value="0" selected>LRT-1</option>
-                <option value="1">LRT-2</option>
-                <option value="2">MRT-3</option>
-            </select>
+            <fieldset class="d-flex flex-wrap justify-content-between">
+              <legend class="form-label">Line</legend>
+              <input type="radio" class="btn-check" name="train-line" id="lrt1" value="0" autocomplete="off" checked>
+              <label class="btn" for="lrt1">LRT-1</label>
+              <input type="radio" class="btn-check" name="train-line" id="lrt2" value="1" autocomplete="off">
+              <label class="btn" for="lrt2">LRT-2</label>
+              <input type="radio" class="btn-check" name="train-line" id="mrt3" value="2" autocomplete="off">
+              <label class="btn" for="mrt3">MRT-3</label>
+            </fieldset>
             <div id="origin-station-feedback" class="invalid-feedback"></div>
           </div>
           <!--Origin-->

@@ -3,3 +3,4 @@ logo: /images/favicon.png
 plugins:
   - jekyll-redirect-from
   - jekyll-seo-tag
+  - jekyll-sitemap

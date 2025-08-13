@@ -25,21 +25,21 @@ const CodingMap = [
     { 'flag': Allowed.NoMajor, 'cssClass': 'major-restricted' },
     { 'flag': Allowed.NoEDSA, 'cssClass': 'edsa-restricted' },
     { 'flag': Allowed.NoBoth, 'cssClass': 'both-restricted' },
-    { 'flag': Allowed.Allowed, 'cssClass': 'allowed' }
+    { 'flag': Allowed.Yes, 'cssClass': 'allowed' }
 ]
 
 const NumberCodingData = [
-    // Mon          Tue              Wed            Thu             Fri             Sat             Sun
-    [Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes],   // digit 0
-    [Allowed.NoBoth, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.Yes],       // digit 1
-    [Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes],   // digit 2
-    [Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.Yes],   // digit 3
-    [Allowed.Yes, Allowed.NoBoth, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes],       // digit 4
-    [Allowed.NoEDSA, Allowed.Yes, Allowed.NoBoth, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.Yes],       // digit 5
-    [Allowed.Yes, Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes],   // digit 6
-    [Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.NoMajor, Allowed.NoEDSA, Allowed.Yes, Allowed.Yes],   // digit 7
-    [Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoBoth, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes],       // digit 8
-    [Allowed.NoEDSA, Allowed.Yes, Allowed.NoEDSA, Allowed.Yes, Allowed.NoBoth, Allowed.Yes, Allowed.Yes],       // digit 9
+    // Mon           Tue             Wed             Thu             Fri              Sat             Sun
+    [Allowed.Yes,    Allowed.NoEDSA, Allowed.Yes,    Allowed.NoEDSA, Allowed.NoBoth,  Allowed.NoEDSA, Allowed.Yes], // 0
+    [Allowed.NoBoth, Allowed.Yes,    Allowed.NoEDSA, Allowed.Yes,    Allowed.NoEDSA,  Allowed.Yes,    Allowed.Yes], // 1
+    [Allowed.NoBoth, Allowed.NoEDSA, Allowed.Yes,    Allowed.NoEDSA, Allowed.Yes,     Allowed.NoEDSA, Allowed.Yes], // 2
+    [Allowed.NoEDSA, Allowed.NoBoth, Allowed.NoEDSA, Allowed.Yes,    Allowed.NoEDSA,  Allowed.Yes,    Allowed.Yes], // 3
+    [Allowed.Yes,    Allowed.NoBoth, Allowed.Yes,    Allowed.NoEDSA, Allowed.Yes,     Allowed.NoEDSA, Allowed.Yes], // 4
+    [Allowed.NoEDSA, Allowed.Yes,    Allowed.NoBoth, Allowed.Yes,    Allowed.NoEDSA,  Allowed.Yes,    Allowed.Yes], // 5
+    [Allowed.Yes,    Allowed.NoEDSA, Allowed.NoBoth, Allowed.NoEDSA, Allowed.Yes,     Allowed.NoEDSA, Allowed.Yes], // 6
+    [Allowed.NoEDSA, Allowed.Yes,    Allowed.NoEDSA, Allowed.NoBoth, Allowed.NoEDSA,  Allowed.Yes,    Allowed.Yes], // 7
+    [Allowed.Yes,    Allowed.NoEDSA, Allowed.Yes,    Allowed.NoBoth, Allowed.Yes,     Allowed.NoEDSA, Allowed.Yes], // 8
+    [Allowed.NoEDSA, Allowed.Yes,    Allowed.NoEDSA, Allowed.Yes,    Allowed.NoBoth,  Allowed.Yes,    Allowed.Yes], // 9
 ];
 
 function clamp(min, max, value) {
@@ -49,26 +49,23 @@ function clamp(min, max, value) {
 }
 
 function validateInputs(lastDigit) {
-    let passed = true;
-
     try {
         const min = parseInt(lastDigit.min);
         const max = parseInt(lastDigit.max);
         let value = parseInt(lastDigit.value);
+
         if (isNaN(value)) {
-            value = parseInt(lastDigit.placeholder);
+            value = 0;
         }
         if (isNaN(min) || isNaN(max) || isNaN(value)) {
-            passed = false;
-        } else {
-            lastDigit.value = clamp(min, max, value);
+            return false;
         }
+        lastDigit.value = clamp(min, max, value);
+        return true;
     } catch (err) {
-        passed = false;
         console.log(err);
+        return false;
     }
-
-    return passed;
 }
 
 function generateDaySVG(index, text, rect_x, rect_y, text_x, text_y, tspan_x) {
@@ -88,7 +85,7 @@ function generateWeekSVG(numOfDays, width=1650, height=100) {
 
     const svgOpenTag = `<svg id="number-coding-graphic" xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`;
     const svgCloseTag = `</svg>`;
-    const dayNames = Object.values(Day);
+    const dayNames = Object.values(Day).slice(0, numOfDays);
 
     let svg = svgOpenTag;
 
@@ -99,7 +96,7 @@ function generateWeekSVG(numOfDays, width=1650, height=100) {
         const text_y = 95.112;
         const tspan_x = text_x;
         const text = dayNames[index];
-        svg += generateDaySVG(index + 1, text, rect_x, rect_y, text_x, text_y, tspan_x);
+        svg += generateDaySVG(index, text, rect_x, rect_y, text_x, text_y, tspan_x);
     }
 
     svg += svgCloseTag;
@@ -115,34 +112,34 @@ function loadWeekSVG(svgContainer, daysArr, numOfDays) {
 
     svgDays.forEach((day, index) => {
         const dayFlag = daysArr[index];
-        const cssClass = CodingMap[dayFlag].cssClass;
-        if (cssClass) {
-            day.classList.add(cssClass);
+        const mapping = CodingMap.find(m => m.flag === dayFlag);
+        if (mapping) {
+            day.classList.add(mapping.cssClass);
         }
     });
 
 }
 
-function generateDaysArray(lastDigit) {
-    if (!lastDigit) return [];
+function generateDaysArray(lastDigit, codingType) {
+    if (lastDigit === null || isNaN(lastDigit)) return [];
+    let daysArr = [...NumberCodingData[lastDigit]];
 
-    let digit = parseInt(lastDigit);
-    let daysArr = NumberCodingData[digit];
-    console.log(daysArr);
-
-    return daysArr
+    if (parseInt(codingType) === NumberCodingType.NoMajor) {
+        daysArr = daysArr.map(flag => (flag === Allowed.NoMajor || flag === Allowed.NoBoth) ? flag : Allowed.Yes);
+    } else if (parseInt(codingType) === NumberCodingType.NoEDSA) {
+        daysArr = daysArr.map(flag => (flag === Allowed.NoEDSA) ? flag : Allowed.Yes);
+    }
+    return daysArr;
 }
 
 function saveCheckboxStates() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       localStorage.setItem(checkbox.id, checkbox.checked);
     });
 }  
 
 function loadCheckboxStates() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         const savedState = localStorage.getItem(checkbox.id);
         if (savedState !== null) {
             checkbox.checked = savedState === 'true';
@@ -160,8 +157,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let svgContainer = document.getElementById('number-coding-graphic-container');
 
     // Attach event listener to the checkboxes to save their states
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         checkbox.addEventListener('change', saveCheckboxStates);
     });
 
@@ -173,30 +169,25 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
 
     function handleSubmit() {
-        submitBtn.disabled = true;
-        validate()
+        if (!validateInputs(lastDigit)) return;
 
-        if (!submitBtn.disabled) {
-            submitBtn.disabled = false;
+        let digit = parseInt(lastDigit.value);
+        let daysArr = generateDaysArray(digit, numberCodingType.value);
+
+        if (!includeSundays.checked) {
+            daysArr = daysArr.slice(0, 6);
         }
 
-        let daysArr = generateDaysArray(lastDigit.value)
-        const numOfDays = includeSundays.checked ? 7 : 6;
-
-        loadWeekSVG(svgContainer, daysArr, numOfDays)
+        loadWeekSVG(svgContainer, daysArr, daysArr.length);
         results.hidden = false;
     }
 
     // Validate inputs
-    [lastDigit].forEach(element => {
-        element.addEventListener('change', validate);
-    });
-    
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        handleSubmit();
-    });
-
+    lastDigit.addEventListener('change', validate);
+    form.addEventListener('submit', (e) => { e.preventDefault(); handleSubmit(); });
     submitBtn.addEventListener('click', handleSubmit);
     submitBtn.addEventListener('touchend', handleSubmit);
+
+    // Initial state
+    validate();
  })

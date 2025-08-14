@@ -144,6 +144,10 @@ function validateInputData(data) {
     return passed;
 }
 
+function markText(text) {
+    return `<mark>${text}</mark>`
+}
+
 function generateMessage(data, originInd, destInd, directionText, exit, carArr) {
     const stationsData = data['stations'];
 
@@ -176,11 +180,13 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
     if (exitList.length > 1) {
         exitText = stationsData[destInd].exits[exit];
         if (data['line'] !== LineName.Line2) {
-            exitText = `${exitText} exit`;
+            exitText = `${markText(exitText)} exit`;
+        } else {
+            exitText = markText(exitText);
         }
     }
 
-    const message = `To arrive near the ${exitText} at ${destination}, board ${carText} at the ${direction} platform of ${origin}.`
+    const message = `To arrive near the ${exitText} at ${markText(destination)}, board ${markText(carText)} at the ${markText(direction)} platform of ${markText(origin)}.`
     return [message, carResult];
 }
 
@@ -267,7 +273,7 @@ function loadTerminals(stationsData, directionText) {
     }
 }
 
-function loadTrainSVG(svgContainer, directionText, configValue, carArr) {
+function loadTrainSVG(svgContainer, directionText, line, configValue, carArr) {
     const direction = DirectionMap[directionText]
     const isNBOrWB = [DirectionMap.Northbound, DirectionMap.Westbound].includes(direction);
     const isSBOrEB = [DirectionMap.Southbound, DirectionMap.Eastbound].includes(direction);
@@ -280,12 +286,14 @@ function loadTrainSVG(svgContainer, directionText, configValue, carArr) {
     }
 
     svgContainer.innerHTML = svgStr;
+    const lineColorClass = line[0].id;
     
     const svgCars = svgContainer.children[0].querySelectorAll('.mc-car, .m-car');
     svgCars.forEach(car => {
         const carNum = Number(car.id.replace('Car', ''));
         if (carArr.includes(carNum)) {
             car.classList.add('selected');
+            car.classList.add(lineColorClass);
         } else {
             car.classList.remove('selected');
         }
@@ -293,10 +301,11 @@ function loadTrainSVG(svgContainer, directionText, configValue, carArr) {
 
 }
 
-function processData(data, origin, destination, direction, usePriorityCar, configuration, exit, results, resultsCar, resultsMsg, svgContainer) {
+function processData(data, line, origin, destination, direction, usePriorityCar, configuration, exit, results, resultsCar, resultsMsg, svgContainer) {
     // Determine the terminals of the line based on direction
     const stationsData = data['stations'];
     const configValue = parseInt(configuration.value);
+    const lineColorClass = line[0].id;
     
     loadTerminals(stationsData, direction.value);
 
@@ -309,12 +318,13 @@ function processData(data, origin, destination, direction, usePriorityCar, confi
     );
 
     loadTrainSVG(
-        svgContainer, direction.value, configValue, carArr
+        svgContainer, direction.value, line, configValue, carArr
     );
     
-    results.hidden = false;
     resultsCar.innerHTML = carResult;
     resultsMsg.innerHTML = message;
+    resultsMsg.classList.add(lineColorClass);
+    results.hidden = false;
     
     // Move to bottom of page
     setTimeout(() => {
@@ -326,6 +336,14 @@ function processData(data, origin, destination, direction, usePriorityCar, confi
             })
         })
     }, 3)
+}
+
+function getLabelColor(lineObj) {
+    const label = lineObj[0].labels[0];
+    const labelStyle = window.getComputedStyle(label);
+    const backgroundColor = labelStyle.getPropertyValue('--line-color');
+    const color = labelStyle.getPropertyValue('--line-text-color');
+    return [backgroundColor, color];
 }
 
 function getTrainLineValue() {
@@ -392,15 +410,30 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
     generate(true);
 
+    // Apply line theme to submit button
+    function updateButtonTheme(lineObj) {
+        const [backgroundColor, color] = getLabelColor(lineObj);
+        submitBtn.style.backgroundColor = backgroundColor;
+        submitBtn.style.color = color;
+    }
+
+    function getSelectedLine() {
+        return [...lines].filter(line => line.checked);
+    }
+
+    let selectedLine = getSelectedLine()
+    updateButtonTheme(selectedLine);
+
     // Generate the dropdown options
     lines.forEach(line => {
         line.addEventListener('change', () => {
             generate(true);
             validate();
+            results.hidden = true;
+            selectedLine = getSelectedLine()
+            updateButtonTheme(selectedLine);
         })
     });
-
-    const selectedLine = [...lines].filter(line => line.checked);
 
     [origin, destination].forEach(select => {
         select.addEventListener('change', () => {
@@ -432,7 +465,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         if (!submitBtn.disabled) {
             const data = LineData[getTrainLineValue() || 0];
             processData(
-                data, origin, destination, direction, priorityCar.checked, configuration,
+                data, selectedLine, origin, destination, direction, priorityCar.checked, configuration,
                 exit.value, results, resultsCar, resultsMsg, svgContainer
             );
             submitBtn.disabled = false;

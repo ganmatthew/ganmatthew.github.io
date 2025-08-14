@@ -162,16 +162,16 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
         carText = '[no cars selected]';
         carResult = 'Cars No. —';
     } else if (carArr.length === 1) {
-        carText = `the ${Ordinal[carArr[0]]} car`;
+        carText = `${Ordinal[carArr[0]]} car`;
         carResult = `Car No. ${carArr[0]}`;
     } else if (carArr.length === 2) {
-        carText = `the ${Ordinal[carArr[0]]} or ${Ordinal[carArr[1]]} cars`;
+        carText = `${Ordinal[carArr[0]]} or ${Ordinal[carArr[1]]} cars`;
         carResult = `Car Nos. ${carArr[0]} or ${carArr[1]}`;
     } else if (carArr.length === 3) {
-        carText = `the ${Ordinal[carArr[0]]}, ${carArr[1]}, or ${Ordinal[carArr[2]]} cars`;
+        carText = `${Ordinal[carArr[0]]}, ${carArr[1]}, or ${Ordinal[carArr[2]]} cars`;
         carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, or ${carArr[2]}`;
     } else if (carArr.length === 4) {
-        carText = `the ${Ordinal[carArr[0]]}, ${carArr[1]}, ${carArr[2]}, or ${Ordinal[carArr[3]]} cars`;
+        carText = `${Ordinal[carArr[0]]}, ${carArr[1]}, ${carArr[2]}, or ${Ordinal[carArr[3]]} cars`;
         carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, ${carArr[2]}, or ${carArr[3]}`;
     }
     
@@ -193,7 +193,7 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
         exitText = `the exit`;
     }
 
-    const message = `To arrive near ${exitText} at ${markText(destination)}, board ${markText(carText)} at the ${markText(direction)} platform of ${markText(origin)}.`
+    const message = `To arrive near ${exitText} at ${markText(destination)}, board the ${markText(carText)} at the ${markText(direction)} platform of ${markText(origin)}.`
     return [message, carResult];
 }
 

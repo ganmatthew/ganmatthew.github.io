@@ -176,12 +176,13 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
     }
     
     const exitList = stationsData[destInd].exitMap[DirectionMap[directionText]]
-
+    let exitText;
+    
     if (exitList.length > 1) {
-        let exitText = stationsData[destInd].exits[exit];
-        const isNumberedExit = exitText.charAt(0).toUpperCase() === 'E' && isNaN(Number(selectedExit.charAt(1)));
+        exitText = stationsData[destInd].exits[exit];
+        const isNumberedExit = exitText.charAt(0).toUpperCase() === 'E' && !isNaN(Number(exitText.charAt(1)));
         if (isNumberedExit) {
-            const exitNumber = exitText.charAt(0).concat(exitText.charAt(1));
+            const exitNumber = exitText.split(':')[0];
             exitText = `exit ${markText(exitNumber)}`;
         } else if (data['line'] !== LineName.Line2) {
             exitText = `the ${markText(exitText)} exit`;

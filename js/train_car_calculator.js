@@ -144,6 +144,10 @@ function validateInputData(data) {
     return passed;
 }
 
+function markText(text) {
+    return `<mark>${text}</mark>`
+}
+
 function generateMessage(data, originInd, destInd, directionText, exit, carArr) {
     const stationsData = data['stations'];
 
@@ -176,11 +180,13 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
     if (exitList.length > 1) {
         exitText = stationsData[destInd].exits[exit];
         if (data['line'] !== LineName.Line2) {
-            exitText = `${exitText} exit`;
+            exitText = `${markText(exitText)} exit`;
+        } else {
+            exitText = markText(exitText);
         }
     }
 
-    const message = `To arrive near the ${exitText} at ${destination}, board ${carText} at the ${direction} platform of ${origin}.`
+    const message = `To arrive near the ${exitText} at ${markText(destination)}, board ${markText(carText)} at the ${markText(direction)} platform of ${markText(origin)}.`
     return [message, carResult];
 }
 
@@ -299,6 +305,7 @@ function processData(data, line, origin, destination, direction, usePriorityCar,
     // Determine the terminals of the line based on direction
     const stationsData = data['stations'];
     const configValue = parseInt(configuration.value);
+    const lineColorClass = line[0].id;
     
     loadTerminals(stationsData, direction.value);
 
@@ -316,6 +323,7 @@ function processData(data, line, origin, destination, direction, usePriorityCar,
     
     resultsCar.innerHTML = carResult;
     resultsMsg.innerHTML = message;
+    resultsMsg.classList.add(lineColorClass);
     results.hidden = false;
     
     // Move to bottom of page

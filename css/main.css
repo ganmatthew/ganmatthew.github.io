@@ -454,6 +454,15 @@ p.calcu-result#train-car-number-result{
   }
 }
 
+.calcu-result mark {
+  display: inline-block;
+  background-color: #eeeeee;
+  color: black;
+  font-weight: 400;
+  line-height: 1em;
+  border-radius: 8px;
+}
+
 .btn-group {
   width: 100%;
 }

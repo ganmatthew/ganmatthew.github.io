@@ -157,7 +157,6 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
 
     let carResult = '';
     let carText = '';
-    let exitText = 'exit';
 
     if (carArr.length === 0) {
         carText = '[no cars selected]';
@@ -177,16 +176,24 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
     }
     
     const exitList = stationsData[destInd].exitMap[DirectionMap[directionText]]
+    let exitText;
+    
     if (exitList.length > 1) {
         exitText = stationsData[destInd].exits[exit];
-        if (data['line'] !== LineName.Line2) {
-            exitText = `${markText(exitText)} exit`;
+        const isNumberedExit = exitText.charAt(0).toUpperCase() === 'E' && !isNaN(Number(exitText.charAt(1)));
+        if (isNumberedExit) {
+            const exitNumber = exitText.split(':')[0];
+            exitText = `exit ${markText(exitNumber)}`;
+        } else if (data['line'] !== LineName.Line2) {
+            exitText = `the ${markText(exitText)} exit`;
         } else {
-            exitText = markText(exitText);
+            exitText = `the ${markText(exitText)}`;
         }
+    } else {
+        exitText = `the exit`;
     }
 
-    const message = `To arrive near the ${exitText} at ${markText(destination)}, board ${markText(carText)} at the ${markText(direction)} platform of ${markText(origin)}.`
+    const message = `To arrive near ${exitText} at ${markText(destination)}, board ${markText(carText)} at the ${markText(direction)} platform of ${markText(origin)}.`
     return [message, carResult];
 }
 

@@ -8,17 +8,22 @@ body {
   background-color: #fafafa;
 }
 
-#lrt1 + label {
+#lrt1 + label, .lrt1 {
   --line-color: #047443;
+  --line-text-color: #ffffff;
+  --car-color: rgb(20, 205, 119);
 }
 
-#lrt2 + label {
+#lrt2 + label, .lrt2 {
   --line-color: #690dac;
+  --line-text-color: #ffffff;
+  --car-color: rgb(142, 19, 213);
 }
 
-#mrt3 + label {
+#mrt3 + label, .mrt3 {
   --line-color: #facc2e;
   --line-text-color: #000000;
+  --car-color: rgb(255, 200, 0);
 }
 
 header.bio {
@@ -581,7 +586,7 @@ div.legend-item .legend-text {
 }
 
 svg#train-car-graphic .selected {
-  fill: #22bf76;
+  fill: var(--car-color);
 }
 
 svg#train-car-graphic path, rect {

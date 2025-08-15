@@ -148,7 +148,7 @@ function markText(text) {
     return `<mark>${text}</mark>`
 }
 
-function generateMessage(data, originInd, destInd, directionText, exit, carArr) {
+function generateMessage(data, originInd, destInd, directionText, exit, carArr, useHiglight) {
     const stationsData = data['stations'];
 
     const origin = stationsData[originInd].name;
@@ -157,6 +157,8 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
 
     let carResult = '';
     let carText = '';
+
+    console.log(carArr);
 
     if (carArr.length === 0) {
         carText = '[no cars selected]';
@@ -168,10 +170,10 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
         carText = `${Ordinal[carArr[0]]} or ${Ordinal[carArr[1]]} cars`;
         carResult = `Car Nos. ${carArr[0]} or ${carArr[1]}`;
     } else if (carArr.length === 3) {
-        carText = `${Ordinal[carArr[0]]}, ${carArr[1]}, or ${Ordinal[carArr[2]]} cars`;
+        carText = `${Ordinal[carArr[0]]}, ${Ordinal[carArr[1]]}, or ${Ordinal[carArr[2]]} cars`;
         carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, or ${carArr[2]}`;
     } else if (carArr.length === 4) {
-        carText = `${Ordinal[carArr[0]]}, ${carArr[1]}, ${carArr[2]}, or ${Ordinal[carArr[3]]} cars`;
+        carText = `${Ordinal[carArr[0]]}, ${Ordinal[carArr[1]]}, ${Ordinal[carArr[2]]}, or ${Ordinal[carArr[3]]} cars`;
         carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, ${carArr[2]}, or ${carArr[3]}`;
     }
     
@@ -183,17 +185,16 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr) 
         const isNumberedExit = exitText.charAt(0).toUpperCase() === 'E' && !isNaN(Number(exitText.charAt(1)));
         if (isNumberedExit) {
             const exitNumber = exitText.split(':')[0];
-            exitText = `exit ${markText(exitNumber)}`;
-        } else if (data['line'] !== LineName.Line2) {
-            exitText = `the ${markText(exitText)} exit`;
+            exitText = `exit ${useHiglight ? markText(exitNumber) : exitNumber}`;
         } else {
-            exitText = `the ${markText(exitText)}`;
+            exitText = `the ${useHiglight ? markText(exitText) : exitText}`;
+            exitText = data['line'] == LineName.Line3 ? exitText.concat(' exit') : exitText;
         }
     } else {
         exitText = `the exit`;
     }
 
-    const message = `To arrive near ${exitText} at ${markText(destination)}, board the ${markText(carText)} at the ${markText(direction)} platform of ${markText(origin)}.`
+    const message = `To arrive near ${exitText} at ${useHiglight ? markText(destination) : destination}, board the ${useHiglight ? markText(carText) : carText} at the ${useHiglight ? markText(direction) : direction} platform of ${useHiglight ? markText(origin) : origin}.`;
     return [message, carResult];
 }
 
@@ -308,7 +309,7 @@ function loadTrainSVG(svgContainer, directionText, line, configValue, carArr) {
 
 }
 
-function processData(data, line, origin, destination, direction, usePriorityCar, configuration, exit, results, resultsCar, resultsMsg, svgContainer) {
+function processData(data, line, origin, destination, direction, settings, configuration, exit, results, resultsCar, resultsMsg, svgContainer) {
     // Determine the terminals of the line based on direction
     const stationsData = data['stations'];
     const configValue = parseInt(configuration.value);
@@ -316,12 +317,14 @@ function processData(data, line, origin, destination, direction, usePriorityCar,
     
     loadTerminals(stationsData, direction.value);
 
+    const { priorityCar, highlightText } = settings;
+
     const carArr = calculateTrainCar(
-        data, origin.value, destination.value, direction.value, usePriorityCar, configValue
+        data, origin.value, destination.value, direction.value, priorityCar, configValue
     );
 
     const [message, carResult] = generateMessage(
-        data, origin.value, destination.value, direction.value, exit, carArr
+        data, origin.value, destination.value, direction.value, exit, carArr, highlightText
     );
 
     loadTrainSVG(
@@ -379,6 +382,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const direction = document.getElementById('direction');
     const exit = document.getElementById('station-exit');
     const priorityCar = document.getElementById('priority-car');
+    const highlightText = document.getElementById('highlight-text');
     const configuration = document.getElementById('configuration');
     const submitBtn = document.getElementById('train-car-calculator-submit');
     const results = document.getElementById('train-car-results');
@@ -462,7 +466,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
 
     // Validate inputs
-    [origin, destination, priorityCar, configuration].forEach(element => {
+    [origin, destination, configuration].forEach(element => {
         element.addEventListener('change', validate);
     });
 
@@ -471,8 +475,13 @@ document.addEventListener("DOMContentLoaded", (e) => {
         validate()
         if (!submitBtn.disabled) {
             const data = LineData[getTrainLineValue() || 0];
+            const settings = {
+                priorityCar: priorityCar.checked,
+                highlightText: highlightText.checked
+            }
+            console.log(settings);
             processData(
-                data, selectedLine, origin, destination, direction, priorityCar.checked, configuration,
+                data, selectedLine, origin, destination, direction, settings, configuration,
                 exit.value, results, resultsCar, resultsMsg, svgContainer
             );
             submitBtn.disabled = false;

@@ -14,22 +14,23 @@ permalink: /train-car-calculator
   {%include navigation.html %}
   <div class="home">
     <h1 class="calc-title">LRT/MRT Train Car Calculator<span class="beta-indicator"><p class="badge badge-secondary">BETA</p></span></h1>
-    <div class="calculator-container" id="check-id-number-container">
+    <div class="calculator-container">
       <p class="center-paragraph" id="space-below-paragraph">Determine which train to board to arrive at the nearest exit at your destination.</p>
       <div class="form-container" id="train-car-calculator">
         <form>
           <!--Line-->
           <div class="mb-3">
-            <fieldset class="d-flex flex-wrap justify-content-between">
-              <legend class="form-label">Line</legend>
-              <input type="radio" class="btn-check" name="train-line" id="lrt1" value="0" autocomplete="off" checked>
-              <label class="btn" for="lrt1">LRT-1</label>
-              <input type="radio" class="btn-check" name="train-line" id="lrt2" value="1" autocomplete="off">
-              <label class="btn" for="lrt2">LRT-2</label>
-              <input type="radio" class="btn-check" name="train-line" id="mrt3" value="2" autocomplete="off">
-              <label class="btn" for="mrt3">MRT-3</label>
-            </fieldset>
-            <div id="origin-station-feedback" class="invalid-feedback"></div>
+            <legend class="form-label">Line</legend>
+            <div class="text-center">
+              <fieldset id="train-line-radio" class="d-flex gap-2">
+                <input type="radio" class="btn-check" name="train-line" id="lrt1" value="0" autocomplete="off" checked>
+                <label class="btn flex-fill" for="lrt1">LRT-1</label>
+                <input type="radio" class="btn-check" name="train-line" id="lrt2" value="1" autocomplete="off">
+                <label class="btn flex-fill" for="lrt2">LRT-2</label>
+                <input type="radio" class="btn-check" name="train-line" id="mrt3" value="2" autocomplete="off">
+                <label class="btn flex-fill" for="mrt3">MRT-3</label>
+              </fieldset>
+            </div>
           </div>
           <!--Origin-->
           <div class="mb-3">
@@ -119,10 +120,14 @@ permalink: /train-car-calculator
             </div>
             <!--Priority Car Option-->
             <div class="col">
-              <label for="priority-car" class="form-label">Settings</label>
+              <legend class="form-label">Settings</legend>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="priority-car">
                 <label class="form-check-label" for="priority-car">Include priority car</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="highlight-text">
+                <label class="form-check-label" for="highlight-text">Highlight text</label>
               </div>
             </div>
           </div>

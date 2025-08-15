@@ -56,6 +56,13 @@ const LineData = [
     }
 ]
 
+/**
+ * Array of train SVG. The contents are as follows:
+ * - 0: 3-Car NB/WB Train
+ * - 1: 3-Car SB/EB Train
+ * - 2: 4-Car NB/WB Train
+ * - 3: 4-Car SB/EB Train
+ */
 const TrainSVG = [
     `<svg id="train-car-graphic" data-name="3-Car NB/WB Train" xmlns="http://www.w3.org/2000/svg" width="900" height="90" viewBox="150 0 900 150">
         <path id="Car1" class="mc-car" d="M220,17H443a4,4,0,0,1,4,4V131a4,4,0,0,1-4,4H161a4,4,0,0,1-4-4l1-32c0.064-21.5,22.217-72.847,33-78C199.412,16.981,220,17,220,17Z"/>

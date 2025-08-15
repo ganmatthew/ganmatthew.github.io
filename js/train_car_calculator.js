@@ -258,55 +258,54 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     return carArr;
 }
 
-function loadTerminals(stationsData, directionText) {
-    const terminus1 = document.getElementById('terminus1');
-    const terminus2 = document.getElementById('terminus2');
-    const terminus1Text = document.getElementById('terminus1-text')
-    const terminus2Text = document.getElementById('terminus2-text')
-    const direction = DirectionMap[directionText]
+function getDirectionEnds(directionText) {
+    const direction = DirectionMap[directionText];
     const isNBOrWB = [DirectionMap.Northbound, DirectionMap.Westbound].includes(direction);
     const isSBOrEB = [DirectionMap.Southbound, DirectionMap.Eastbound].includes(direction);
+    return [isNBOrWB, isSBOrEB];
+}
+
+function loadTerminals(stationsData, directionText, useFixedDirection) {
+    const [isNBOrWB, isSBOrEB] = getDirectionEnds(directionText);
+
+    const terminus1 = document.getElementById('terminus1');
+    const terminus2 = document.getElementById('terminus2');
+    const terminus1Text = document.getElementById('terminus1-text');
+    const terminus2Text = document.getElementById('terminus2-text');
 
     const station1 = stationsData[0];
     const station2 = stationsData[stationsData.length - 1];
 
-    terminus1Text.innerHTML = `To ${station1.name}`
-    terminus2Text.innerHTML = `To ${station2.name}`
-    terminus1.classList.toggle('active-direction', isNBOrWB);
-    terminus2.classList.toggle('active-direction', isSBOrEB);
-
-    if (!isNBOrWB && !isSBOrEB) {
-        terminus1Text.innerHTML = '';
-        terminus2Text.innerHTML = '';
+    if (useFixedDirection) {
+        terminus1.classList.remove('active-direction');
+        terminus2.classList.add('active-direction');
+        terminus1Text.innerHTML = isNBOrWB ? `To ${station2.name}` : `To ${station1.name}`;
+        terminus2Text.innerHTML = isSBOrEB ? `To ${station2.name}` : `To ${station1.name}`;
+    } else {
+        terminus1Text.innerHTML = `To ${station1.name}`;
+        terminus2Text.innerHTML = `To ${station2.name}`;
+        terminus1.classList.toggle('active-direction', isNBOrWB);
+        terminus2.classList.toggle('active-direction', isSBOrEB);
     }
 }
 
-function loadTrainSVG(svgContainer, directionText, line, configValue, carArr) {
-    const direction = DirectionMap[directionText]
-    const isNBOrWB = [DirectionMap.Northbound, DirectionMap.Westbound].includes(direction);
-    const isSBOrEB = [DirectionMap.Southbound, DirectionMap.Eastbound].includes(direction);
-    let svgStr = '';
+function loadTrainSVG(svgContainer, directionText, line, configValue, carArr, useFixedDirection) {
+    const [isNBOrWB, isSBOrEB] = useFixedDirection ? [false, true] : getDirectionEnds(directionText);
+    const useThreeCar = isNBOrWB ? 0 : 1;
+    const useFourCar = isSBOrEB ? 3 : 2;
 
-    if (configValue === CarConfig.ThreeCar.index) {
-        svgStr = isNBOrWB ? TrainSVG[0] : TrainSVG[1];
-    } else if (configValue === CarConfig.FourCar.index) {
-        svgStr = isSBOrEB ? TrainSVG[3] : TrainSVG[2];
-    }
-
-    svgContainer.innerHTML = svgStr;
+    const svgIndex = configValue === CarConfig.ThreeCar.index ? useThreeCar : useFourCar;
+    svgContainer.innerHTML = TrainSVG[svgIndex];
     const lineColorClass = line[0].id;
-    
-    const svgCars = svgContainer.children[0].querySelectorAll('.mc-car, .m-car');
-    svgCars.forEach(car => {
+
+    const svgCars = svgContainer.children[0];
+    svgCars.querySelectorAll('.mc-car, .m-car').forEach(car => {
         const carNum = Number(car.id.replace('Car', ''));
+        car.classList.toggle('selected', carArr.includes(carNum));
         if (carArr.includes(carNum)) {
-            car.classList.add('selected');
             car.classList.add(lineColorClass);
-        } else {
-            car.classList.remove('selected');
         }
     });
-
 }
 
 function processData(data, line, origin, destination, direction, settings, configuration, exit, results, resultsCar, resultsMsg, svgContainer) {
@@ -314,10 +313,10 @@ function processData(data, line, origin, destination, direction, settings, confi
     const stationsData = data['stations'];
     const configValue = parseInt(configuration.value);
     const lineColorClass = line[0].id;
-    
-    loadTerminals(stationsData, direction.value);
 
-    const { priorityCar, highlightText } = settings;
+    const { priorityCar, fixedDirection, highlightText } = settings;
+
+    loadTerminals(stationsData, direction.value, fixedDirection);
 
     const carArr = calculateTrainCar(
         data, origin.value, destination.value, direction.value, priorityCar, configValue
@@ -328,7 +327,7 @@ function processData(data, line, origin, destination, direction, settings, confi
     );
 
     loadTrainSVG(
-        svgContainer, direction.value, line, configValue, carArr
+        svgContainer, direction.value, line, configValue, carArr, fixedDirection
     );
     
     resultsCar.innerHTML = carResult;
@@ -382,6 +381,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const direction = document.getElementById('direction');
     const exit = document.getElementById('station-exit');
     const priorityCar = document.getElementById('priority-car');
+    const fixedDirection = document.getElementById('fixed-train-direction');
     const highlightText = document.getElementById('highlight-text');
     const configuration = document.getElementById('configuration');
     const submitBtn = document.getElementById('train-car-calculator-submit');
@@ -477,6 +477,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             const data = LineData[getTrainLineValue() || 0];
             const settings = {
                 priorityCar: priorityCar.checked,
+                fixedDirection: fixedDirection.checked,
                 highlightText: highlightText.checked
             }
             console.log(settings);

@@ -314,7 +314,7 @@ span.beta-indicator p {
   display: inline-flex;
 }
 
-.container {
+section#projects div.container {
   margin: 0 auto;
   width: 100%;
   display: grid;
@@ -322,6 +322,10 @@ span.beta-indicator p {
   grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
   padding-left: calc(var(--bs-gutter-x) * .55);
   padding-right: calc(var(--bs-gutter-x) * .55);
+}
+
+legend.form-label {
+  font-size: var(--bs-body-font-size);
 }
 
 .row:after {
@@ -740,17 +744,12 @@ div.grid.art-grid {
   margin-bottom: 10px;
 }
 
-#train-car-calculator legend {
-  font-size: 18px;
-}
-
 .btn-check + .btn {
   border: 1px solid var(--bs-border-color);
-  width: 30%;
 }
 
 @media screen and (max-width: 780px) {
-  .btn-check + .btn { width: 33%; height: 50px; }
+  .btn-check + .btn { height: 50px; }
   .btn-check + label { place-content: center; }
 }
 

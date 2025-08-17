@@ -116,16 +116,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
    let idNumberHeader = document.getElementById("id-number-table-header");
    let clearResultsTable = document.getElementById("clear-result-table");
 
-   generateIdInput.addEventListener("keypress", function(event) {
-      if (event.key == "Enter") {
-         // Prevent default enter behavior
-         event.preventDefault();
-         generateIdSubmit.click();
-      }
-   });
    checkIdInput.addEventListener("keypress", function(event) {
       if (event.key == "Enter") {
-         // Prevent default enter behavior
          event.preventDefault();
          validateIDNumber();
       }
@@ -133,12 +125,20 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
    checkIdInput.addEventListener('change', validateIDNumber);
    
-   generateIdInput.addEventListener('change', (event) => {
+   function showEntryYear() {
       let digits = generateIdInput.value;
-      generateIdResult.value = getYearFromDigits(digits);
-   });
+      generateIdResult.innerText = getYearFromDigits(digits);
+   }
 
    generateIdInput.addEventListener('keypress', (event) => {
+      if (event.key == "Enter") {
+         event.preventDefault();
+         showEntryYear();
+      }
+   });
+   generateIdInput.addEventListener('change', showEntryYear);
+
+   generateIdInput.addEventListener('change', (event) => {
       let digits = generateIdInput.value;
       if (digits == "") {
          generateIdSubmit.disabled = true
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       }
    });
 
-   generateIdSubmit.addEventListener('click', (event) => {
+   function handleSubmit() {
       generateIdSubmit.disabled = true
       generateIdSubmit.value = "Generating..."
 
@@ -173,5 +173,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
          generateIdSubmit.disabled = false;
          generateIdSubmit.innerHTML = "Generate";
       });
-   });
+   }
+
+   generateIdSubmit.addEventListener('click', handleSubmit);
+   generateIdSubmit.addEventListener('touchend', handleSubmit);
 })

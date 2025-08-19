@@ -177,16 +177,16 @@ div#footer-text p {
   text-align: center;
 }
 
-footer a.socmed-icon img {
+div.socmed-table a.socmed-icon img {
   width: 16px;
   margin: 12px;
 }
 
-footer a.socmed-icon p {
+div.socmed-table a.socmed-icon p {
   font-size: 16px;
 }
 
-footer a.socmed-icon span {
+footer div.socmed-table a.socmed-icon span {
   height: 10px;
 }
 
@@ -326,6 +326,21 @@ section#projects div.container {
 
 legend.form-label {
   font-size: var(--bs-body-font-size);
+}
+
+.form-label#train-car-calculator-version {
+  font-size: var(--bs-body-font-size);
+}
+
+.form-label a {
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.form-label a:hover {
+  color: rgb(48,216,112);
+  transform: scale(1.05);
+  transition: 150ms ease-in-out;
 }
 
 .row:after {

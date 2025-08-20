@@ -221,6 +221,7 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     let carArr = stationsData[destInd].exitMap[direction];
     const exit = document.getElementById('station-exit');
     const exitValue = exit.value || 0
+    const isLRT2 = data['line'].name === LineName.Line2.name;
 
     carArr = carArr[exitValue];
     console.log(`Line: ${data['line'].name}\nOrigin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration.value}\nCar Result: [${carArr}]`);
@@ -241,7 +242,7 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     }
 
     // If priorityCar is not checked, car 1 must be removed
-    if (!usePriorityCar) {
+    if (!isLRT2 && !usePriorityCar) {
         if (carArr.includes(1)) {
             const oldValue = carArr;
             carArr = filterAllowedTrainCars(carArr, 1, 2, 2, 4);
@@ -249,6 +250,8 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
         } else {
             console.log(`Priority Car disabled: No changes made`);
         }
+    } else if (isLRT2) {
+        console.log(`Using LRT-2: No changes made`);
     } else if (usePriorityCar) {
         console.log(`Priority Car enabled: No changes made`);
     } else {
@@ -397,6 +400,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 const defaultOption = configuration.querySelector(`[value='${numberOfCarsData[0].index}']`)
                 configuration.selectedIndex = defaultOption.index;
             }
+            // Enabled permanently on LRT-2
+            priorityCar.checked = data['line'].name === LineName.Line2.name;
+            priorityCar.disabled = data['line'].name === LineName.Line2.name;
         }
         // NOTE: This must be declared here so that default stations are changed whenever the line changes
         const originInd = parseInt(origin.value);

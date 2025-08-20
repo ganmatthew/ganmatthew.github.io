@@ -158,8 +158,6 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr, 
     let carResult = '';
     let carText = '';
 
-    console.log(carArr);
-
     if (carArr.length === 0) {
         carText = '[no cars selected]';
         carResult = 'Cars No. —';
@@ -480,6 +478,19 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 data, selectedLine, origin, destination, direction, settings, configuration,
                 exit.value, results, resultsCar, resultsMsg, svgContainer
             );
+
+            // Send data to Google Analytics (completely anonymous)
+            gtag('event', 'train_calculator_submit', {
+                train_line: data.line.name,
+                origin_station: data.stations[origin.value].name,
+                destination_station: data.stations[destination.value].name,
+                direction: direction.value,
+                exit: exit.options[exit.selectedIndex]?.text || 'N/A',
+                priority_car: settings.priorityCar ? 'yes' : 'no',
+                highlight_text: settings.highlightText ? 'yes' : 'no',
+                configuration: configuration.options[configuration.selectedIndex].text
+            });
+
             submitBtn.disabled = false;
         }
     }

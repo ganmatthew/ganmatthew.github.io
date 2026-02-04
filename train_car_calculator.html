@@ -9,6 +9,7 @@ permalink: /train-car-calculator
   {% endcapture %}
   {% include imports.html content=override_dependencies %}
   <script type="module" src="js/train_car_calculator.js"></script>
+  <script src="js/collapsible.js"></script>
 </head>
 <body>
   {%include navigation.html %}
@@ -159,8 +160,13 @@ permalink: /train-car-calculator
         <p class="calcu-result" id="train-car-number-result"></p>
         <p class="calcu-result" id="train-car-message-result"></p>
       </div>
-      <div class="mb-4">
+      <div class="mb-4 justify-content-center">
         <p class="form-label" id="train-car-calculator-version">Current version: <a>Version 0.7.9</a></p>
+        <!-- <br>
+        <h5>Attributions<span class="collapse-arrow"></span></h5>
+        <div class="collapsible-section collapsed">
+          <p class="form-label"><a href="" target="_blank" title=""></p>
+        </div> -->
       </div>
     </div>
   <footer>

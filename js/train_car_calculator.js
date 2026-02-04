@@ -1,10 +1,14 @@
-import { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, LineName, LineData, TrainSVG } from "./train_data.js"
+import { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, LineName, LineData, TrainSVG } from "./train_data.js"
 
 const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the same";
 const ERROR_MSG_NORTH_END = "Origin station is the northern terminus";
 const ERROR_MSG_SOUTH_END = "Origin station is the southern terminus";
 const ERROR_MSG_EAST_END = "Origin station is the eastern terminus";
 const ERROR_MSG_WEST_END = "Origin station is the western terminus";
+
+function getEnumKeyFromValue(enumObj, value) {
+    return Object.keys(enumObj).find(k => enumObj[k] === value) || null;
+}
 
 function generateDropdownOptions(stationsData, selectList) {
     selectList.forEach(select => {
@@ -99,29 +103,29 @@ function validateInputData(data) {
     const destination = document.getElementById('destination-station');
     const destinationFeedback = document.getElementById('destination-station-feedback');
     const direction = document.getElementById('direction');
-
+    
     const stationsData = data['stations'];
     const directionsData = data['directions'];
     const lastInd = stationsData.length - 1
-
+    
     // Remove old feedback
     originFeedback.innerHTML = '';
     destinationFeedback.innerHTML = '';
     origin.classList.remove('is-invalid');
     destination.classList.remove('is-invalid');
     direction.classList.remove('is-invalid');
-
+    
     // Ensure values are typed to int
     const originInd = parseInt(origin.value);
     const destinationInd = parseInt(destination.value);
-
+    
     let passed = true;
-
+    
     // Flags if origin and direction are not valid based on direction and data rules
     passed = validateDirection(
         lastInd, originInd, direction, directionsData, origin, originFeedback
     )
-
+    
     // Flag if the origin and destination are the same station
     if (originInd == destinationInd) {
         origin.classList.add('is-invalid');
@@ -148,31 +152,37 @@ function markText(text) {
     return `<mark>${text}</mark>`
 }
 
-function generateMessage(data, originInd, destInd, directionText, exit, carArr, useHiglight) {
+function generateMessage(data, originInd, destInd, directionText, exit, carArr, useHighlight) {
     const stationsData = data['stations'];
-
+    
     const origin = stationsData[originInd].name;
     const destination = stationsData[destInd].name;
     const direction = directionText.toLowerCase();
-
+    
     let carResult = '';
     let carText = '';
 
-    if (carArr.length === 0) {
-        carText = '[no cars selected]';
-        carResult = 'Cars No. —';
-    } else if (carArr.length === 1) {
-        carText = `${Ordinal[carArr[0]]} car`;
-        carResult = `Car No. ${carArr[0]}`;
-    } else if (carArr.length === 2) {
-        carText = `${Ordinal[carArr[0]]} or ${Ordinal[carArr[1]]} cars`;
-        carResult = `Car Nos. ${carArr[0]} or ${carArr[1]}`;
-    } else if (carArr.length === 3) {
-        carText = `${Ordinal[carArr[0]]}, ${Ordinal[carArr[1]]}, or ${Ordinal[carArr[2]]} cars`;
-        carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, or ${carArr[2]}`;
-    } else if (carArr.length === 4) {
-        carText = `${Ordinal[carArr[0]]}, ${Ordinal[carArr[1]]}, ${Ordinal[carArr[2]]}, or ${Ordinal[carArr[3]]} cars`;
-        carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, ${carArr[2]}, or ${carArr[3]}`;
+    switch(carArr.length) {
+        case 0:
+            carText = '[no cars selected]';
+            carResult = 'Cars No. —';
+            break;
+        case 1:
+            carText = `${Ordinal[carArr[0]]} car`;
+            carResult = `Car No. ${carArr[0]}`;
+            break;
+        case 2:
+            carText = `${Ordinal[carArr[0]]} or ${Ordinal[carArr[1]]} cars`;
+            carResult = `Car Nos. ${carArr[0]} or ${carArr[1]}`;
+            break;
+        case 3:
+            carText = `${Ordinal[carArr[0]]}, ${Ordinal[carArr[1]]}, or ${Ordinal[carArr[2]]} cars`;
+            carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, or ${carArr[2]}`;
+            break;
+        case 4:
+            carText = `${Ordinal[carArr[0]]}, ${Ordinal[carArr[1]]}, ${Ordinal[carArr[2]]}, or ${Ordinal[carArr[3]]} cars`;
+            carResult = `Car Nos. ${carArr[0]}, ${carArr[1]}, ${carArr[2]}, or ${carArr[3]}`;
+            break;
     }
     
     const exitList = stationsData[destInd].exitMap[DirectionMap[directionText]]
@@ -183,16 +193,16 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr, 
         const isNumberedExit = exitText.charAt(0).toUpperCase() === 'E' && !isNaN(Number(exitText.charAt(1)));
         if (isNumberedExit) {
             const exitNumber = exitText.split(':')[0];
-            exitText = `exit ${useHiglight ? markText(exitNumber) : exitNumber}`;
+            exitText = `exit ${useHighlight ? markText(exitNumber) : exitNumber}`;
         } else {
-            exitText = `the ${useHiglight ? markText(exitText) : exitText}`;
-            exitText = data['line'] == LineName.Line3 ? exitText.concat(' exit') : exitText;
+            exitText = `the ${useHighlight ? markText(exitText) : exitText}`;
+            exitText = data['line'] != LineName.Line1 ? exitText.concat(' exit') : exitText;
         }
     } else {
         exitText = `the exit`;
     }
-
-    const message = `To arrive near ${exitText} at ${useHiglight ? markText(destination) : destination}, board the ${useHiglight ? markText(carText) : carText} at the ${useHiglight ? markText(direction) : direction} platform of ${useHiglight ? markText(origin) : origin}.`;
+    
+    const message = `To arrive near ${exitText} at ${useHighlight ? markText(destination) : destination}, board the ${useHighlight ? markText(carText) : carText} on the ${useHighlight ? markText(direction) : direction} platform at ${useHighlight ? markText(origin) : origin}.`;
     return [message, carResult];
 }
 
@@ -214,6 +224,7 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     if (!stationsData[originInd] || !stationsData[destInd]) {
         throw new Error('Invalid station indices');
     }
+
     // Get destination station exit cars
     const direction = DirectionMap[directionText];
     let carArr = stationsData[destInd].exitMap[direction];
@@ -222,8 +233,9 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     const isLRT2 = data['line'].name === LineName.Line2.name;
 
     carArr = carArr[exitValue];
+    
     console.log(`Line: ${data['line'].name}\nOrigin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration.value}\nCar Result: [${carArr}]`);
-
+    
     // If not using 4-car, car 4 must be changed to car 3
     if (configValue === CarConfig.ThreeCar.index) {
         if (carArr.includes(4)) {
@@ -238,7 +250,7 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     } else {
         throw new Error('Error in train car configuration checking condition')
     }
-
+    
     // If priorityCar is not checked, car 1 must be removed
     if (!isLRT2 && !usePriorityCar) {
         if (carArr.includes(1)) {
@@ -263,18 +275,18 @@ function loadTerminals(stationsData, directionText, platformType) {
     const direction = DirectionMap[directionText];
     const isNBOrWB = [DirectionMap.Northbound, DirectionMap.Westbound].includes(direction);
     const isIsland = platformType === PlatformType.Island;
-
+    
     const terminus1 = document.getElementById('terminus1');
     const terminus2 = document.getElementById('terminus2');
     const terminus1Text = document.getElementById('terminus1-text');
     const terminus2Text = document.getElementById('terminus2-text');
-
+    
     const station1 = stationsData[0];
     const station2 = stationsData[stationsData.length - 1];
-
+    
     terminus1.classList.toggle('active-direction', isIsland);
     terminus2.classList.toggle('active-direction', !isIsland);
-
+    
     const stationName1 = isNBOrWB ? station2.name : station1.name;
     const stationName2 = isNBOrWB ? station1.name : station2.name;
     terminus1Text.innerHTML = isIsland ? `To ${stationName2}` : `To ${stationName1}`
@@ -284,10 +296,10 @@ function loadTerminals(stationsData, directionText, platformType) {
 function loadTrainSVG(svgContainer, platformType, line, configValue, carArr) {
     const isIsland = platformType === PlatformType.Island;
     const svgIndex = configValue === CarConfig.ThreeCar.index ? (isIsland ? 0 : 1) : (isIsland ? 2 : 3);
-
+    
     svgContainer.innerHTML = TrainSVG[svgIndex];
     const lineColorClass = line[0].id;
-
+    
     const svgCars = svgContainer.children[0];
     svgCars.querySelectorAll('.mc-car, .m-car').forEach(car => {
         const carNum = Number(car.id.replace('Car', ''));
@@ -298,29 +310,44 @@ function loadTrainSVG(svgContainer, platformType, line, configValue, carArr) {
     });
 }
 
-function processData(data, line, origin, destination, direction, settings, configuration, exit, results, resultsCar, resultsMsg, svgContainer) {
+function processData(payload) {
+    const line = payload.line;
+    const data = payload.data;
+    const origin = payload.origin;
+    const destination = payload.destination;
+    const exit = payload.exit;
+    const direction = payload.direction;
+    const settings = payload.settings;
+    const configuration = payload.configuration;
+    const results = payload.results;
+    const resultsCar = payload.resultsCar;
+    const resultsMsg = payload.resultsMsg;
+    const svgContainer = payload.svgContainer;
+    
     // Determine the terminals of the line based on direction
     const stationsData = data['stations'];
     const configValue = parseInt(configuration.value);
     const lineColorClass = line[0].id;
-
+    
     const { priorityCar, highlightText } = settings;
-
+    
     const carArr = calculateTrainCar(
         data, origin.value, destination.value, direction.value, priorityCar, configValue
     );
 
     const [message, carResult] = generateMessage(
-        data, origin.value, destination.value, direction.value, exit, carArr, highlightText
+        data, origin.value, destination.value, direction.value, exit.value, carArr, highlightText
     );
-
+    
     const platformType = data['stations'][Number(origin.value)].platformType;
-
+    
     loadTrainSVG(
         svgContainer, platformType, line, configValue, carArr
     );
-
-    loadTerminals(stationsData, direction.value, platformType);
+    
+    loadTerminals(
+        stationsData, direction.value, platformType
+    );
     
     resultsCar.innerHTML = carResult;
     resultsMsg.innerHTML = message;
@@ -331,9 +358,9 @@ function processData(data, line, origin, destination, direction, settings, confi
     setTimeout(() => {
         requestAnimationFrame(() => {
             window.scrollTo({
-            top: document.documentElement.scrollHeight - window.innerHeight,
-            left: 0,
-            behavior: 'smooth',
+                top: document.documentElement.scrollHeight - window.innerHeight,
+                left: 0,
+                behavior: 'smooth',
             })
         })
     }, 3)
@@ -348,14 +375,14 @@ function getLabelColor(lineObj) {
 }
 
 function getTrainLineValue() {
-  return document.querySelector('input[name="train-line"]:checked').value;
+    return document.querySelector('input[name="train-line"]:checked').value;
 }
 
 function saveCheckboxStates() {
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-      localStorage.setItem(checkbox.id, checkbox.checked);
+        localStorage.setItem(checkbox.id, checkbox.checked);
     });
-  }  
+}  
 
 function loadCheckboxStates() {
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
@@ -380,7 +407,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const resultsCar = document.getElementById('train-car-number-result');
     const resultsMsg = document.getElementById('train-car-message-result');
     const svgContainer = document.getElementById('train-car-graphic-container');
-
+    
     function generate(getNewLineData) {
         const data = LineData[getTrainLineValue() || 0];
         const numberOfCarsData = data['numberOfCars'];
@@ -398,7 +425,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 const defaultOption = configuration.querySelector(`[value='${numberOfCarsData[0].index}']`)
                 configuration.selectedIndex = defaultOption.index;
             }
-            // Enabled permanently on LRT-2
+            // Enable priority car option permanently on LRT-2
             priorityCar.checked = data['line'].name === LineName.Line2.name;
             priorityCar.disabled = data['line'].name === LineName.Line2.name;
         }
@@ -412,58 +439,24 @@ document.addEventListener("DOMContentLoaded", (e) => {
         // Update whether to allow selecting multiple exits
         checkForStationExits(stationsData, destinationInd, direction.value)  
     }
-
-    generate(true);
-
+    
+    function validate() {
+        const data = LineData[getTrainLineValue() || 0];
+        const inputsValid = validateInputData(data);
+        submitBtn.disabled = !inputsValid;
+    }
+    
     // Apply line theme to submit button
     function updateButtonTheme(lineObj) {
         const [backgroundColor, color] = getLabelColor(lineObj);
         submitBtn.style.backgroundColor = backgroundColor;
         submitBtn.style.color = color;
     }
-
+    
     function getSelectedLine() {
         return [...lines].filter(line => line.checked);
     }
-
-    let selectedLine = getSelectedLine()
-    updateButtonTheme(selectedLine);
-
-    // Generate the dropdown options
-    lines.forEach(line => {
-        line.addEventListener('change', () => {
-            generate(true);
-            validate();
-            results.hidden = true;
-            selectedLine = getSelectedLine()
-            updateButtonTheme(selectedLine);
-        })
-    });
-
-    [origin, destination].forEach(select => {
-        select.addEventListener('change', () => {
-            generate(select === selectedLine);
-        });
-    });
-
-    // Attach event listener to the checkboxes to save their states
-    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-        checkbox.addEventListener('change', saveCheckboxStates);
-    });
-
-    loadCheckboxStates()
-
-    function validate() {
-        const data = LineData[getTrainLineValue() || 0];
-        const inputsValid = validateInputData(data);
-        submitBtn.disabled = !inputsValid;
-    }
-
-    // Validate inputs
-    [origin, destination, configuration].forEach(element => {
-        element.addEventListener('change', validate);
-    });
-
+    
     function handleSubmit() {
         submitBtn.disabled = true;
         validate()
@@ -474,11 +467,14 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 highlightText: highlightText.checked
             }
             console.log(settings);
-            processData(
-                data, selectedLine, origin, destination, direction, settings, configuration,
-                exit.value, results, resultsCar, resultsMsg, svgContainer
-            );
-
+            const payload = {
+                data, line: selectedLine, 
+                origin, destination, exit, direction, 
+                settings, configuration, 
+                results, resultsCar, resultsMsg, svgContainer
+            }
+            processData(payload);
+            
             // Send data to Google Analytics (completely anonymous)
             gtag('event', 'train_calculator_submit', {
                 train_line: data.line.name,
@@ -490,13 +486,47 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 highlight_text: settings.highlightText ? 'yes' : 'no',
                 configuration: configuration.options[configuration.selectedIndex].text
             });
-
+            
             submitBtn.disabled = false;
         }
     }
-
+    
+    generate(true);
+    loadCheckboxStates()
+    
+    let selectedLine = getSelectedLine()
+    updateButtonTheme(selectedLine);
+    
+    // Generate the dropdown options
+    lines.forEach(line => {
+        line.addEventListener('change', () => {
+            generate(true);
+            validate();
+            results.hidden = true;
+            selectedLine = getSelectedLine()
+            updateButtonTheme(selectedLine);
+        })
+    });
+    
+    [origin, destination].forEach(select => {
+        select.addEventListener('change', () => {
+            generate(select === selectedLine);
+        });
+    });
+    
+    // Attach event listener to the checkboxes to save their states
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', saveCheckboxStates);
+    });
+    
+    // Validate inputs
+    [origin, destination, configuration].forEach(element => {
+        element.addEventListener('change', validate);
+    });
+    
+    
     // Handle button press
     submitBtn.addEventListener('click', handleSubmit);
     submitBtn.addEventListener('touchend', handleSubmit);
- })
+})
 

@@ -2,8 +2,8 @@ window.addEventListener("load", () => {
     const arrows = document.querySelectorAll('span.collapse-arrow');
     
     arrows.forEach(arrow => {
-        const section = arrow.closest('section');
-        const collapsible = section.querySelector('.collapsible-section');
+        const obj = arrow.closest('section') || arrow.closest('div');
+        const collapsible = obj.querySelector('.collapsible-section');
         
         initialize(collapsible);
         

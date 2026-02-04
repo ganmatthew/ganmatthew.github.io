@@ -40,24 +40,1166 @@ const PlatformType = {
     Side: "Side" 
 }
 
+const ExitType = {
+	Concourse: "concourse",
+	Elevator: "elevator",
+	Escalator: "escalator",
+	Stairs: "stairs"
+}
+
 const LineData = [
     {   
         "line": LineName.Line1,
         "numberOfCars": [CarConfig.FourCar],
-        "directions": [ Direction.NB, Direction.SB],
-        "stations": [{"name": "Fernando Poe Jr", "platformType": "Side", "exitMap": {"north": [[1, 2, 3]], "south": [[1, 2, 3]]}}, {"name": "Balintawak", "platformType": "Side", "exitMap": {"north": [[1, 2, 3]], "south": [[1, 2, 3]]}}, {"name": "Monumento", "platformType": "Side", "exits": ["E1: First North Luzon Transit", "E2/E3: SM City Grand Central / LRT Caloocan Mall / North Mall", "E4: Jackman Plaza Caloocan"], "exitMap": {"north": [[], [2], [4]], "south": [[3], [], []]}}, {"name": "5th Avenue", "platformType": "Side", "exits": ["E1: Japan Parts / Palawan Express", "E2: Mercury Drug / TGP", "E3: Security Bank / Powertrac", "E4: Jollibee / 7-Eleven"], "exitMap": {"north": [[], [], [1], [4]], "south": [[4], [1], [], []]}}, {"name": "R. Papa", "platformType": "Side", "exitMap": {"north": [[2]], "south": [[4]]}}, {"name": "Abad Santos", "platformType": "Side", "exitMap": {"north": [[1]], "south": [[4]]}}, {"name": "Blumentritt", "platformType": "Side", "exitMap": {"north": [[3]], "south": [[2]]}}, {"name": "Tayuman", "platformType": "Side", "exitMap": {"north": [[2, 3]], "south": [[1]]}}, {"name": "Bambang", "platformType": "Side", "exitMap": {"north": [[3, 4]], "south": [[2, 3]]}}, {"name": "Doroteo Jose", "platformType": "Side", "exitMap": {"north": [[2]], "south": [[3]]}}, {"name": "Carriedo", "platformType": "Side", "exitMap": {"north": [[1, 4]], "south": [[1, 4]]}}, {"name": "Central Terminal", "platformType": "Side", "exits": ["E1: Manila City Hall / Intramuros / Manila Hall of Justice", "E2: Park N' Ride / Metropolitan Theater", "E3: Manila City Hall / Universidad de Manila", "E4: DepEd SDO Manila / Arroceros Park", "E5: Manila City Hall / Manila Regional Trial Court"], "exitMap": {"north": [[], [], [], [2], [3]], "south": [[4], [3], [2], [], []]}}, {"name": "United Nations", "platformType": "Side", "exits": ["E1: Times Plaza / Rizal Park / National Museum of Natural History", "E2: World Health Organization / National Bureau of Investigation", "E3: Araullo High School / Metropolitan Trial Court", "E4: Manila Medical Center / Plaza Rueda"], "exitMap": {"north": [[], [], [1], [4]], "south": [[4], [1], [], []]}}, {"name": "Pedro Gil", "platformType": "Side", "exitMap": {"north": [[3]], "south": [[2]]}}, {"name": "Quirino", "platformType": "Side", "exits": ["E1: Marc 2000 Tower / OWWA / Remedios Circle", "E2: Fidel Reyes Street / Leveriza Street", "E3: Harvard Suites / Mercury Drug", "E4: Jollibee / McDonald's / Embassy of the Holy See"], "exitMap": {"north": [[1], [4], [], []], "south": [[], [], [4], [1]]}}, {"name": "Vito Cruz", "platformType": "Side", "exitMap": {"north": [[3]], "south": [[2]]}}, {"name": "Gil Puyat", "platformType": "Side", "exits": ["E1: DLTBCo / BBL Trans / JAC Liner", "E2: Hotel Sogo / ALPS", "E3: Otex / TGP / Mercury Drug"], "exitMap": {"north": [[1], [4], [], []], "south": [[], [], [3], [1]]}}, {"name": "Libertad", "platformType": "Side", "exits": ["E1: Cartimar Shopping Center", "E2: Victory Pasay Mall / Pasay City Wet Market", "E3: Iglesia Filipina Independiente", "E4: Welcome Plaza / Puregold Libertad"], "exitMap": {"north": [[], [], [1], [4]], "south": [[4], [1], [], []]}}, {"name": "EDSA", "platformType": "Side", "exits": ["E1: Pasay Rotonda Jeepney Terminal / 7-Eleven", "E2: Pasay Rotonda Jeepney Terminal / Lawson", "E3: LRT-MRT Footbridge / EDSA Carousel Taft Avenue", "E4: Metro Point Mall / MRT-3 Taft Avenue"], "exitMap": {"north": [[], [1], [], [4]], "south": [[4], [], [1], []]}}, {"name": "Baclaran", "platformType": "Side", "exits": ["E1: Baclaran Terminal Plaza 2", "E2: Baclaran Terminal Plaza 1 / Baclaran Church", "E3: Sunnyline Shopping Center", "E4: New Galleria Baclaran Mall / MyMall"], "exitMap": {"north": [[], [], [2, 3], [2, 3]], "south": [[2], [3], [], []]}}, {"name": "Redemptorist-Aseana", "platformType": "Side", "exitMap": {"north": [[1, 4]], "south": [[1, 4]]}}, {"name": "MIA Road", "platformType": "Side", "exitMap": {"north": [[1, 4]], "south": [[1, 4]]}}, {"name": "PITX", "platformType": "Side", "exitMap": {"north": [[2]], "south": [[4]]}}, {"name": "Ninoy Aquino Avenue", "platformType": "Side", "exits": ["E1: PUP Parañaque / Puregold Parañaque / S&R Parañaque", "E2: PHLPost Parañaque / Duty Free Fiestamall / NAIA Terminal 1"], "exitMap": {"north": [[1], [4]], "south": [[4], [1]]}}, {"name": "Dr. Santos", "platformType": "Side", "exitMap": {"north": [[1, 2]], "south": [[3, 4]]}}]
+        "directions": [Direction.NB, Direction.SB],
+        "stations": [
+          {
+            "name": "Fernando Poe Jr",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ],
+              "south": [
+                []
+              ]
+            }
+          },
+          {
+            "name": "Balintawak",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Monumento",
+            "platformType": "Side",
+            "exits": [
+              "E1: First North Luzon Transit",
+              "E2/E3: SM City Grand Central / LRT Caloocan Mall / North Mall",
+              "E4: Jackman Plaza Caloocan"
+            ],
+            "exitMap": {
+              "north": [
+                [],
+                [
+                  2
+                ],
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  3
+                ],
+                [],
+                []
+              ]
+            }
+          },
+          {
+            "name": "5th Avenue",
+            "platformType": "Side",
+            "exits": [
+              "E1: Japan Parts / Palawan Express",
+              "E2: Mercury Drug / TGP",
+              "E3: Security Bank / Powertrac",
+              "E4: Jollibee / 7-Eleven"
+            ],
+            "exitMap": {
+              "north": [
+                [],
+                [],
+                [
+                  1
+                ],
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ],
+                [
+                  1
+                ],
+                [],
+                []
+              ]
+            }
+          },
+          {
+            "name": "R. Papa",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  2
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Abad Santos",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  1
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Blumentritt",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  2
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Tayuman",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  2,
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Bambang",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  2,
+                  3
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Doroteo Jose",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  2
+                ]
+              ],
+              "south": [
+                [
+                  3
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Carriedo",
+            "platformType": "Side",
+            "exits": [
+              "E1: Plaza Sta. Cruz / Good Earth Plaza / Parkson Square",
+              "E4: Plaza Lacson / Isetann / SM Quiapo / FEATI"
+            ],
+            "exitMap": {
+              "north": [
+                [
+                  1
+                ],
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ],
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Central Terminal",
+            "platformType": "Side",
+            "exits": [
+              "E1: Manila City Hall / Intramuros / Manila Hall of Justice",
+              "E2: Park N' Ride / Metropolitan Theater",
+              "E3: Manila City Hall / Universidad de Manila",
+              "E4: DepEd SDO Manila / Arroceros Park",
+              "E5: Manila City Hall / Manila Regional Trial Court"
+            ],
+            "exitMap": {
+              "north": [
+                [],
+                [],
+                [],
+                [
+                  2
+                ],
+                [
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ],
+                [
+                  3
+                ],
+                [
+                  2
+                ],
+                [],
+                []
+              ]
+            }
+          },
+          {
+            "name": "United Nations",
+            "platformType": "Side",
+            "exits": [
+              "E1: Times Plaza / Rizal Park / National Museum of Natural History",
+              "E2: World Health Organization / National Bureau of Investigation",
+              "E3: Araullo High School / Metropolitan Trial Court",
+              "E4: Manila Medical Center / Plaza Rueda"
+            ],
+            "exitMap": {
+              "north": [
+                [],
+                [],
+                [
+                  1
+                ],
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ],
+                [
+                  1
+                ],
+                [],
+                []
+              ]
+            }
+          },
+          {
+            "name": "Pedro Gil",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  2
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Quirino",
+            "platformType": "Side",
+            "exits": [
+              "E1: Marc 2000 Tower / OWWA / Remedios Circle",
+              "E2: Fidel Reyes Street / Leveriza Street",
+              "E3: Harvard Suites / Mercury Drug",
+              "E4: Jollibee / McDonald's / Embassy of the Holy See"
+            ],
+            "exitMap": {
+              "north": [
+                [
+                  1
+                ],
+                [
+                  4
+                ],
+                [],
+                []
+              ],
+              "south": [
+                [],
+                [],
+                [
+                  4
+                ],
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Vito Cruz",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  2
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Gil Puyat",
+            "platformType": "Side",
+            "exits": [
+              "E1: DLTBCo / BBL Trans / JAC Liner",
+              "E2: Hotel Sogo / ALPS",
+              "E3: Otex / TGP / Mercury Drug"
+            ],
+            "exitMap": {
+              "north": [
+                [
+                  1
+                ],
+                [
+                  4
+                ],
+                [],
+                []
+              ],
+              "south": [
+                [],
+                [],
+                [
+                  3
+                ],
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Libertad",
+            "platformType": "Side",
+            "exits": [
+              "E1: Cartimar Shopping Center",
+              "E2: Victory Pasay Mall / Pasay City Wet Market",
+              "E3: Iglesia Filipina Independiente",
+              "E4: Welcome Plaza / Puregold Libertad"
+            ],
+            "exitMap": {
+              "north": [
+                [],
+                [],
+                [
+                  1
+                ],
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ],
+                [
+                  1
+                ],
+                [],
+                []
+              ]
+            }
+          },
+          {
+            "name": "EDSA",
+            "platformType": "Side",
+            "exits": [
+              "E1: Pasay Rotonda Jeepney Terminal / 7-Eleven",
+              "E2: Pasay Rotonda Jeepney Terminal / Lawson",
+              "E3: LRT-MRT Footbridge / EDSA Carousel Taft Avenue",
+              "E4: Metro Point Mall / MRT-3 Taft Avenue"
+            ],
+            "exitMap": {
+              "north": [
+                [],
+                [
+                  1
+                ],
+                [],
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ],
+                [],
+                [
+                  1
+                ],
+                []
+              ]
+            }
+          },
+          {
+            "name": "Baclaran",
+            "platformType": "Side",
+            "exits": [
+              "E1: Baclaran Terminal Plaza 2",
+              "E2: Baclaran Terminal Plaza 1 / Baclaran Church",
+              "E3: Sunnyline Shopping Center",
+              "E4: New Galleria Baclaran Mall / MyMall"
+            ],
+            "exitMap": {
+              "north": [
+                [],
+                [],
+                [
+                  2,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  2
+                ],
+                [
+                  3
+                ],
+                [],
+                []
+              ]
+            }
+          },
+          {
+            "name": "Redemptorist-Aseana",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  1,
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  1,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "MIA Road",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  1,
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  1,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "PITX",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  2
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Ninoy Aquino Avenue",
+            "platformType": "Side",
+            "exits": [
+              "E1: PUP Parañaque / Puregold Parañaque / S&R Parañaque",
+              "E2: PHLPost Parañaque / Duty Free Fiestamall / NAIA Terminal 1"
+            ],
+            "exitMap": {
+              "north": [
+                [
+                  1
+                ],
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ],
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Dr. Santos",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                []
+              ],
+              "south": [
+                [
+                  3,
+                  4
+                ]
+              ]
+            }
+          }
+        ]
     },
     {
         "line": LineName.Line2,
         "numberOfCars": [CarConfig.FourCar],
         "directions": [ Direction.WB, Direction.EB],
-        "stations": [{"name": "Recto", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Legarda", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Pureza", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "V. Mapa", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "J. Ruiz", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Gilmore", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Betty Go-Belmonte", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Araneta Center-Cubao", "platformType": "Side", "exits": ["Elevator", "Stairs (Diamond Arcade / North Entrance)", "Stairs (Gateway Mall 1 / South Entrance)"], "exitMap": {"west": [[2], [1, 2], [3, 4]], "east": [[3], [3, 4], [1, 2]]}}, {"name": "Anonas", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Katipunan", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Santolan", "platformType": "Island", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Marikina-Pasig", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}, {"name": "Antipolo", "platformType": "Side", "exits": ["Elevator", "Stairs"], "exitMap": {"west": [[2], [1, 3, 4]], "east": [[3], [1, 2, 4]]}}]
+        "stations": [
+          {
+            "name": "Recto",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ],
+              "east": [
+                []
+              ]
+            }
+          },
+          {
+            "name": "Legarda",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  2
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Pureza",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  2,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "V. Mapa",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  2,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "J. Ruiz",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  2,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Gilmore",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Betty Go-Belmonte",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  2,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Araneta Center-Cubao",
+            "platformType": "Side",
+            "exits": [
+              "Diamond Arcade / Gateway Mall 1",
+              "Gateway Mall 1"
+            ],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  3,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  3,
+                  4
+                ],
+                [
+                  1,
+                  2
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Anonas",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  2,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Katipunan",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  3,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  3,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Santolan",
+            "platformType": "Island",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              ],
+              "east": [
+                [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Marikina-Pasig",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                [
+                  1,
+                  3
+                ]
+              ],
+              "east": [
+                [
+                  2,
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Antipolo",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "west": [
+                []
+              ],
+              "east": [
+                [
+                  1,
+                  2,
+                  4
+                ]
+              ]
+            }
+          }
+        ]
     },
     {
         "line": LineName.Line3,
         "numberOfCars": [CarConfig.ThreeCar, CarConfig.FourCar],
         "directions": [Direction.NB, Direction.SB],
-        "stations": [{"name": "North Avenue", "platformType": "Side", "exitMap": {"north": [[3]], "south": [[2]]}}, {"name": "Quezon Avenue", "platformType": "Side", "exitMap": {"north": [[1]], "south": [[4]]}}, {"name": "GMA-Kamuning", "platformType": "Side", "exitMap": {"north": [[3]], "south": [[2]]}}, {"name": "Araneta Center-Cubao", "platformType": "Side", "exits": ["Farmers Plaza (north)", "Farmers Plaza (south) / Farmers Market / Arayat Market"], "exitMap": {"north": [[1, 2], [3, 4]], "south": [[3, 4], [1, 2]]}}, {"name": "Santolan-Annapolis", "platformType": "Side", "exitMap": {"north": [[4]], "south": [[1]]}}, {"name": "Ortigas", "platformType": "Side", "exitMap": {"north": [[3]], "south": [[2]]}}, {"name": "Shaw Boulevard", "platformType": "Island", "exits": ["Shangri-La Plaza / Starmall EDSA", "EDSA Central / Greenfield District"], "exitMap": {"north": [[1, 2], [3, 4]], "south": [[3, 4], [1, 2]]}}, {"name": "Boni", "platformType": "Island", "exits": ["GA Tower / SM Light", "Pinatubo St / Pioneer Woodlands"], "exitMap": {"north": [[1, 2], [3, 4]], "south": [[2, 3], [1, 2]]}}, {"name": "Guadalupe", "platformType": "Side", "exitMap": {"north": [[4]], "south": [[1]]}}, {"name": "Buendia", "platformType": "Island", "exitMap": {"north": [[1]], "south": [[4]]}}, {"name": "Ayala", "platformType": "Side", "exits": ["Elevator", "Escalator", "Stairs"], "exitMap": {"north": [[3], [2], [1, 3]], "south": [[2], [3], [1, 3]]}}, {"name": "Magallanes", "platformType": "Side", "exitMap": {"north": [[4]], "south": [[1]]}}, {"name": "Taft Avenue", "platformType": "Island", "exitMap": {"north": [[4]], "south": [[1]]}}]
+        "stations": [
+          {
+            "name": "North Avenue",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  3
+                ]
+              ],
+              "south": [
+                []
+              ]
+            }
+          },
+          {
+            "name": "Quezon Avenue",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  1
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "GMA-Kamuning",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  2
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Araneta Center-Cubao",
+            "platformType": "Side",
+            "exits": [
+              "Farmers Plaza North",
+              "Farmers Plaza North",
+              "Farmers Plaza South / Farmers Market / Arayat Market",
+              "Farmers Plaza South / Farmers Market / Arayat Market"
+            ],
+            "exitMap": {
+              "north": [
+                [
+                  2
+                ],
+                [
+                  1
+                ],
+                [
+                  3
+                ],
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  3
+                ],
+                [
+                  4
+                ],
+                [
+                  2
+                ],
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Santolan-Annapolis",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Ortigas",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  2
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Shaw Boulevard",
+            "platformType": "Island",
+            "exits": [
+              "Shangri-La Plaza / Starmall EDSA",
+              "EDSA Central / Greenfield District"
+            ],
+            "exitMap": {
+              "north": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  3,
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  3,
+                  4
+                ],
+                [
+                  1,
+                  2
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Boni",
+            "platformType": "Island",
+            "exits": [
+              "GA Tower / SM Light",
+              "Pinatubo St / Pioneer Woodlands"
+            ],
+            "exitMap": {
+              "north": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  3,
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  2
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Guadalupe",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Buendia",
+            "platformType": "Island",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  1
+                ]
+              ],
+              "south": [
+                [
+                  4
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Ayala",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ],
+              "south": [
+                [
+                  1,
+                  2,
+                  3
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Magallanes",
+            "platformType": "Side",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                [
+                  4
+                ]
+              ],
+              "south": [
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          {
+            "name": "Taft Avenue",
+            "platformType": "Island",
+            "exits": [],
+            "exitMap": {
+              "north": [
+                []
+              ],
+              "south": [
+                [
+                  1,
+                  2
+                ]
+              ]
+            }
+          }
+      ]
     }
 ]
 
@@ -111,4 +1253,4 @@ const TrainSVG = [
     `
 ]
 
-export { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, LineName, LineData, TrainSVG }
+export { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, LineName, LineData, TrainSVG }

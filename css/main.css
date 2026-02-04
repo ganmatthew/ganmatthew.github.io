@@ -94,8 +94,11 @@ hr.dark {
   border-color: #acacac;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6 {
   text-align: center;
+}
+
+h1 {
   font-size: 38px;
   font-weight: 500;
   margin-bottom: 24px;
@@ -209,7 +212,7 @@ nav.navbar {
 }
 
 nav.nav-bg {
-  background-color: rgb(250, 250, 250);
+  background-color: #fafafa;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0) 0px 1px 3px 2px;
 }
 
@@ -218,13 +221,13 @@ nav.nav-bg.dark {
 }
 
 nav.navbar.dark a {
-  color: white;
+  color: #ffffff;
 }
 
 nav.navbar.dark a:hover {
   color: rgb(48,216,112);
   transform: scale(1.05);
-  transition: 150ms ease-in-out;
+  transition: transform 150ms ease-in-out;
 }
 
 nav div.navbar-container {
@@ -245,7 +248,7 @@ nav a {
 nav a:hover {
   color: rgb(48,216,112);
   transform: scale(1.05);
-  transition: 150ms ease-in-out;
+  transition: transform 150ms ease-in-out;
 }
 
 span.collapse-arrow {
@@ -340,7 +343,7 @@ legend.form-label {
 .form-label a:hover {
   color: rgb(48,216,112);
   transform: scale(1.05);
-  transition: 150ms ease-in-out;
+  transition: transform 150ms ease-in-out;
 }
 
 .row:after {
@@ -365,7 +368,7 @@ legend.form-label {
   /* box-shadow: rgba(0, 0, 0, 0.3) 0px 9px 18px, rgba(0, 0, 0, 0.22) 0px 9px 6px; */
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   /* transform: translateY(-2px); */
-  transition: 150ms ease-in-out;
+  transition: box-shadow 150ms ease-in-out;
 }
 
 .card-img-top {
@@ -437,6 +440,17 @@ legend.form-label {
 
 .form-container#train-car-calculator {
   width: 25em;
+}
+
+label.btn.flex-fill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img.btn-check-icon {
+  width: 25px;
+  margin-right: 4px;
 }
 
 div#train-car-results, div#number-coding-results {
@@ -759,20 +773,20 @@ div.grid.art-grid {
   margin-bottom: 10px;
 }
 
-.btn-check + .btn {
+fieldset#train-line-radio .btn-check + .btn {
   border: 1px solid var(--bs-border-color);
 }
 
 @media screen and (max-width: 780px) {
-  .btn-check + .btn { height: 50px; }
-  .btn-check + label { place-content: center; }
+  fieldset#train-line-radio .btn-check + .btn { height: 50px; }
+  fieldset#train-line-radio .btn-check + label { place-content: center; }
 }
 
-.btn-check + .btn:hover {
+fieldset#train-line-radio .btn-check + .btn:hover {
   border: 1px solid var(--line-color);
 }
 
-.btn-check:checked + .btn {
+fieldset#train-line-radio .btn-check:checked + .btn {
   border: 1px solid var(--line-color);
   background-color: var(--line-color);
   color: var(--line-text-color, white);
@@ -944,13 +958,13 @@ div.socmed-table {
 a.socmed-icon {
   margin: 15px 1em 0em;
   text-decoration: none;
-  transition: 150ms ease-in-out;
+  transform: scale(1);
+  transition: transform 150ms ease-in-out;
 }
 
 a.socmed-icon:hover {
-  margin: 15px 1em 0em;
   transform: scale(1.05);
-  transition: 150ms ease-in-out;
+  transition: transform 150ms ease-in-out;
 }
 
 .socmed-icon p {

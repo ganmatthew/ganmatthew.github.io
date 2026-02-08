@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
     // Image modal functionality
     const modal = document.getElementsByClassName('image-modal')[0];
     const modalImage = modal.querySelector('img');
-    const navbar = document.getElementsByClassName('nav-bg')[0];
     // Modal elements
     const modalTitle = document.getElementById('modal-title');
     const modalSubtitle = document.getElementById('modal-subtitle');
@@ -67,6 +66,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const closeBtn = document.getElementById('modal-close')
     // Toggle scrolling when modal is open
     document.querySelectorAll('.grid-item').forEach(function(gridItem) {
+        gridItem.addEventListener('contextmenu', (e) => e.preventDefault());
+        gridItem.addEventListener('dragstart', (e) => e.preventDefault());
         gridItem.addEventListener('click', (event) => {
         const gridImage = gridItem.querySelector('img');    
         // Modal data attributes
@@ -82,9 +83,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
             if (!modal.hidden && modalImage.src) {
             modalImage.src = "";
             modal.hidden = true;
-            if (navbar.classList.contains('dark')) {
-                navbar.classList.remove('dark');
-            }
             if (modal.classList.contains('horizontal')) {
                 modal.classList.remove('horizontal');
             }
@@ -108,7 +106,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
         modal.hidden = false;
         modalImage.src = gridImage.src;
         modalImage.alt = gridImage.alt;
-        navbar.classList.add('dark');
         document.documentElement.style.overflow = 'hidden';
         })
     });

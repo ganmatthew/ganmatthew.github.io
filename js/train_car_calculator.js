@@ -202,7 +202,7 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr, 
         exitText = `the exit`;
     }
     
-    const message = `To arrive near ${exitText} at ${useHighlight ? markText(destination) : destination}, board the ${useHighlight ? markText(carText) : carText} on the ${useHighlight ? markText(direction) : direction} platform at ${useHighlight ? markText(origin) : origin}.`;
+    const message = `To arrive near ${exitText} at ${useHighlight ? markText(destination) : destination},<wbr> board the ${useHighlight ? markText(carText) : carText} on the ${useHighlight ? markText(direction) : direction} platform at ${useHighlight ? markText(origin) : origin}.`;
     return [message, carResult];
 }
 

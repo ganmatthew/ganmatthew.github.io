@@ -58,16 +58,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  1,
-                  2,
-                  3
-                ]
-              ],
-              "south": [
-                []
-              ]
+              "north": [[1,2,3]],
+              "south": [[]]
             }
           },
           {
@@ -75,20 +67,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  1,
-                  2,
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  1,
-                  2,
-                  3
-                ]
-              ]
+              "north": [[1,2,3]],
+              "south": [[1,2,3]]
             }
           },
           {
@@ -100,22 +80,8 @@ const LineData = [
               "E4: Jackman Plaza Caloocan"
             ],
             "exitMap": {
-              "north": [
-                [],
-                [
-                  2
-                ],
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  3
-                ],
-                [],
-                []
-              ]
+              "north": [[],[2],[4]],
+              "south": [[3],[],[]]
             }
           },
           {
@@ -128,26 +94,8 @@ const LineData = [
               "E4: Jollibee / 7-Eleven"
             ],
             "exitMap": {
-              "north": [
-                [],
-                [],
-                [
-                  1
-                ],
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ],
-                [
-                  1
-                ],
-                [],
-                []
-              ]
+              "north": [[],[],[1],[4]],
+              "south": [[4],[1],[],[]]
             }
           },
           {
@@ -155,16 +103,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  2
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ]
-              ]
+              "north": [[2]],
+              "south": [[4]]
             }
           },
           {
@@ -172,16 +112,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  1
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ]
-              ]
+              "north": [[1]],
+              "south": [[4]]
             }
           },
           {
@@ -189,16 +121,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  2
-                ]
-              ]
+              "north": [[3]],
+              "south": [[2]]
             }
           },
           {
@@ -206,17 +130,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  2,
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  1
-                ]
-              ]
+              "north": [[2,3]],
+              "south": [[1]]
             }
           },
           {
@@ -224,18 +139,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  3,
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  2,
-                  3
-                ]
-              ]
+              "north": [[3,4]],
+              "south": [[2,3]]
             }
           },
           {
@@ -243,16 +148,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  2
-                ]
-              ],
-              "south": [
-                [
-                  3
-                ]
-              ]
+              "north": [[2]],
+              "south": [[3]]
             }
           },
           {
@@ -263,22 +160,8 @@ const LineData = [
               "E4: Plaza Lacson / Isetann / SM Quiapo / FEATI"
             ],
             "exitMap": {
-              "north": [
-                [
-                  1
-                ],
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ],
-                [
-                  1
-                ]
-              ]
+              "north": [[1],[4]],
+              "south": [[4],[1]]
             }
           },
           {
@@ -292,30 +175,8 @@ const LineData = [
               "E5: Manila City Hall / Manila Regional Trial Court"
             ],
             "exitMap": {
-              "north": [
-                [],
-                [],
-                [],
-                [
-                  2
-                ],
-                [
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ],
-                [
-                  3
-                ],
-                [
-                  2
-                ],
-                [],
-                []
-              ]
+              "north": [[],[],[],[2],[3]],
+              "south": [[4],[3],[2],[],[]]
             }
           },
           {
@@ -328,26 +189,8 @@ const LineData = [
               "E4: Manila Medical Center / Plaza Rueda"
             ],
             "exitMap": {
-              "north": [
-                [],
-                [],
-                [
-                  1
-                ],
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ],
-                [
-                  1
-                ],
-                [],
-                []
-              ]
+              "north": [[],[],[1],[4]],
+              "south": [[4],[1],[],[]]
             }
           },
           {
@@ -355,16 +198,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  2
-                ]
-              ]
+              "north": [[3]],
+              "south": [[2]]
             }
           },
           {
@@ -377,26 +212,8 @@ const LineData = [
               "E4: Jollibee / McDonald's / Embassy of the Holy See"
             ],
             "exitMap": {
-              "north": [
-                [
-                  1
-                ],
-                [
-                  4
-                ],
-                [],
-                []
-              ],
-              "south": [
-                [],
-                [],
-                [
-                  4
-                ],
-                [
-                  1
-                ]
-              ]
+              "north": [[1],[4],[],[]],
+              "south": [[],[],[4],[1]]
             }
           },
           {
@@ -404,16 +221,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  2
-                ]
-              ]
+              "north": [[3]],
+              "south": [[2]]
             }
           },
           {
@@ -425,26 +234,8 @@ const LineData = [
               "E3: Otex / TGP / Mercury Drug"
             ],
             "exitMap": {
-              "north": [
-                [
-                  1
-                ],
-                [
-                  4
-                ],
-                [],
-                []
-              ],
-              "south": [
-                [],
-                [],
-                [
-                  3
-                ],
-                [
-                  1
-                ]
-              ]
+              "north": [[1],[4],[],[]],
+              "south": [[],[],[3],[1]]
             }
           },
           {
@@ -457,26 +248,8 @@ const LineData = [
               "E4: Welcome Plaza / Puregold Libertad"
             ],
             "exitMap": {
-              "north": [
-                [],
-                [],
-                [
-                  1
-                ],
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ],
-                [
-                  1
-                ],
-                [],
-                []
-              ]
+              "north": [[],[],[1],[4]],
+              "south": [[4],[1],[],[]]
             }
           },
           {
@@ -489,26 +262,8 @@ const LineData = [
               "E4: Metro Point Mall / MRT-3 Taft Avenue"
             ],
             "exitMap": {
-              "north": [
-                [],
-                [
-                  1
-                ],
-                [],
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ],
-                [],
-                [
-                  1
-                ],
-                []
-              ]
+              "north": [[],[1],[],[4]],
+              "south": [[4],[],[1],[]]
             }
           },
           {
@@ -521,28 +276,8 @@ const LineData = [
               "E4: New Galleria Baclaran Mall / MyMall"
             ],
             "exitMap": {
-              "north": [
-                [],
-                [],
-                [
-                  2,
-                  3
-                ],
-                [
-                  2,
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  2
-                ],
-                [
-                  3
-                ],
-                [],
-                []
-              ]
+              "north": [[],[],[2,3],[2,3]],
+              "south": [[2],[3],[],[]]
             }
           },
           {
@@ -550,18 +285,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  1,
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  1,
-                  4
-                ]
-              ]
+              "north": [[1,4]],
+              "south": [[1,4]]
             }
           },
           {
@@ -569,18 +294,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  1,
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  1,
-                  4
-                ]
-              ]
+              "north": [[1,4]],
+              "south": [[1,4]]
             }
           },
           {
@@ -588,16 +303,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  2
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ]
-              ]
+              "north": [[2]],
+              "south": [[4]]
             }
           },
           {
@@ -608,22 +315,8 @@ const LineData = [
               "E2: PHLPost Parañaque / Duty Free Fiestamall / NAIA Terminal 1"
             ],
             "exitMap": {
-              "north": [
-                [
-                  1
-                ],
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ],
-                [
-                  1
-                ]
-              ]
+              "north": [[1],[4]],
+              "south": [[4],[1]]
             }
           },
           {
@@ -631,15 +324,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                []
-              ],
-              "south": [
-                [
-                  3,
-                  4
-                ]
-              ]
+              "north": [[]],
+              "south": [[3,4]]
             }
           }
         ]
@@ -654,16 +340,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ],
-              "east": [
-                []
-              ]
+              "west": [[1,3,4]],
+              "east": [[]]
             }
           },
           {
@@ -671,19 +349,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  2
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ]
+              "west": [[1,2]],
+              "east": [[1,3,4]]
             }
           },
           {
@@ -691,20 +358,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  2,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ]
+              "west": [[1,2,4]],
+              "east": [[1,3,4]]
             }
           },
           {
@@ -712,20 +367,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  2,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ]
+              "west": [[1,2,4]],
+              "east": [[1,3,4]]
             }
           },
           {
@@ -733,20 +376,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  2,
-                  4
-                ]
-              ]
+              "west": [[1,3,4]],
+              "east": [[1,2,4]]
             }
           },
           {
@@ -754,20 +385,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ]
+              "west": [[1,3,4]],
+              "east": [[1,3,4]]
             }
           },
           {
@@ -775,20 +394,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  2,
-                  4
-                ]
-              ]
+              "west": [[1,3,4]],
+              "east": [[1,2,4]]
             }
           },
           {
@@ -799,26 +406,8 @@ const LineData = [
               "Gateway Mall 1"
             ],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  2
-                ],
-                [
-                  3,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  3,
-                  4
-                ],
-                [
-                  1,
-                  2
-                ]
-              ]
+              "west": [[1,2],[3,4]],
+              "east": [[3,4],[1,2]]
             }
           },
           {
@@ -826,20 +415,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  2,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ]
+              "west": [[1,2,4]],
+              "east": [[1,3,4]]
             }
           },
           {
@@ -847,19 +424,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  3,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  3,
-                  4
-                ]
-              ]
+              "west": [[3,4]],
+              "east": [[1,3,4]]
             }
           },
           {
@@ -867,22 +433,8 @@ const LineData = [
             "platformType": "Island",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  2,
-                  3,
-                  4
-                ]
-              ],
-              "east": [
-                [
-                  1,
-                  2,
-                  3,
-                  4
-                ]
-              ]
+              "west": [[1,2,3,4]],
+              "east": [[1,2,3,4]]
             }
           },
           {
@@ -890,18 +442,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                [
-                  1,
-                  3
-                ]
-              ],
-              "east": [
-                [
-                  2,
-                  4
-                ]
-              ]
+              "west": [[1,3]],
+              "east": [[2,4]]
             }
           },
           {
@@ -909,16 +451,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "west": [
-                []
-              ],
-              "east": [
-                [
-                  1,
-                  2,
-                  4
-                ]
-              ]
+              "west": [[]],
+              "east": [[1,2,4]]
             }
           }
         ]
@@ -933,14 +467,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  3
-                ]
-              ],
-              "south": [
-                []
-              ]
+              "north": [[3]],
+              "south": [[]]
             }
           },
           {
@@ -948,16 +476,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  1
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ]
-              ]
+              "north": [[1]],
+              "south": [[4]]
             }
           },
           {
@@ -965,16 +485,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  2
-                ]
-              ]
+              "north": [[3]],
+              "south": [[2]]
             }
           },
           {
@@ -982,39 +494,11 @@ const LineData = [
             "platformType": "Side",
             "exits": [
               "Farmers Plaza North",
-              "Farmers Plaza North",
-              "Farmers Plaza South / Farmers Market / Arayat Market",
               "Farmers Plaza South / Farmers Market / Arayat Market"
             ],
             "exitMap": {
-              "north": [
-                [
-                  2
-                ],
-                [
-                  1
-                ],
-                [
-                  3
-                ],
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  3
-                ],
-                [
-                  4
-                ],
-                [
-                  2
-                ],
-                [
-                  1
-                ]
-              ]
+              "north": [[1,2],[3,4]],
+              "south": [[3,4],[1,2]]
             }
           },
           {
@@ -1022,16 +506,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  1
-                ]
-              ]
+              "north": [[4]],
+              "south": [[1]]
             }
           },
           {
@@ -1039,16 +515,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  2
-                ]
-              ]
+              "north": [[3]],
+              "south": [[2]]
             }
           },
           {
@@ -1059,26 +527,8 @@ const LineData = [
               "EDSA Central / Greenfield District"
             ],
             "exitMap": {
-              "north": [
-                [
-                  1,
-                  2
-                ],
-                [
-                  3,
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  3,
-                  4
-                ],
-                [
-                  1,
-                  2
-                ]
-              ]
+              "north": [[1,2],[3,4]],
+              "south": [[3,4],[1,2]]
             }
           },
           {
@@ -1089,26 +539,8 @@ const LineData = [
               "Pinatubo St / Pioneer Woodlands"
             ],
             "exitMap": {
-              "north": [
-                [
-                  1,
-                  2
-                ],
-                [
-                  3,
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  2,
-                  3
-                ],
-                [
-                  1,
-                  2
-                ]
-              ]
+              "north": [[1,2],[3,4]],
+              "south": [[2,3],[1,2]]
             }
           },
           {
@@ -1116,16 +548,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  1
-                ]
-              ]
+              "north": [[4]],
+              "south": [[1]]
             }
           },
           {
@@ -1133,16 +557,8 @@ const LineData = [
             "platformType": "Island",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  1
-                ]
-              ],
-              "south": [
-                [
-                  4
-                ]
-              ]
+              "north": [[1]],
+              "south": [[4]]
             }
           },
           {
@@ -1150,20 +566,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  1,
-                  2,
-                  3
-                ]
-              ],
-              "south": [
-                [
-                  1,
-                  2,
-                  3
-                ]
-              ]
+              "north": [[1,2,3]],
+              "south": [[1,2,3]]
             }
           },
           {
@@ -1171,16 +575,8 @@ const LineData = [
             "platformType": "Side",
             "exits": [],
             "exitMap": {
-              "north": [
-                [
-                  4
-                ]
-              ],
-              "south": [
-                [
-                  1
-                ]
-              ]
+              "north": [[4]],
+              "south": [[1]]
             }
           },
           {
@@ -1188,15 +584,8 @@ const LineData = [
             "platformType": "Island",
             "exits": [],
             "exitMap": {
-              "north": [
-                []
-              ],
-              "south": [
-                [
-                  1,
-                  2
-                ]
-              ]
+              "north": [[]],
+              "south": [[1,2]]
             }
           }
       ]

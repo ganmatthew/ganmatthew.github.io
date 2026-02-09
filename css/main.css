@@ -1,9 +1,11 @@
 :root {
+  color-scheme: light dark;
   --bs-body-bg: #ffffff;
   --bs-body-bg-rgb: 255, 255, 255;
   --bs-secondary-bg: #eeeef3;
   --bs-tertiary-bg: #dedee8;
   --caption-color: #606060;
+  --grey-square: #ababab;
   --text-color: #000000;
   --shadow-rgb: 32, 32, 34;
   --theme-invert: 0%;
@@ -15,6 +17,7 @@
   --bs-secondary-bg: #35353d;
   --bs-tertiary-bg: #3a3a45;
   --caption-color: #818181;
+  --grey-square: #444444;
   --text-color: #ffffff;
   --shadow-rgb: 175, 141, 171;
   --theme-invert: 100%;
@@ -486,8 +489,8 @@ img.btn-check-icon {
 }
 
 div#train-car-results, div#number-coding-results {
-  max-width: 720px;
-  width: 95%;
+  max-width: 730px;
+  width: 100%;
   margin: auto;
 }
 
@@ -640,7 +643,7 @@ div.legend-item .legend-text {
 
 .day-square {
   margin-right: 10px;
-  fill: #ababab;
+  fill: var(--grey-square);
 }
 
 .day-square.major-restricted rect {
@@ -664,7 +667,7 @@ svg#train-car-graphic .selected {
 }
 
 svg#train-car-graphic path, rect {
-  fill: #ababab;
+  fill: var(--grey-square);
 }
 
 svg#number-coding-graphic .major-restricted {
@@ -684,7 +687,7 @@ svg#number-coding-graphic .both-restricted {
 }
 
 svg#number-coding-graphic path, rect {
-  fill: #ababab;
+  fill: var(--grey-square);
 }
 
 .mc-car, .day-obj {

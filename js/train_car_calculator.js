@@ -407,6 +407,15 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const resultsCar = document.getElementById('train-car-number-result');
     const resultsMsg = document.getElementById('train-car-message-result');
     const svgContainer = document.getElementById('train-car-graphic-container');
+    const modal = document.getElementsByClassName('changelog-modal')[0];
+    const closeBtn = document.getElementById('modal-close')
+
+    closeBtn.addEventListener('click', (event) => {
+        if (!modal.hidden) {
+            modal.hidden = true;
+            document.documentElement.style.overflow = 'auto';
+        }
+    }); 
     
     function generate(getNewLineData) {
         const data = LineData[getTrainLineValue() || 0];

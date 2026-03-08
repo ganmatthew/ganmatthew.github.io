@@ -6,6 +6,7 @@
   --bs-tertiary-bg: #dedee8;
   --caption-color: #606060;
   --grey-square: #ababab;
+  --bs-body-color: #151515;
   --text-color: #000000;
   --shadow-rgb: 32, 32, 34;
   --theme-invert: 0%;
@@ -14,10 +15,11 @@
 [data-bs-theme="dark"] {
   --bs-body-bg: #202022;
   --bs-body-bg-rgb: 32, 32, 34;
-  --bs-secondary-bg: #35353d;
+  --bs-secondary-bg: #33333d;
   --bs-tertiary-bg: #3a3a45;
   --caption-color: #818181;
   --grey-square: #444444;
+  --bs-body-color: #f5f5f5;
   --text-color: #ffffff;
   --shadow-rgb: 175, 141, 171;
   --theme-invert: 100%;
@@ -96,7 +98,7 @@ div#bio-info {
 }
 
 footer {
-  border-top: 1px solid rgb(210,210,210);
+  border-top: 1px solid var(--bs-border-color);
   padding-top: 30px;
   height: 120px;
 }
@@ -220,10 +222,11 @@ div#footer-text p {
 
 div.calculator-container a.socmed-icon {
   margin: 0;
+  cursor: pointer;
 }
 
 div.calculator-container a.socmed-icon img {
-  height: 21px;
+  width: 16px;
 }
 
 div.calculator-container a.socmed-icon p {
@@ -511,6 +514,7 @@ div#train-car-results, div#number-coding-results {
 }
 
 p.calcu-result#train-car-number-result{
+  text-align: center;
   padding: 0.5em;
 }
 
@@ -586,6 +590,7 @@ p.calcu-result#train-car-number-result{
 }
 
 .calcu-result#train-car-message-result {
+  text-align: center;
   font-weight: 300;
   font-size: 21px;
 }
@@ -891,7 +896,7 @@ div.changelog-modal {
   transition: 0.4s ease-in-out;
   position: fixed;
   z-index: 1;
-  padding: 100px 200px;
+  padding: 100px 300px;
   left: 0;
   top: 0;
   width: 100%;
@@ -917,6 +922,7 @@ div.modal-header {
 .modal-bulleted .modal-properties h5 {
   text-align: left;
   line-height: 20px;
+  margin-top: 1.5em;
 }
 
 .modal-bulleted .modal-properties p {

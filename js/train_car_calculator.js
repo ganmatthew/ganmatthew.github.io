@@ -408,9 +408,17 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const resultsMsg = document.getElementById('train-car-message-result');
     const svgContainer = document.getElementById('train-car-graphic-container');
     const modal = document.getElementsByClassName('changelog-modal')[0];
-    const closeBtn = document.getElementById('modal-close')
+    const openChangelogBtn = document.getElementById('toggle-train-car-calculator-changelog');
+    const closeChangelogBtn = document.getElementById('modal-close')
 
-    closeBtn.addEventListener('click', (event) => {
+    openChangelogBtn.addEventListener('click', (event) => {
+        if (modal.hidden) {
+            modal.hidden = false;
+            document.documentElement.style.overflow = 'hidden';
+        }
+    }); 
+
+    closeChangelogBtn.addEventListener('click', (event) => {
         if (!modal.hidden) {
             modal.hidden = true;
             document.documentElement.style.overflow = 'auto';

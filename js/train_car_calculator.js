@@ -352,7 +352,9 @@ function processData(payload) {
     resultsCar.innerHTML = carResult;
     resultsMsg.innerHTML = message;
     resultsMsg.classList.add(lineColorClass);
-    results.hidden = false;
+
+    if (!results.classList.contains('show'))
+        results.classList.toggle('show');
     
     // Move to bottom of page
     setTimeout(() => {
@@ -384,6 +386,12 @@ function saveCheckboxStates() {
     });
 }  
 
+function toggleChangelogModal(modal) {
+    modal.classList.toggle('show');
+    const isOpen = modal.classList.contains('show');
+    document.documentElement.style.overflow = isOpen ? 'hidden' : 'auto';
+}
+
 function loadCheckboxStates() {
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         const savedState = localStorage.getItem(checkbox.id);
@@ -411,19 +419,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const openChangelogBtn = document.getElementById('toggle-train-car-calculator-changelog');
     const closeChangelogBtn = document.getElementById('modal-close')
 
-    openChangelogBtn.addEventListener('click', (event) => {
-        if (modal.hidden) {
-            modal.hidden = false;
-            document.documentElement.style.overflow = 'hidden';
-        }
-    }); 
-
-    closeChangelogBtn.addEventListener('click', (event) => {
-        if (!modal.hidden) {
-            modal.hidden = true;
-            document.documentElement.style.overflow = 'auto';
-        }
-    }); 
+    openChangelogBtn.addEventListener('click', () => toggleChangelogModal(modal)); 
+    closeChangelogBtn.addEventListener('click', () => toggleChangelogModal(modal));
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && !modal.hidden) toggleChangelogModal(modal);
+    });
     
     function generate(getNewLineData) {
         const data = LineData[getTrainLineValue() || 0];
@@ -519,7 +519,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
         line.addEventListener('change', () => {
             generate(true);
             validate();
-            results.hidden = true;
+            if (results.classList.contains('show'))
+                results.classList.remove('show');
             selectedLine = getSelectedLine()
             updateButtonTheme(selectedLine);
         })
@@ -528,6 +529,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     [origin, destination].forEach(select => {
         select.addEventListener('change', () => {
             generate(select === selectedLine);
+            if (results.classList.contains('show'))
+                results.classList.remove('show');
         });
     });
     

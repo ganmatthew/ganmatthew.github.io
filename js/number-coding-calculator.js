@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         }
 
         loadWeekSVG(svgContainer, daysArr, daysArr.length);
-        results.hidden = false;
+        results.classList.add('show');
     }
 
     // Validate inputs

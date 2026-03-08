@@ -161,9 +161,9 @@ permalink: /train-car-calculator
         <p class="calcu-result" id="train-car-message-result"></p>
       </div>
       <div class="mb-4 d-flex flex-column align-items-center">
-        <p class="form-label text-center" id="train-car-calculator-version">Current version: <a>Version 0.7.10</a></p>
-        <a class="socmed-icon" href="https://forms.gle/dm97qEWe43FA8J1d6">
-          <span><img src="/images/icons/changelog.svg" width=200><p>Changelog</p></span>
+        <p class="form-label text-center" id="train-car-calculator-version">Current version: <a>Version 0.8.4</a></p>
+        <a class="socmed-icon" id="toggle-train-car-calculator-changelog">
+          <span><img src="/images/icons/changelog.svg"><p>Changelog</p></span>
         </a>
         <!-- <br>
         <h5>Attributions<span class="collapse-arrow"></span></h5>
@@ -174,15 +174,104 @@ permalink: /train-car-calculator
       <div class="changelog-modal" hidden>
         <div class="modal-bulleted">
           <div class="modal-header">
-            <h3 id="modal-title">Changelog</h3>
+            <h3 id="modal-title">Train Car Calculator Changelog</h3>
             <button type="button" class="btn-close" aria-label="Close" id="modal-close"></button>
           </div>
           <div class="modal-properties">
-            <h5>Version 0.7.12</h4>
-            <p>February 10, 2026</p>
-            <ul>
-              <li>Added changelog.</li>
-            </ul>
+            <div>
+              <h5>Version 0.8.4</h4>
+              <p>March 9, 2026</p>
+              <ul>
+                <li>Fixed changelog not showing properly.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.8.3</h4>
+              <p>February 11, 2026</p>
+              <ul>
+                <li>Added changelog.</li>
+                <li>(Website change) Slightly tweaked the dark mode color scheme.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.8.2</h4>
+              <p>February 9, 2026</p>
+              <ul>
+                <li>(Website change) Fixed light/dark mode flickering on load.</li>
+                <li>Fixed a bug causing duplicate exit entries to appear for Araneta Center-Cubao on MRT-3.</li>
+                <li>Adjusted the width of the form to make the result more readable.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.8.1</h4>
+              <p>February 8, 2026</p>
+              <ul>
+                <li>(Website change) Added dark mode as well as toggling of light/dark mode.</li>
+                <li>Removed the "beta" label from the title.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.8.0</h4>
+              <p>February 5, 2026</p>
+              <ul>
+                <li>Codebase refactoring and performance improvements.</li>
+                <li>Updated LRT-1 data.</li>
+                <li>Updated LRT-2 data.</li>
+                <li>Updated MRT-3 data.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.7.9</h4>
+              <p>November 20, 2025</p>
+              <ul>
+                <li>Tweaked UI animations, codebase improvements.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.7.8</h4>
+              <p>August 20, 2025</p>
+              <ul>
+                <li>Added Google Analytics integration (only sends anonymous usage data).</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.7.7</h4>
+              <p>August 20, 2025</p>
+              <ul>
+                <li>Added version numbering.</li>
+                <li>Updated the tool to properly differentiate train SVG orientation and car results depending on the origin and destination platform type.</li>
+                <li>Removed the Fixed Direction setting to avoid misinterpretation of results and reduce codebase complexity.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.7.6</h4>
+              <p>August 20, 2025</p>
+              <ul>
+                <li>Enabled the priority car option on LRT-2 permanently as the priority area on LRT-2 is only the first two doors of the first car.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.7.5</h4>
+              <p>August 16, 2025</p>
+              <ul>
+                <li>Tweaks to the user interface.</li>
+                <li>Added a Fixed Direction setting which will always show the train visual facing right instead of based on real-life orientation.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.7.4</h4>
+              <p>August 15, 2025</p>
+              <ul>
+                <li>Added a Highlight Text setting which will highlight important details in the calculator result message.</li>
+              </ul>
+            </div>
+            <div>
+              <h5>Version 0.7.3</h4>
+              <p>August 15, 2025</p>
+              <ul>
+                <li></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

@@ -360,7 +360,7 @@ function processData(payload) {
     setTimeout(() => {
         requestAnimationFrame(() => {
             window.scrollTo({
-                top: document.documentElement.scrollHeight - window.innerHeight,
+                top: document.documentElement.scrollHeight - window.innerHeight - 125,
                 left: 0,
                 behavior: 'smooth',
             })

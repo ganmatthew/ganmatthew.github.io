@@ -560,7 +560,7 @@ p.calcu-result#train-car-number-result{
 
   p.calcu-result#train-car-number-result{
     padding: 0.5em;
-    width: 90%;
+    width: 95%;
     margin: auto;
   }
 
@@ -606,7 +606,6 @@ p.calcu-result#train-car-number-result{
 }
 
 .calcu-result {
-  padding-left: 0.25em;
   font-weight: 500;
   font-size: 36px;
 }

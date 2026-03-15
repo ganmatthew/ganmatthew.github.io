@@ -6,10 +6,6 @@ const ERROR_MSG_SOUTH_END = "Origin station is the southern terminus";
 const ERROR_MSG_EAST_END = "Origin station is the eastern terminus";
 const ERROR_MSG_WEST_END = "Origin station is the western terminus";
 
-function getEnumKeyFromValue(enumObj, value) {
-    return Object.keys(enumObj).find(k => enumObj[k] === value) || null;
-}
-
 function generateDropdownOptions(stationsData, selectList) {
     selectList.forEach(select => {
         // Clear existing data
@@ -23,6 +19,41 @@ function generateDropdownOptions(stationsData, selectList) {
         });
         // Set default options
         select.selectedIndex = select.id === 'destination-station' ? '1' : '0';
+    });
+}
+
+function createRadioCards(availableExits, exitCards, lineId) {
+    availableExits.forEach((exit, index) => {
+        const radioId = `exit-${index}`
+        const card = document.createElement('label');
+        card.classList.add('card', lineId, 'btn', 'mb-2', 'form-check', 'cursor-pointer');
+        card.setAttribute('for', radioId);
+
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'station-exit';
+        radio.value = index;
+        radio.setAttribute('id', radioId);
+        radio.classList.add('form-check-input', 'btn-check', 'me-2');
+
+        if (index === 0) radio.checked = true;
+
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        const cardTitle = document.createElement('h6');
+        cardTitle.classList.add('card-title');
+        cardTitle.textContent = exit.name;
+
+        // const cardText = document.createElement('p');
+        // cardText.classList.add('card-text');
+        // cardText.textContent = "";
+
+        cardBody.appendChild(cardTitle);
+        // cardBody.appendChild(cardText);
+        card.appendChild(cardBody);
+        exitCards.appendChild(radio);
+        exitCards.appendChild(card);
     });
 }
 
@@ -65,10 +96,12 @@ function updateDirectionValue(directionsData, originInd, destinationInd, directi
     }
 }
 
-function checkForStationExits(stationsData, destinationInd, direction) {
+function checkForStationExits(lineObj, stationsData, destinationInd, direction) {
     const directionText = DirectionMap[direction];
-    const exitDropdown = document.getElementById('station-exit-dropdown');
-    const select = document.getElementById('station-exit');
+    // const exitDropdown = document.getElementById('station-exit-dropdown');
+    const exitCards = document.getElementById('station-exit-radio-cards');
+    const exitInput = document.getElementById('station-exit-input');
+    // const stationExit = document.getElementById('station-exit');
     const destination = stationsData[destinationInd];
     const exitNames = destination['exits'] || []
     const carsPerExit = destination.exitMap[directionText] || [];
@@ -78,22 +111,35 @@ function checkForStationExits(stationsData, destinationInd, direction) {
         .map((name, i) => ({ name, cars: carsPerExit[i] }))
         .filter(exit => Array.isArray(exit.cars) && exit.cars.length > 0);
 
+    // Populate options for station exits
+
+    // if (availableExits.length > 0) {
+    //     exitDropdown.hidden = false;
+    //     stationExit.innerHTML = '';
+    //
+    //     availableExits.forEach((exit) => {
+    //         const option = document.createElement('option');
+    //         // Use the index from the unfiltered array
+    //         option.value = exitNames.indexOf(exit.name);
+    //         option.textContent = exit.name;
+    //         stationExit.appendChild(option);
+    //     });
+    //     // Set default options
+    //     stationExit.selectedIndex = '0';
+    // } else {
+    //     exitDropdown.hidden = true;
+    // }
+    
     if (availableExits.length > 0) {
-        exitDropdown.hidden = false;
-        // Clear existing data
-        select.innerHTML = '';
-        // Populate dropdown options
-        availableExits.forEach((exit) => {
-            const option = document.createElement('option');
-            // Use the index from the unfiltered array
-            option.value = exitNames.indexOf(exit.name);
-            option.textContent = exit.name;
-            select.appendChild(option);
+        exitCards.hidden = false;
+        Array.from(exitInput.children).forEach(child => {
+            if (child.classList.contains('card')) {
+                exitInput.removeChild(child);
+            }
         });
-        // Set default options
-        select.selectedIndex = '0';
+        createRadioCards(availableExits, exitInput, lineObj[0].id)
     } else {
-        exitDropdown.hidden = true;
+        exitCards.hidden = true;
     }
 }
 
@@ -215,7 +261,7 @@ function filterAllowedTrainCars(carArr, numToRemove, newNum, minNum, maxNum) {
     return updatedCars;
 }
 
-function calculateTrainCar(data, originInd, destInd, directionText, usePriorityCar, configValue) {
+function calculateTrainCar(data, originInd, destInd, directionText, usePriorityCar, exitValue, configValue) {
     // Validate inputs
     const stationsData = data['stations'];
     if (!stationsData) {
@@ -228,8 +274,8 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     // Get destination station exit cars
     const direction = DirectionMap[directionText];
     let carArr = stationsData[destInd].exitMap[direction];
-    const exit = document.getElementById('station-exit');
-    const exitValue = exit.value || 0
+    // const exit = document.getElementById('station-exit');
+    // const exitValue = exit ? exit.value : 0;
     const isLRT2 = data['line'].name === LineName.Line2.name;
 
     carArr = carArr[exitValue];
@@ -315,7 +361,7 @@ function processData(payload) {
     const data = payload.data;
     const origin = payload.origin;
     const destination = payload.destination;
-    const exit = payload.exit;
+    const exitValue = payload.exitValue;
     const direction = payload.direction;
     const settings = payload.settings;
     const configuration = payload.configuration;
@@ -332,11 +378,11 @@ function processData(payload) {
     const { priorityCar, highlightText } = settings;
     
     const carArr = calculateTrainCar(
-        data, origin.value, destination.value, direction.value, priorityCar, configValue
+        data, origin.value, destination.value, direction.value, priorityCar, exitValue, configValue
     );
 
     const [message, carResult] = generateMessage(
-        data, origin.value, destination.value, direction.value, exit.value, carArr, highlightText
+        data, origin.value, destination.value, direction.value, exitValue, carArr, highlightText
     );
     
     const platformType = data['stations'][Number(origin.value)].platformType;
@@ -380,6 +426,11 @@ function getTrainLineValue() {
     return document.querySelector('input[name="train-line"]:checked').value;
 }
 
+function getStationExitValue() {
+    const exit = document.querySelector('input[name="station-exit"]:checked');
+    return exit ? exit.value : 0;
+}
+
 function saveCheckboxStates() {
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
         localStorage.setItem(checkbox.id, checkbox.checked);
@@ -406,7 +457,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const origin = document.getElementById('origin-station');
     const destination = document.getElementById('destination-station');
     const direction = document.getElementById('direction');
-    const exit = document.getElementById('station-exit');
+    const exitInput = document.getElementById('station-exit-input');
+    // const exit = document.getElementById('station-exit');
     const priorityCar = document.getElementById('priority-car');
     const highlightText = document.getElementById('highlight-text');
     const configuration = document.getElementById('configuration');
@@ -434,7 +486,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
             // Update the list of origin and destination stations
             generateDropdownOptions(stationsData, [origin, destination])
             // Clear exit data
-            exit.innerHTML = null;
+            // exit.innerHTML = null;
+            exitInput.innerHTML = null;
             // Number of cars is fixed at 4 if the line only supports 4-car configuration
             configuration.disabled = numberOfCarsData.length === 1;
             if (numberOfCarsData.length === 1) {
@@ -454,7 +507,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             directionsData, originInd, destinationInd, direction
         )
         // Update whether to allow selecting multiple exits
-        checkForStationExits(stationsData, destinationInd, direction.value)  
+        checkForStationExits(getSelectedLine(), stationsData, destinationInd, direction.value)  
     }
     
     function validate() {
@@ -484,21 +537,22 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 highlightText: highlightText.checked
             }
             console.log(settings);
+            let exitValue = getStationExitValue();
             const payload = {
                 data, line: selectedLine, 
-                origin, destination, exit, direction, 
+                origin, destination, exitValue, direction, 
                 settings, configuration, 
                 results, resultsCar, resultsMsg, svgContainer
             }
             processData(payload);
-            
+
             // Send data to Google Analytics (completely anonymous)
             gtag('event', 'train_calculator_submit', {
                 train_line: data.line.name,
                 origin_station: data.stations[origin.value].name,
                 destination_station: data.stations[destination.value].name,
                 direction: direction.value,
-                exit: exit.options[exit.selectedIndex]?.text || 'N/A',
+                exit: exitValue || 'N/A',
                 priority_car: settings.priorityCar ? 'yes' : 'no',
                 highlight_text: settings.highlightText ? 'yes' : 'no',
                 configuration: configuration.options[configuration.selectedIndex].text

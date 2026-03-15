@@ -98,10 +98,15 @@ permalink: /train-car-calculator
             <div id="destination-station-feedback" class="invalid-feedback"></div>
           </div>
           <!--Exit Options-->
-          <div class="mb-3" id="station-exit-dropdown" hidden>
+          <!-- <div class="mb-3" id="station-exit-dropdown" hidden>
             <label for="station-exit" class="form-label">Exit at Destination</label>
             <select class="form-select" id="station-exit">
             </select>
+          </div> -->
+          <div class="mb-3" id="station-exit-radio-cards" hidden>
+            <label for="station-exit" class="form-label">Exit at Destination</label>
+            <fieldset id="station-exit-input">
+            </fieldset>
           </div>
           <div class="calcu-lower row mb-4">
             <div class="col">
@@ -166,7 +171,7 @@ permalink: /train-car-calculator
           <span><img src="/images/icons/changelog.svg"><p>Changelog</p></span>
         </a>
         <!-- <br>
-        <h5>Attributions<span class="collapse-arrow"></span></h5>
+        <h4>Attributions<span class="collapse-arrow"></span></h5>
         <div class="collapsible-section collapsed">
           <p class="form-label"><a href="" target="_blank" title=""></p>
         </div> -->
@@ -179,14 +184,15 @@ permalink: /train-car-calculator
           </div>
           <div class="modal-properties">
             <div>
-              <h5>Version 0.8.5</h4>
+              <h4>Version 0.8.5</h4>
               <p>March 16, 2026</p>
               <ul>
+                <li>Updated the Exit at Destination interface to show bigger buttons.</li>
                 <li>Mobile UI improvements.</li>
               </ul>
             </div>
             <div>
-              <h5>Version 0.8.4</h4>
+              <h4>Version 0.8.4</h4>
               <p>March 9, 2026</p>
               <ul>
                 <li>Added animations.</li>
@@ -196,7 +202,7 @@ permalink: /train-car-calculator
               </ul>
             </div>
             <div>
-              <h5>Version 0.8.3</h4>
+              <h4>Version 0.8.3</h4>
               <p>February 11, 2026</p>
               <ul>
                 <li>Added changelog.</li>
@@ -204,7 +210,7 @@ permalink: /train-car-calculator
               </ul>
             </div>
             <div>
-              <h5>Version 0.8.2</h4>
+              <h4>Version 0.8.2</h4>
               <p>February 9, 2026</p>
               <ul>
                 <li>(Website change) Fixed light/dark mode flickering on load.</li>
@@ -213,7 +219,7 @@ permalink: /train-car-calculator
               </ul>
             </div>
             <div>
-              <h5>Version 0.8.1</h4>
+              <h4>Version 0.8.1</h4>
               <p>February 8, 2026</p>
               <ul>
                 <li>(Website change) Added dark mode as well as toggling of light/dark mode.</li>
@@ -221,7 +227,7 @@ permalink: /train-car-calculator
               </ul>
             </div>
             <div>
-              <h5>Version 0.8.0</h4>
+              <h4>Version 0.8.0</h4>
               <p>February 5, 2026</p>
               <ul>
                 <li>Codebase refactoring and performance improvements.</li>
@@ -231,21 +237,21 @@ permalink: /train-car-calculator
               </ul>
             </div>
             <div>
-              <h5>Version 0.7.9</h4>
+              <h4>Version 0.7.9</h4>
               <p>November 20, 2025</p>
               <ul>
                 <li>Tweaked UI animations, codebase improvements.</li>
               </ul>
             </div>
             <div>
-              <h5>Version 0.7.8</h4>
+              <h4>Version 0.7.8</h4>
               <p>August 20, 2025</p>
               <ul>
                 <li>Added Google Analytics integration (only sends anonymous usage data).</li>
               </ul>
             </div>
             <div>
-              <h5>Version 0.7.7</h4>
+              <h4>Version 0.7.7</h4>
               <p>August 20, 2025</p>
               <ul>
                 <li>Added version numbering.</li>
@@ -254,14 +260,14 @@ permalink: /train-car-calculator
               </ul>
             </div>
             <div>
-              <h5>Version 0.7.6</h4>
+              <h4>Version 0.7.6</h4>
               <p>August 20, 2025</p>
               <ul>
                 <li>Enabled the priority car option on LRT-2 permanently as the priority area on LRT-2 is only the first two doors of the first car.</li>
               </ul>
             </div>
             <div>
-              <h5>Version 0.7.5</h4>
+              <h4>Version 0.7.5</h4>
               <p>August 16, 2025</p>
               <ul>
                 <li>Tweaks to the user interface.</li>
@@ -269,7 +275,7 @@ permalink: /train-car-calculator
               </ul>
             </div>
             <div>
-              <h5>Version 0.7.4</h4>
+              <h4>Version 0.7.4</h4>
               <p>August 15, 2025</p>
               <ul>
                 <li>Added a Highlight Text setting which will highlight important details in the calculator result message.</li>

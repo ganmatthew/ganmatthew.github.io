@@ -807,6 +807,35 @@ svg#number-coding-graphic .day-text {
   color: var(--caption-color);
 }
 
+fieldset#station-exit-input {
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset#station-exit-input label.card {
+  width: 100%;
+  height: auto;
+  box-shadow: none;
+}
+
+fieldset#station-exit-input label.card h6 {
+  font-weight: 500;
+}
+
+fieldset#station-exit-input label.card .card-title {
+  margin-bottom: 0;
+}
+
+fieldset#station-exit-input .btn-check:hover + label.card {
+  border: 1px solid var(--line-color);
+}
+
+fieldset#station-exit-input .btn-check:checked + label.card {
+  border: 1px solid var(--line-color);
+  background-color: var(--line-color);
+  color: var(--line-text-color, white);
+}
+
 .small-calcu-result {
   padding-left: 0.25em;
   padding-right: 0.25em;
@@ -998,7 +1027,7 @@ div.modal-header h3#modal-title {
   margin: 2em 2em;
 }
 
-.modal-bulleted .modal-properties h5 {
+.modal-bulleted .modal-properties h4 {
   text-align: left;
   line-height: 20px;
   margin-top: 1.5em;

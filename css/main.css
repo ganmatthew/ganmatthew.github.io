@@ -713,8 +713,9 @@ svg#train-car-graphic .selected {
   fill: var(--car-color);
 }
 
-svg#train-car-graphic path, rect {
+svg#train-car-graphic path, svg#train-car-graphic rect {
   fill: var(--grey-square);
+  transition: transform 0.25s ease;
 }
 
 svg#number-coding-graphic .major-restricted {
@@ -733,7 +734,7 @@ svg#number-coding-graphic .both-restricted {
   fill: #c82438;
 }
 
-svg#number-coding-graphic path, rect {
+svg#number-coding-graphic path, svg#number-coding-graphic rect {
   fill: var(--grey-square);
 }
 
@@ -746,6 +747,7 @@ svg#train-car-graphic .car-number {
   fill: #ffffff;
   text-anchor: middle;
   font-family: "Rubik";
+  transition: transform 0.25s ease;
 }
 
 svg#number-coding-graphic .day-text {
@@ -756,7 +758,28 @@ svg#number-coding-graphic .day-text {
   font-family: "Rubik";
 }
 
+@media screen and (max-width: 780px) {
+  div#train-car-graphic-container {
+    margin-bottom: 5px;
+  }
+
+  svg#train-car-graphic path, svg#train-car-graphic rect {
+    transform: scaleY(1.5);
+    transform-origin: center;
+  }
+  
+  svg#train-car-graphic .car-number {
+    font-size: 96px;
+  }
+}
+
 @media screen and (max-width: 560px) {
+  svg#train-car-graphic path, svg#train-car-graphic rect {
+    transform: scaleY(1.75);
+    transform-origin: center;
+    min-height: 100;
+  }
+
   svg#number-coding-graphic .day-text {
     font-size: 66px;
     letter-spacing: 4px;
@@ -765,6 +788,7 @@ svg#number-coding-graphic .day-text {
 
 .train-car-graphic-group .direction-text {
   color: var(--caption-color);
+  margin: 2px;
 }
 
 .train-car-graphic-group .direction-text.active-direction {
@@ -781,6 +805,35 @@ svg#number-coding-graphic .day-text {
 
 .number-coding-graphic-group .day-text {
   color: var(--caption-color);
+}
+
+fieldset#station-exit-input {
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset#station-exit-input label.card {
+  width: 100%;
+  height: auto;
+  box-shadow: none;
+}
+
+fieldset#station-exit-input label.card h6 {
+  font-weight: 500;
+}
+
+fieldset#station-exit-input label.card .card-title {
+  margin-bottom: 0;
+}
+
+fieldset#station-exit-input .btn-check:hover + label.card {
+  border: 1px solid var(--line-color);
+}
+
+fieldset#station-exit-input .btn-check:checked + label.card {
+  border: 1px solid var(--line-color);
+  background-color: var(--line-color);
+  color: var(--line-text-color, white);
 }
 
 .small-calcu-result {
@@ -974,7 +1027,7 @@ div.modal-header h3#modal-title {
   margin: 2em 2em;
 }
 
-.modal-bulleted .modal-properties h5 {
+.modal-bulleted .modal-properties h4 {
   text-align: left;
   line-height: 20px;
   margin-top: 1.5em;

@@ -1,4 +1,4 @@
-import { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, LineName, LineData, TrainSVG } from "./train_data.js"
+import { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, Mode, LineName, LineData, TrainSVG } from "./train_data.js"
 
 const ERROR_MSG_SAME_STATION = "Origin and destination station cannot be the same";
 const ERROR_MSG_NORTH_END = "Origin station is the northern terminus";
@@ -198,7 +198,7 @@ function markText(text) {
     return `<mark>${text}</mark>`
 }
 
-function generateMessage(data, originInd, destInd, directionText, exit, carArr, useHighlight) {
+function generateMessage(data, mode, originInd, destInd, directionText, exit, carArr, useHighlight) {
     const stationsData = data['stations'];
     
     const origin = stationsData[originInd].name;
@@ -207,6 +207,10 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr, 
     
     let carResult = '';
     let carText = '';
+    let modeText = '';
+    let exitText = '';
+
+    modeText = mode === Mode.FurthestExit ? 'away from' : 'near'
 
     switch(carArr.length) {
         case 0:
@@ -232,7 +236,6 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr, 
     }
     
     const exitList = stationsData[destInd].exitMap[DirectionMap[directionText]]
-    let exitText;
     
     if (exitList.length > 1) {
         exitText = stationsData[destInd].exits[exit];
@@ -248,20 +251,25 @@ function generateMessage(data, originInd, destInd, directionText, exit, carArr, 
         exitText = `the exit`;
     }
     
-    const message = `To arrive near ${exitText} at ${useHighlight ? markText(destination) : destination},<wbr> board the ${useHighlight ? markText(carText) : carText} on the ${useHighlight ? markText(direction) : direction} platform at ${useHighlight ? markText(origin) : origin}.`;
+    const message = `To arrive ${modeText} ${exitText} at ${useHighlight ? markText(destination) : destination},<wbr> board the ${useHighlight ? markText(carText) : carText} on the ${useHighlight ? markText(direction) : direction} platform at ${useHighlight ? markText(origin) : origin}.`;
     return [message, carResult];
 }
 
-function filterAllowedTrainCars(carArr, numToRemove, newNum, minNum, maxNum) {
-    let updatedCars = carArr.map(num => {
-        return num === numToRemove ? newNum : num;
-    });
-    updatedCars = [...new Set(updatedCars)];
-    updatedCars = updatedCars.filter(num => num >= minNum && num <= maxNum);
-    return updatedCars;
+function getTrainCarDiff(carArr, config) {
+    const fullSet = config === CarConfig.ThreeCar ? [1, 2, 3] : [1, 2, 3, 4];
+    const filteredArr = fullSet.filter(car => !carArr.includes(car));
+    console.log(`Changed [${carArr}] to [${filteredArr}]`)
+    return filteredArr;
 }
 
-function calculateTrainCar(data, originInd, destInd, directionText, usePriorityCar, exitValue, configValue) {
+function filterAllowedTrainCars(carArr, numToRemove, newNum, minNum, maxNum) {
+    let updatedCars = [...new Set(
+        carArr.map(num => num === numToRemove ? newNum : num)
+    )];
+    return updatedCars.filter(num => (num >= minNum && num <= maxNum));
+}
+
+function calculateTrainCar(data, mode, originInd, destInd, directionText, usePriorityCar, exitValue, configValue) {
     // Validate inputs
     const stationsData = data['stations'];
     if (!stationsData) {
@@ -279,8 +287,10 @@ function calculateTrainCar(data, originInd, destInd, directionText, usePriorityC
     const isLRT2 = data['line'].name === LineName.Line2.name;
 
     carArr = carArr[exitValue];
+
+    const modeName = Object.keys(Mode).find(key => Mode[key] === mode);
     
-    console.log(`Line: ${data['line'].name}\nOrigin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration.value}\nCar Result: [${carArr}]`);
+    console.log(`Line: ${data['line'].name}\nMode: ${modeName}\nOrigin: ${stationsData[originInd].name} (${originInd})\nDestination: ${stationsData[destInd].name} (${destInd})\nDirection: ${directionText.toLowerCase()}\nExit Number: ${exitValue}\nUse Priority Car: ${usePriorityCar}\nTrain Configuration: ${configuration.value}\nCar Result: [${carArr}]`);
     
     // If not using 4-car, car 4 must be changed to car 3
     if (configValue === CarConfig.ThreeCar.index) {
@@ -339,7 +349,7 @@ function loadTerminals(stationsData, directionText, platformType) {
     terminus2Text.innerHTML = isIsland ? `To ${stationName1}` : `To ${stationName2}`
 }
 
-function loadTrainSVG(svgContainer, platformType, line, configValue, carArr) {
+function loadTrainSVG(svgContainer, mode, platformType, line, configValue, carArr, carArrDiff) {
     const isIsland = platformType === PlatformType.Island;
     const svgIndex = configValue === CarConfig.ThreeCar.index ? (isIsland ? 0 : 1) : (isIsland ? 2 : 3);
     
@@ -350,7 +360,10 @@ function loadTrainSVG(svgContainer, platformType, line, configValue, carArr) {
     svgCars.querySelectorAll('.mc-car, .m-car').forEach(car => {
         const carNum = Number(car.id.replace('Car', ''));
         car.classList.toggle('selected', carArr.includes(carNum));
-        if (carArr.includes(carNum)) {
+        if (mode === Mode.FurthestExit) {
+            car.classList.toggle('diff');
+            car.classList.add(lineColorClass);
+        } else if (carArr.includes(carNum)) {
             car.classList.add(lineColorClass);
         }
     });
@@ -359,6 +372,7 @@ function loadTrainSVG(svgContainer, platformType, line, configValue, carArr) {
 function processData(payload) {
     const line = payload.line;
     const data = payload.data;
+    const mode = payload.mode;
     const origin = payload.origin;
     const destination = payload.destination;
     const exitValue = payload.exitValue;
@@ -378,17 +392,18 @@ function processData(payload) {
     const { priorityCar, highlightText } = settings;
     
     const carArr = calculateTrainCar(
-        data, origin.value, destination.value, direction.value, priorityCar, exitValue, configValue
+        data, mode, origin.value, destination.value, direction.value, priorityCar, exitValue, configValue
     );
+    const carArrDiff = mode === Mode.FurthestExit ? getTrainCarDiff(carArr, configValue) : null;
 
     const [message, carResult] = generateMessage(
-        data, origin.value, destination.value, direction.value, exitValue, carArr, highlightText
+        data, mode, origin.value, destination.value, direction.value, exitValue, carArrDiff || carArr, highlightText
     );
     
     const platformType = data['stations'][Number(origin.value)].platformType;
-    
+
     loadTrainSVG(
-        svgContainer, platformType, line, configValue, carArr
+        svgContainer, mode, platformType, line, configValue, carArr, carArrDiff
     );
     
     loadTerminals(
@@ -426,6 +441,10 @@ function getTrainLineValue() {
     return document.querySelector('input[name="train-line"]:checked').value;
 }
 
+function getTrainModeValue() {
+    return document.querySelector('input[name="train-mode"]:checked').value;
+}
+
 function getStationExitValue() {
     const exit = document.querySelector('input[name="station-exit"]:checked');
     return exit ? exit.value : 0;
@@ -454,6 +473,7 @@ function loadCheckboxStates() {
 
 document.addEventListener("DOMContentLoaded", (e) => {
     const lines = document.querySelectorAll('input[name="train-line"]');
+    const modes = document.querySelectorAll('input[name="train-mode"]');
     const origin = document.getElementById('origin-station');
     const destination = document.getElementById('destination-station');
     const direction = document.getElementById('direction');
@@ -474,7 +494,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     openChangelogBtn.addEventListener('click', () => toggleChangelogModal(modal)); 
     closeChangelogBtn.addEventListener('click', () => toggleChangelogModal(modal));
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && !modal.hidden) toggleChangelogModal(modal);
+        if (event.key === 'Escape' && modal.classList.contains('show')) toggleChangelogModal(modal);
     });
     
     function generate(getNewLineData) {
@@ -507,7 +527,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             directionsData, originInd, destinationInd, direction
         )
         // Update whether to allow selecting multiple exits
-        checkForStationExits(getSelectedLine(), stationsData, destinationInd, direction.value)  
+        checkForStationExits(getSelected(lines), stationsData, destinationInd, direction.value)  
     }
     
     function validate() {
@@ -523,8 +543,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
         submitBtn.style.color = color;
     }
     
-    function getSelectedLine() {
-        return [...lines].filter(line => line.checked);
+    function getSelected(objs) {
+        return [...objs].filter(obj => obj.checked);
     }
     
     function handleSubmit() {
@@ -537,9 +557,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 highlightText: highlightText.checked
             }
             console.log(settings);
-            let exitValue = getStationExitValue();
+            const mode = getTrainModeValue();
+            const exitValue = getStationExitValue();
             const payload = {
-                data, line: selectedLine, 
+                data, mode, line: selectedLine,
                 origin, destination, exitValue, direction, 
                 settings, configuration, 
                 results, resultsCar, resultsMsg, svgContainer
@@ -565,7 +586,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     generate(true);
     loadCheckboxStates()
     
-    let selectedLine = getSelectedLine()
+    let selectedLine = getSelected(lines)
     updateButtonTheme(selectedLine);
     
     // Generate the dropdown options
@@ -575,7 +596,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             validate();
             if (results.classList.contains('show'))
                 results.classList.remove('show');
-            selectedLine = getSelectedLine()
+            selectedLine = getSelected(lines)
             updateButtonTheme(selectedLine);
         })
     });

@@ -16,7 +16,7 @@ permalink: /train-car-calculator
   <div class="home">
     <h1 class="calc-title">LRT/MRT Train Car Calculator</h1>
     <div class="calculator-container">
-      <p class="center-paragraph" id="space-below-paragraph">Determine which train to board to arrive at the nearest exit at your destination.</p>
+      <p class="center-paragraph">Determine which train car to board to arrive at the nearest exit at your destination to exit quickly or the furthest exit to avoid crowds.</p>
       <div class="form-container" id="train-car-calculator">
         <form>
           <!--Line-->
@@ -30,6 +30,24 @@ permalink: /train-car-calculator
                 <label class="btn flex-fill" for="lrt2">LRT-2</label>
                 <input type="radio" class="btn-check" name="train-line" id="mrt3" value="2" autocomplete="off">
                 <label class="btn flex-fill" for="mrt3">MRT-3</label>
+              </fieldset>
+            </div>
+          </div>
+          <!--Mode-->
+          <div class="mb-3">
+            <legend class="form-label">Mode</legend>
+            <div class="text-center">
+              <fieldset id="train-mode" class="d-flex gap-2">
+                <input type="radio" class="btn-check" name="train-mode" id="nearest-exit" value="0" autocomplete="off" checked>
+                <label class="btn flex-fill lrt1" for="nearest-exit">
+                  Nearest Exit
+                  <span class="btn-subtitle">Arrive at the exit</span>
+                </label>
+                <input type="radio" class="btn-check" name="train-mode" id="furthest-exit" value="1" autocomplete="off">
+                <label class="btn flex-fill lrt1" for="furthest-exit">
+                  Furthest Exit
+                  <span class="btn-subtitle">Avoid the crowds</span>
+                </label>
               </fieldset>
             </div>
           </div>
@@ -166,7 +184,7 @@ permalink: /train-car-calculator
         <p class="calcu-result" id="train-car-message-result"></p>
       </div>
       <div class="mb-4 d-flex flex-column align-items-center">
-        <p class="form-label text-center" id="train-car-calculator-version">Current version: <a>Version 0.8.4</a></p>
+        <p class="form-label text-center" id="train-car-calculator-version">Current version: <a>Version 0.9.0</a></p>
         <a class="socmed-icon" id="toggle-train-car-calculator-changelog">
           <span><img src="/images/icons/changelog.svg"><p>Changelog</p></span>
         </a>
@@ -183,6 +201,15 @@ permalink: /train-car-calculator
             <button type="button" class="btn-close" aria-label="Close" id="modal-close"></button>
           </div>
           <div class="modal-properties">
+            <div>
+              <h4>Version 0.9.0</h4>
+              <p>March 25, 2026</p>
+              <ul>
+                <li>The default nearest exit calculation is now called Nearest Exit mode.</li>
+                <li>Added a new mode called Furthest Exit which calculates train cars furthest from the exit.</li>
+                <li>Fixed a bug causing the changelog modal to open using the Escape key.</li>
+              </ul>
+            </div>
             <div>
               <h4>Version 0.8.5</h4>
               <p>March 16, 2026</p>

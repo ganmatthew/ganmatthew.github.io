@@ -306,6 +306,12 @@ function calculateTrainCar(data, mode, originInd, destInd, directionText, usePri
     } else {
         throw new Error('Error in train car configuration checking condition')
     }
+
+    let carArrDiff = mode === Mode.FurthestExit ? getTrainCarDiff(carArr, configValue) : null;
+    if (usePriorityCar && carArrDiff && !carArrDiff.includes(1)) {
+        carArrDiff.push(1);
+        carArrDiff.sort();
+    }
     
     // If priorityCar is not checked, car 1 must be removed
     if (!isLRT2 && !usePriorityCar) {
@@ -323,8 +329,8 @@ function calculateTrainCar(data, mode, originInd, destInd, directionText, usePri
     } else {
         throw new Error('Error in priority car checking condition')
     }
-
-    return carArr;
+    
+    return [carArr, carArrDiff];
 }
 
 function loadTerminals(stationsData, directionText, platformType) {
@@ -349,7 +355,7 @@ function loadTerminals(stationsData, directionText, platformType) {
     terminus2Text.innerHTML = isIsland ? `To ${stationName1}` : `To ${stationName2}`
 }
 
-function loadTrainSVG(svgContainer, mode, platformType, line, configValue, carArr, carArrDiff) {
+function loadTrainSVG(svgContainer, mode, platformType, line, configValue, carArr) {
     const isIsland = platformType === PlatformType.Island;
     const svgIndex = configValue === CarConfig.ThreeCar.index ? (isIsland ? 0 : 1) : (isIsland ? 2 : 3);
     
@@ -361,7 +367,6 @@ function loadTrainSVG(svgContainer, mode, platformType, line, configValue, carAr
         const carNum = Number(car.id.replace('Car', ''));
         car.classList.toggle('selected', carArr.includes(carNum));
         if (mode === Mode.FurthestExit) {
-            car.classList.toggle('diff');
             car.classList.add(lineColorClass);
         } else if (carArr.includes(carNum)) {
             car.classList.add(lineColorClass);
@@ -391,10 +396,9 @@ function processData(payload) {
     
     const { priorityCar, highlightText } = settings;
     
-    const carArr = calculateTrainCar(
+    const [carArr, carArrDiff] = calculateTrainCar(
         data, mode, origin.value, destination.value, direction.value, priorityCar, exitValue, configValue
     );
-    const carArrDiff = mode === Mode.FurthestExit ? getTrainCarDiff(carArr, configValue) : null;
 
     const [message, carResult] = generateMessage(
         data, mode, origin.value, destination.value, direction.value, exitValue, carArrDiff || carArr, highlightText
@@ -402,8 +406,9 @@ function processData(payload) {
     
     const platformType = data['stations'][Number(origin.value)].platformType;
 
+    let svgCarArr = mode === Mode.FurthestExit ? carArrDiff : carArr;
     loadTrainSVG(
-        svgContainer, mode, platformType, line, configValue, carArr, carArrDiff
+        svgContainer, mode, platformType, line, configValue, svgCarArr
     );
     
     loadTerminals(

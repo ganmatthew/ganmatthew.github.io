@@ -22,7 +22,7 @@ function generateDropdownOptions(stationsData, selectList) {
     });
 }
 
-function createRadioCards(availableExits, exitCards, lineId) {
+function createExitRadioCards(availableExits, exitCards, lineId) {
     availableExits.forEach((exit, index) => {
         const radioId = `exit-${index}`
         const card = document.createElement('label');
@@ -32,7 +32,7 @@ function createRadioCards(availableExits, exitCards, lineId) {
         const radio = document.createElement('input');
         radio.type = 'radio';
         radio.name = 'station-exit';
-        radio.value = index;
+        radio.value = exit.originalIndex;
         radio.setAttribute('id', radioId);
         radio.classList.add('form-check-input', 'btn-check', 'me-2');
 
@@ -101,22 +101,22 @@ function checkForStationExits(lineObj, stationsData, destinationInd, direction) 
     const exitCards = document.getElementById('station-exit-radio-cards');
     const exitInput = document.getElementById('station-exit-input');
     const destination = stationsData[destinationInd];
-    const exitNames = destination['exits'] || []
+    const exitNames = destination.exits || []
     const carsPerExit = destination.exitMap[directionText] || [];
 
     // Map available exits per direction
     const availableExits = exitNames
-        .map((name, i) => ({ name, cars: carsPerExit[i] }))
+        .map((name, i) => ({ name, cars: carsPerExit[i], originalIndex: i }))
         .filter(exit => Array.isArray(exit.cars) && exit.cars.length > 0);
-    
+        
     if (availableExits.length > 0) {
         exitCards.hidden = false;
         Array.from(exitInput.children).forEach(child => {
-            if (child.classList.contains('card')) {
+            if (child.classList.contains('card') || child.getAttribute('name') === 'station-exit') {
                 exitInput.removeChild(child);
             }
         });
-        createRadioCards(availableExits, exitInput, lineObj[0].id)
+        createExitRadioCards(availableExits, exitInput, lineObj[0].id)
     } else {
         exitCards.hidden = true;
     }
@@ -262,7 +262,7 @@ function calculateTrainCar(data, mode, originInd, destInd, directionText, usePri
     const exitMap = destination.exitMap[direction];
 
     if (!exitMap[exitValue]) {
-        throw new Error('Invalid exit value');
+        throw new Error(`Invalid exit value: ${exitValue} not in [${exitMap}]`);
     }
     
     let carArr = exitMap[exitValue];
@@ -424,9 +424,17 @@ function getTrainModeValue() {
     return document.querySelector('input[name="train-mode"]:checked').value;
 }
 
-function getStationExitValue() {
-    const exit = document.querySelector('input[name="station-exit"]:checked');
-    return exit ? exit.value : 0;
+function getStationExitValue(stations, destination, direction) {
+    const selectedExit = document.querySelector('input[name="station-exit"]:checked');
+    const destinationInd = parseInt(destination.value);
+
+    const exitMap = stations[destinationInd].exitMap[DirectionMap[direction.value]] || [];
+    
+    if (!selectedExit) return 0;
+
+    const exitValue = parseInt(selectedExit.value);
+    
+    return (!isNaN(exitValue) && exitMap[exitValue]?.length > 0) ? exitValue : 0;
 }
 
 function saveCheckboxStates() {
@@ -472,6 +480,7 @@ function listenForScrollToTop(button) {
 
 document.addEventListener("DOMContentLoaded", (e) => {
     const lines = document.querySelectorAll('input[name="train-line"]');
+    const modes = document.querySelectorAll('input[name="train-mode"]');
     const modeLabels = document.querySelectorAll('#train-mode label');
     const origin = document.getElementById('origin-station');
     const destination = document.getElementById('destination-station');
@@ -540,7 +549,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
 
     function applyNewThemeId(element, newId) {
-        console.log(Object.values(ThemeMap));
         Object.values(ThemeMap).forEach(oldId => {
             element.classList.remove(oldId);
         });
@@ -565,7 +573,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
             console.info(settings);
             const selectedLine = getSelected(lines);
             const modeValue = getTrainModeValue();
-            const exitValue = getStationExitValue();
+            const exitValue = getStationExitValue(data.stations, destination, direction);
+
             const payload = {
                 data, mode: modeValue, line: selectedLine,
                 origin, destination, exitValue, direction, 
@@ -600,6 +609,16 @@ document.addEventListener("DOMContentLoaded", (e) => {
     lines.forEach(line => {
         line.addEventListener('change', () => {
             generate(true);
+            validate();
+            if (results.classList.contains('show'))
+                results.classList.remove('show');
+            updateButtonTheme();
+        })
+    });
+
+    modes.forEach(mode => {
+        mode.addEventListener('change', () => {
+            generate(false);
             validate();
             if (results.classList.contains('show'))
                 results.classList.remove('show');

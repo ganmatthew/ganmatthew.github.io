@@ -35,7 +35,7 @@ permalink: /train-car-calculator
           </div>
           <!--Mode-->
           <div class="mb-3">
-            <legend class="form-label">Mode</legend>
+            <legend class="form-label">Calculator Mode</legend>
             <div class="text-center">
               <fieldset id="train-mode" class="d-flex gap-2">
                 <input type="radio" class="btn-check" name="train-mode" id="nearest-exit" value="0" autocomplete="off" checked>
@@ -116,11 +116,6 @@ permalink: /train-car-calculator
             <div id="destination-station-feedback" class="invalid-feedback"></div>
           </div>
           <!--Exit Options-->
-          <!-- <div class="mb-3" id="station-exit-dropdown" hidden>
-            <label for="station-exit" class="form-label">Exit at Destination</label>
-            <select class="form-select" id="station-exit">
-            </select>
-          </div> -->
           <div class="mb-3" id="station-exit-radio-cards" hidden>
             <label for="station-exit" class="form-label">Exit at Destination</label>
             <fieldset id="station-exit-input">
@@ -142,7 +137,7 @@ permalink: /train-car-calculator
                 <input class="form-control" type="text" id="direction" value="Southbound" disabled readonly>
               </div>
             </div>
-            <!--Priority Car Option-->
+            <!--Settings-->
             <div class="col">
               <legend class="form-label">Settings</legend>
               <div class="form-check">
@@ -186,13 +181,13 @@ permalink: /train-car-calculator
       <div class="mb-4 d-flex flex-column align-items-center">
         <p class="form-label text-center" id="train-car-calculator-version">Current version: <a>Version 0.9.0</a></p>
         <a class="socmed-icon" id="toggle-train-car-calculator-changelog">
-          <span><img src="/images/icons/changelog.svg"><p>Changelog</p></span>
+          <span><i data-lucide="history" width="20" height="20"></i><p>Changelog</p></span>
         </a>
-        <!-- <br>
-        <h4>Attributions<span class="collapse-arrow"></span></h5>
-        <div class="collapsible-section collapsed">
-          <p class="form-label"><a href="" target="_blank" title=""></p>
-        </div> -->
+      </div>
+      <div>
+        <button type="button" class="btn btn-floating btn-lg" id="back-to-top">
+          <i data-lucide="chevron-up"></i>
+        </button>
       </div>
       <div class="changelog-modal">
         <div class="modal-bulleted">
@@ -203,10 +198,12 @@ permalink: /train-car-calculator
           <div class="modal-properties">
             <div>
               <h4>Version 0.9.0</h4>
-              <p>March 25, 2026</p>
+              <p>March 28, 2026</p>
               <ul>
-                <li>The default nearest exit calculation is now called Nearest Exit mode.</li>
-                <li>Added a new mode called Furthest Exit which calculates train cars furthest from the exit.</li>
+                <li>The default nearest exit calculation is now called the <b>Nearest Exit</b> mode.</li>
+                <li>Added a new mode called <b>Furthest Exit</b> which calculates train cars that are furthest from the exit.</li>
+                <li>Added a back to top button.</li>
+                <li>Improved theme colors and other design improvements.</li>
                 <li>Fixed a bug causing the changelog modal to open using the Escape key.</li>
               </ul>
             </div>

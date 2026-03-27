@@ -47,6 +47,17 @@ const ExitType = {
 	Stairs: "stairs"
 }
 
+const ThemeMap = {
+  Line1: "lrt1",
+  Line2: "lrt2",
+  Line3: "mrt3"
+}
+
+const Mode = {
+	NearestExit: "0",
+	FurthestExit: "1"
+}
+
 const LineData = [
     {   
         "line": LineName.Line1,
@@ -642,4 +653,4 @@ const TrainSVG = [
     `
 ]
 
-export { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, LineName, LineData, TrainSVG }
+export { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, Mode, LineName, LineData, TrainSVG, ThemeMap }

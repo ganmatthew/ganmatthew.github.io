@@ -12,6 +12,8 @@ try {
 } catch (e) {}
 
 document.addEventListener('DOMContentLoaded', () => {
+  requestAnimationFrame(() => lucide.createIcons());
+  
   document.querySelectorAll('img, svg').forEach(element => {
     element.addEventListener('contextmenu', e => e.preventDefault());
     element.addEventListener('dragstart', e => e.preventDefault());

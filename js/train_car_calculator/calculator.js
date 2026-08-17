@@ -1,4 +1,4 @@
-import { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, Mode, LineName, LineData, TrainSVG, ThemeMap } from "./train_data.js"
+import { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, Mode, LineName, LineData, TrainSVG, ThemeMap } from "./data.js"
 
 const API_ENDPOINT = "https://train-car-calculator-api.ganmatthew.workers.dev/api/v1/"
 

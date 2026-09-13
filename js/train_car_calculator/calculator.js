@@ -1,4 +1,4 @@
-import { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, Mode, LineName, LineData, TrainSVG, ThemeMap } from "./data.js"
+import { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, Mode, LineName, LineData, TrainSVG, PlatformSVG, ExitSVG, ThemeMap } from "./data.js"
 
 const API_ENDPOINT = "https://train-car-calculator-api.ganmatthew.workers.dev/api/v1/"
 
@@ -279,18 +279,13 @@ function generateMessage(data, mode, originInd, destInd, directionText, exit, ca
 	return [message, carResult];
 }
 
-function getTrainCarDiff(carArr, config) {
-	const fullSet = config === CarConfig.ThreeCar ? [1, 2, 3] : [1, 2, 3, 4];
-	const filteredArr = fullSet.filter(car => !carArr.includes(car));
+function getTrainCarDiff(carArr, config, usePriorityCar) {
+	const fullSet = config === CarConfig.ThreeCar.index ? [1, 2, 3] : [1, 2, 3, 4];
+	const filteredArr = fullSet.filter(
+		car => (usePriorityCar || car !== 1) && !carArr.includes(car)
+	);
 	console.info(`FurthestExit mode: Changed [${carArr}] to [${filteredArr}]`)
 	return filteredArr;
-}
-
-function filterAllowedTrainCars(carArr, numToRemove, newNum, minNum, maxNum) {
-	let updatedCars = [...new Set(
-		carArr.map(num => num === numToRemove ? newNum : num)
-	)];
-	return updatedCars.filter(num => (num >= minNum && num <= maxNum));
 }
 
 async function calculateTrainCar(data, mode, originInd, destInd, usePriorityCar, exitValue, configValue) {
@@ -331,11 +326,7 @@ async function calculateTrainCar(data, mode, originInd, destInd, usePriorityCar,
     const carArr = payload.result.nearestCars || [];
 
 	// Calculate furthest car by inverting the result
-    const carArrDiff = mode === Mode.FurthestExit ? getTrainCarDiff(carArr, configValue) : null;
-
-    if (usePriorityCar && carArrDiff && !carArrDiff.includes(1)) {
-        carArrDiff.unshift(1);
-    }
+    const carArrDiff = mode === Mode.FurthestExit ? getTrainCarDiff(carArr, configValue, usePriorityCar) : null;
 
     return [carArr, carArrDiff];
 }

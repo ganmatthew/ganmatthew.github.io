@@ -143,7 +143,7 @@ const LineData = [
  * - 3: 4-Car SB/EB Train
  */
 const TrainSVG = [
-    `<svg id="train-car-graphic" data-name="3-Car NB/WB Train" xmlns="http://www.w3.org/2000/svg" width="900" height="90" viewBox="150 0 900 150">
+    `<svg id="train-car-graphic" xmlns="http://www.w3.org/2000/svg" width="900" height="90" viewBox="150 0 900 150">
         <path id="Car1" class="mc-car" d="M220,17H443a4,4,0,0,1,4,4V131a4,4,0,0,1-4,4H161a4,4,0,0,1-4-4l1-32c0.064-21.5,22.217-72.847,33-78C199.412,16.981,220,17,220,17Z"/>
         <rect id="Car2" class="m-car" x="455" y="17" width="290" height="118" rx="4" ry="4"/>
         <rect id="Car3" class="m-car" x="753" y="17" width="290" height="118" rx="4" ry="4"/>
@@ -152,7 +152,7 @@ const TrainSVG = [
         <text id="_3" data-name="3" class="car-number" x="897.787" y="110.112"><tspan x="897.787">3</tspan></text>
     </svg>
     `,
-    `<svg id="train-car-graphic" data-name="3-Car SB/EB Train" xmlns="http://www.w3.org/2000/svg" width="900" height="90" viewBox="150 0 900 150">
+    `<svg id="train-car-graphic" xmlns="http://www.w3.org/2000/svg" width="900" height="90" viewBox="150 0 900 150">
         <path id="Car1" class="mc-car" d="M980,17.031H757a4,4,0,0,0-4,4V131a4,4,0,0,0,4,4h282a4,4,0,0,0,4-4l-1-31.992c-0.06-21.494-22.22-72.828-33-77.979C1000.59,17.012,980,17.031,980,17.031Z"/>
         <rect id="Car2" class="m-car" x="455" y="17.031" width="290" height="117.969" rx="4" ry="4"/>
         <rect id="Car3" class="m-car" x="157" y="17.031" width="290" height="117.969" rx="4" ry="4"/>
@@ -161,7 +161,7 @@ const TrainSVG = [
         <text id="_1" data-name="1" class="car-number" x="897.787" y="110.112"><tspan x="897.787">1</tspan></text>
     </svg>
     `,
-    `<svg id="train-car-graphic" data-name="4-Car NB/WB Train" xmlns="http://www.w3.org/2000/svg" width="1200" height="90" viewBox="0 0 1200 150">
+    `<svg id="train-car-graphic" xmlns="http://www.w3.org/2000/svg" width="1200" height="90" viewBox="0 0 1200 150">
         <path id="Car1" class="mc-car" d="M71,17H294a4,4,0,0,1,4,4V131a4,4,0,0,1-4,4H12a4,4,0,0,1-4-4L9,99C9.064,77.5,31.217,26.153,42,21,50.412,16.981,71,17,71,17Z"/>
         <rect id="Car2" class="m-car" x="306" y="17" width="290" height="118" rx="4" ry="4"/>
         <rect id="Car3" class="m-car" x="604" y="17" width="290" height="118" rx="4" ry="4"/>
@@ -172,7 +172,7 @@ const TrainSVG = [
         <text id="_4" data-name="4" class="car-number" x="1046.788" y="110.112"><tspan x="1046.788">4</tspan></text>
     </svg>
     `,
-    `<svg id="train-car-graphic" data-name="4-Car SB/EB Train" xmlns="http://www.w3.org/2000/svg" width="1200" height="90" viewBox="0 0 1200 150">
+    `<svg id="train-car-graphic" xmlns="http://www.w3.org/2000/svg" width="1200" height="90" viewBox="0 0 1200 150">
         <path id="Car1" class="mc-car" d="M1129,17H906a4,4,0,0,0-4,4V131a4,4,0,0,0,4,4h282a4,4,0,0,0,4-4l-1-32c-0.06-21.5-22.22-72.847-33-78C1149.59,16.981,1129,17,1129,17Z"/>
         <rect id="Car2" class="m-car" x="604" y="17" width="290" height="118" rx="4" ry="4"/>
         <rect id="Car3" class="m-car" x="306" y="17" width="290" height="118" rx="4" ry="4"/>
@@ -185,4 +185,34 @@ const TrainSVG = [
     `
 ]
 
-export { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, Mode, LineName, LineData, TrainSVG, ThemeMap }
+const PlatformSVG =
+    `<svg id="station-platform-graphic" width="100%" height="100%" viewBox="0 0 1193 60" xmlns="http://www.w3.org/2000/svg">
+    <g transform="matrix(1,0,0,1,-3.999992,-16.999991)">
+        <g transform="matrix(1.034296,0,0,1.184711,-23.751941,-82.938018)">
+            <g id="Platform">
+                <rect x="26.832" y="84.356" width="1152.475" height="50.644"/>
+            </g>
+        </g>
+    </g>
+    </svg>
+    `
+
+const ExitSVG =
+    `<svg id="station-exit-graphic" width="100%" height="100%" viewBox="0 0 298 30" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(1,0,0,1,-898,-76.997986)">
+            <g id="PlatformExit" serif:id="Exit" transform="matrix(1,0,0,1,894.11667,11.985218)">
+                <g transform="matrix(0.258574,0,0,0.592259,-3.054654,15.051893)">
+                    <rect x="26.832" y="84.356" width="1152.475" height="50.644"/>
+                </g>
+                <g id="Arrow" transform="matrix(0.036622,0,0,0.036622,66.210611,75.432076)">
+                    <path d="M601.2,166.8L387,381L172.8,166.8L172.8,26L335.8,189L335.8,-131L439.1,-131L439.1,187.3L601.2,26L601.2,166.8Z"/>
+                </g>
+                <g id="Arrow1" serif:id="Arrow" transform="matrix(-0.036622,-0,0,-0.036622,245.980414,84.587578)">
+                    <path d="M601.2,166.8L387,381L172.8,166.8L172.8,26L335.8,189L335.8,-131L439.1,-131L439.1,187.3L601.2,26L601.2,166.8Z"/>
+                </g>
+            </g>
+        </g>
+    </svg>
+    `
+
+export { Direction, DirectionMap, Ordinal, CarConfig, PlatformType, ExitType, Mode, LineName, LineData, TrainSVG, PlatformSVG, ExitSVG, ThemeMap }

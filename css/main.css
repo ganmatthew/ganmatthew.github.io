@@ -331,7 +331,7 @@ h1.calc-title {
   margin: 0 10 0;
 }
 
-h3.external-link-text::after {
+.external-link-text::after {
   content: "";
   display: inline-block;
   width: 0.9em;
@@ -388,6 +388,10 @@ legend.form-label {
 
 .form-label#train-car-calculator-version {
   font-size: var(--bs-body-font-size);
+}
+
+.form-label#train-car-calculator-api {
+  margin-top: 1.5em;
 }
 
 .form-label a {
